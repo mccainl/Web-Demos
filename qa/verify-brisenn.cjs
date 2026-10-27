@@ -1,0 +1,65 @@
+const {chromium}=require('playwright');
+const fs=require('node:fs');
+const assert=require('node:assert/strict');
+const url='https://mccainl.github.io/Web-Demos/brisenn/';
+fs.mkdirSync('brisenn-qa',{recursive:true});
+const checks=[];
+const check=(name,value)=>{assert.ok(value,name);checks.push({name,passed:true});console.log('PASS',name);};
+(async()=>{
+ const browser=await chromium.launch({args:['--enable-unsafe-swiftshader']});
+ const context=await browser.newContext({viewport:{width:1440,height:1000},deviceScaleFactor:1});
+ const page=await context.newPage(); const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ try{
+  for(let n=0;n<18;n++){await page.goto(url+'?verify='+process.env.GITHUB_SHA,{waitUntil:'domcontentloaded'});if(await page.locator('#hero-video').count())break;await page.waitForTimeout(5000);}
+  await page.waitForFunction(()=>window.BrisennStudio&&document.querySelector('#hero-video').readyState>=2,{timeout:30000});
+  await page.waitForFunction(()=>document.querySelector('#hero-video').currentTime>.2);
+  check('Hero is a playing video',await page.locator('#hero-video').evaluate(v=>!v.paused&&v.videoWidth===1280));
+  await page.screenshot({path:'brisenn-qa/01-desktop-hero.png'});
+  await page.locator('[data-film]').first().click();
+  await page.waitForFunction(()=>document.querySelector('#full-film').readyState>=2);
+  check('Film plays inside the page for exactly twenty seconds',await page.locator('#full-film').evaluate(v=>!v.paused&&Math.abs(v.duration-20)<.05));
+  await page.locator('#close-film').click();
+  check('Film dialog closes',!(await page.locator('#film-dialog').isVisible()));
+  await page.evaluate(()=>{const e=document.querySelector('#connection');scrollTo(0,e.offsetTop+(e.offsetHeight-innerHeight)*.62);});
+  await page.waitForFunction(()=>document.querySelector('#connection-video').currentTime>4);
+  check('Scrolling advances the physical link assembly',true);
+  await page.screenshot({path:'brisenn-qa/02-connection.png'});
+  await page.locator('#collection').scrollIntoViewIfNeeded();await page.waitForTimeout(1200);
+  await page.screenshot({path:'brisenn-qa/03-collection.png'});
+  await page.locator('#comparison-range').focus();await page.locator('#comparison-range').press('Home');
+  check('Before-and-after reveal responds',await page.locator('#comparison').evaluate(e=>e.style.getPropertyValue('--split')==='0%'));
+  await page.locator('#studio').scrollIntoViewIfNeeded();
+  await page.locator('#link-count').focus();await page.locator('#link-count').press('Home');for(let i=0;i<4;i++)await page.locator('#link-count').press('ArrowRight');
+  check('Custom price and link length update',await page.locator('#price').innerText()==='€214.93'&&await page.locator('#small-length').innerText()==='74');
+  await page.locator('.swatch[data-colour="3"]').click();
+  check('Selected acrylic colour updates',await page.locator('#selected-colour').innerText()==='Clear · shiny');
+  check('WebGL 3D studio initialized',await page.evaluate(()=>!!window.BrisennStudio.views.studio));
+  await page.locator('#restore').click();
+  check('Curated composition restores',await page.locator('#price').innerText()==='€394.98');
+  await page.locator('.studio-grid').scrollIntoViewIfNeeded();await page.waitForTimeout(700);
+  await page.screenshot({path:'brisenn-qa/04-studio.png'});
+  const save=page.waitForEvent('download');await page.locator('#save-design').click();const jsonDownload=await save;await jsonDownload.saveAs('brisenn-qa/composition.json');
+  const design=JSON.parse(fs.readFileSync('brisenn-qa/composition.json'));check('Composition download preserves sixteen links',design.links.length===16&&design.estimated_total_eur===394.98);
+  await page.locator('#room-upload').setInputFiles('concepts/brisenn/assets/living-room-empty.jpg');
+  await page.locator('#room-stage').scrollIntoViewIfNeeded();await page.waitForTimeout(400);
+  await page.locator('#calibrate').click();const box=await page.locator('#room-stage').boundingBox();
+  await page.mouse.click(box.x+box.width*.3,box.y+box.height*.2);await page.mouse.click(box.x+box.width*.3,box.y+box.height*.65);
+  await page.locator('#known-distance').fill('150');await page.locator('#apply-calibration').click();
+  check('Own-room photo and scale calibration work',(await page.locator('#room-badge').innerText()).includes('CALIBRATED PHOTO ESTIMATE'));
+  const png=page.waitForEvent('download');await page.locator('#download-preview').click();const pngDownload=await png;await pngDownload.saveAs('brisenn-qa/room-export.png');
+  check('Room preview exports a real PNG',fs.statSync('brisenn-qa/room-export.png').size>10000);
+  await page.locator('#room-stage').scrollIntoViewIfNeeded();await page.screenshot({path:'brisenn-qa/05-room.png'});
+  check('No application runtime errors',errors.length===0);
+  const mobile=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true,deviceScaleFactor:1});const mp=await mobile.newPage();
+  await mp.goto(url+'?mobile='+process.env.GITHUB_SHA,{waitUntil:'domcontentloaded'});await mp.waitForSelector('#hero-video');await mp.waitForTimeout(1300);
+  check('Mobile layout has no horizontal overflow',await mp.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
+  await mp.screenshot({path:'brisenn-qa/06-mobile-hero.png'});
+  await mp.locator('.menu-toggle').click();check('Mobile navigation opens',await mp.locator('#main-nav').isVisible());
+  await mp.locator('#main-nav a[href="#collection"]').click();await mp.waitForTimeout(1300);check('Mobile navigation closes after selection',!(await mp.locator('#main-nav').isVisible()));
+  await mp.screenshot({path:'brisenn-qa/07-mobile-collection.png'});
+  await mp.emulateMedia({reducedMotion:'reduce'});await mp.reload({waitUntil:'domcontentloaded'});await mp.waitForTimeout(800);
+  check('Reduced-motion mode pauses the hero',await mp.locator('#hero-video').evaluate(v=>v.paused));
+  fs.writeFileSync('brisenn-qa/results.json',JSON.stringify({passed:true,checks,errors},null,2));
+ }catch(error){fs.writeFileSync('brisenn-qa/results.json',JSON.stringify({passed:false,checks,errors,failure:error.stack},null,2));await page.screenshot({path:'brisenn-qa/failure.png'}).catch(()=>{});throw error;}
+ finally{await browser.close();}
+})();
