@@ -15,7 +15,7 @@ try{
  browser=await chromium.launch();let context=await browser.newContext({viewport:{width:1440,height:1000},deviceScaleFactor:1});let page=await context.newPage();await visit(page);
  check('All interface icons are vectors',!(/[↗↓↑←→↔▶Ⅱ×↺✓]/u.test(await page.locator('body').innerText()))&&await page.locator('svg.icon').count()>25);
  await screenshot(page,'01-desktop-hero');
- await page.locator('#sound-toggle').click();await page.waitForFunction(()=>!document.querySelector('#ambient-audio').paused);
+ await page.locator('#sound-toggle').click();await page.waitForFunction(()=>!document.querySelector('#ambient-audio').paused&&document.querySelector('#sound-toggle').getAttribute('aria-pressed')==='true');
  check('Background music starts from Sound on',await page.locator('#sound-toggle').getAttribute('aria-pressed')==='true');
  const audible=await page.evaluate(async()=>{const c=new AudioContext(),b=await c.decodeAudioData(await(await fetch('media/ambience.mp3')).arrayBuffer());const a=b.getChannelData(0);let peak=0;for(let i=0;i<a.length;i+=32)peak=Math.max(peak,Math.abs(a[i]));await c.close();return {duration:b.duration,peak};});
  check('Soundtrack contains audible music',audible.duration>19&&audible.peak>.05);
@@ -39,7 +39,7 @@ try{
  await page.locator('#room-stage').scrollIntoViewIfNeeded();check('Mobile room preview has no letterboxing or escaping artwork',await page.evaluate(()=>{const b=window.BrisennStudio.roomBounds,r=document.querySelector('#room-stage').getBoundingClientRect();return Math.abs(r.width/r.height-16/9)<.02&&b.y>=0&&b.y+b.h<=r.height+1;}));await screenshot(page,'10-webkit-mobile-room');
  await page.locator('.menu-toggle').click();await page.locator('#main-nav a[href="#collection"]').click();await page.waitForFunction(()=>{const e=document.querySelector('#collection h2'),r=e.getBoundingClientRect();return r.top>=0&&r.bottom<innerHeight&&getComputedStyle(e).opacity==='1';});check('Mobile navigation closes and reaches the collection',!await page.locator('#main-nav').isVisible());await screenshot(page,'11-webkit-mobile-collection');
  await page.locator('[data-product="blue-fade"]').click();await screenshot(page,'12-webkit-product-details');await page.locator('#close-product').click();
- await page.locator('#sound-toggle').click();await page.waitForFunction(()=>!document.querySelector('#ambient-audio').paused);check('Music responds to a mobile WebKit tap',true);await page.locator('#sound-toggle').click();
+ await page.locator('#sound-toggle').click();await page.waitForFunction(()=>!document.querySelector('#ambient-audio').paused&&document.querySelector('#sound-toggle').getAttribute('aria-pressed')==='true');check('Music responds to a mobile WebKit tap',true);await page.locator('#sound-toggle').click();
  await page.locator('[data-film]').last().click();await page.waitForFunction(()=>document.querySelector('#full-film').currentTime>.1);check('Mobile film plays inline with audio enabled',await page.locator('#full-film').evaluate(v=>v.playsInline&&!v.muted));await page.locator('#close-film').click();
  await page.emulateMedia({reducedMotion:'reduce'});await page.reload({waitUntil:'networkidle'});await settle(page);check('Reduced motion respects the visitor setting',await page.locator('#hero-video').evaluate(v=>v.paused));
  check('No application runtime errors',errors.length===0);fs.writeFileSync('brisenn-qa/results.json',JSON.stringify({passed:true,checks,errors},null,2));

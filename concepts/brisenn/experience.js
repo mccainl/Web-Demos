@@ -10,7 +10,7 @@ $('#motion-toggle').addEventListener('click',()=>{paused=!paused;motionLabel();s
 new IntersectionObserver(entries=>{heroVisible=entries[0].isIntersecting;syncHero();}).observe($('.cinema-hero'));
 function soundLabel(){sound.innerHTML=icon(musicOn?'sound':'mute')+'<span>Sound '+(musicOn?'on':'off')+'</span>';sound.setAttribute('aria-pressed',String(musicOn));sound.setAttribute('aria-label','Turn background music '+(musicOn?'off':'on'));}
 ambient.volume=.6;
-sound.addEventListener('click',async()=>{if(musicOn){musicOn=false;ambient.pause();}else{try{await ambient.play();musicOn=true;}catch{musicOn=false;}}soundLabel();});
+sound.addEventListener('click',async()=>{if(musicOn){musicOn=false;ambient.pause();soundLabel();}else{musicOn=true;soundLabel();try{await ambient.play();}catch{musicOn=false;soundLabel();}}});
 document.addEventListener('visibilitychange',()=>{syncHero();if(document.hidden){ambient.pause();film.pause();}else if(musicOn&&!dialog.open)ambient.play().catch(()=>{});});
 const menu=$('.menu-toggle');
 function closeMenu(){menu.setAttribute('aria-expanded','false');menu.setAttribute('aria-label','Open menu');header.classList.remove('menu-open');}
