@@ -24,7 +24,8 @@ const check=(name,value)=>{assert.ok(value,name);checks.push({name,passed:true})
   await page.waitForFunction(()=>document.querySelector('#connection-video').currentTime>4);
   check('Scrolling advances the physical link assembly',true);
   await page.screenshot({path:'brisenn-qa/02-connection.png'});
-  await page.locator('#collection').scrollIntoViewIfNeeded();await page.waitForTimeout(1200);
+  await page.locator('.collection-interior').scrollIntoViewIfNeeded();
+  await page.waitForFunction(()=>getComputedStyle(document.querySelector('.collection-interior')).opacity==='1');
   await page.screenshot({path:'brisenn-qa/03-collection.png'});
   await page.locator('#comparison-range').focus();await page.locator('#comparison-range').press('Home');
   check('Before-and-after reveal responds',await page.locator('#comparison').evaluate(e=>e.style.getPropertyValue('--split')==='0%'));
@@ -57,6 +58,8 @@ const check=(name,value)=>{assert.ok(value,name);checks.push({name,passed:true})
   await mp.screenshot({path:'brisenn-qa/06-mobile-hero.png'});
   await mp.locator('.menu-toggle').click();check('Mobile navigation opens',await mp.locator('#main-nav').isVisible());
   await mp.locator('#main-nav a[href="#collection"]').click();await mp.waitForTimeout(1300);check('Mobile navigation closes after selection',!(await mp.locator('#main-nav').isVisible()));
+  await mp.waitForFunction(()=>{const e=document.querySelector('#collection h2'),r=e.getBoundingClientRect();return r.top>=0&&r.bottom<innerHeight&&getComputedStyle(e).opacity==='1';});
+  check('Mobile collection heading is visible after navigation',true);
   await mp.screenshot({path:'brisenn-qa/07-mobile-collection.png'});
   await mp.emulateMedia({reducedMotion:'reduce'});await mp.reload({waitUntil:'domcontentloaded'});await mp.waitForTimeout(800);
   check('Reduced-motion mode pauses the hero',await mp.locator('#hero-video').evaluate(v=>v.paused));
