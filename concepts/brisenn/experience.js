@@ -4,14 +4,16 @@
   const hero = $('#hero-video'), header = $('#site-header'), story = $('#connection');
   const connection = $('#connection-video'), dialog = $('#film-dialog'), film = $('#full-film');
   const progress = $('.story-progress span');
-  let manualPlay = false, paused = reduced, frameQueued = false, lastFilmTrigger;
+  let manualPlay = false, paused = reduced, heroVisible = true, frameQueued = false, lastFilmTrigger;
   const clamp = (n, a=0, b=1) => Math.min(b, Math.max(a,n));
   const motion = $('#motion-toggle');
   function motionLabel(){motion.textContent=paused?'▶':'Ⅱ';motion.setAttribute('aria-label',paused?'Play background motion':'Pause background motion');}
   motionLabel();
   motion.addEventListener('click',()=>{paused=!paused;paused?hero.pause():hero.play().catch(()=>{});motionLabel();});
   if(!reduced)hero.play().catch(()=>{paused=true;motionLabel();});else hero.pause();
-  document.addEventListener('visibilitychange',()=>{if(document.hidden)hero.pause();else if(!paused&&!dialog.open)hero.play().catch(()=>{});});
+  function syncHero(){if(document.hidden||paused||!heroVisible||dialog.open)hero.pause();else hero.play().catch(()=>{});}
+  document.addEventListener('visibilitychange',syncHero);
+  new IntersectionObserver(entries=>{heroVisible=entries[0].isIntersecting;syncHero();},{threshold:0}).observe($('.cinema-hero'));
   const menu=$('.menu-toggle');
   function closeMenu(){menu.setAttribute('aria-expanded','false');menu.setAttribute('aria-label','Open menu');header.classList.remove('menu-open');}
   menu.addEventListener('click',()=>{const open=menu.getAttribute('aria-expanded')!=='true';menu.setAttribute('aria-expanded',String(open));menu.setAttribute('aria-label',open?'Close menu':'Open menu');header.classList.toggle('menu-open',open);});
@@ -41,7 +43,7 @@
   connection.addEventListener('ended',()=>{manualPlay=false;$('#play-connection').innerHTML='Play the connection <span>↗</span>';});
   $('#comparison-range').addEventListener('input',e=>$('#comparison').style.setProperty('--split',e.target.value+'%'));
   document.querySelectorAll('[data-film]').forEach(button=>button.addEventListener('click',()=>{lastFilmTrigger=button;closeMenu();dialog.showModal();document.body.classList.add('modal-open');hero.pause();film.currentTime=0;film.play().catch(()=>{});}));
-  function closeFilm(){film.pause();dialog.close();document.body.classList.remove('modal-open');if(!paused)hero.play().catch(()=>{});lastFilmTrigger?.focus();}
+  function closeFilm(){film.pause();dialog.close();document.body.classList.remove('modal-open');syncHero();lastFilmTrigger?.focus();}
   $('#close-film').addEventListener('click',closeFilm);
   dialog.addEventListener('cancel',e=>{e.preventDefault();closeFilm();});
   dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)closeFilm();}});

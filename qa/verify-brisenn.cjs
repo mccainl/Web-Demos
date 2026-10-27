@@ -50,6 +50,7 @@ const check=(name,value)=>{assert.ok(value,name);checks.push({name,passed:true})
   check('Room preview exports a real PNG',fs.statSync('brisenn-qa/room-export.png').size>10000);
   await page.locator('#room-stage').scrollIntoViewIfNeeded();await page.screenshot({path:'brisenn-qa/05-room.png'});
   check('No application runtime errors',errors.length===0);
+  await context.close();
   const mobile=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true,deviceScaleFactor:1});const mp=await mobile.newPage();
   await mp.goto(url+'?mobile='+process.env.GITHUB_SHA,{waitUntil:'domcontentloaded'});await mp.waitForSelector('#hero-video');await mp.waitForTimeout(1300);
   check('Mobile layout has no horizontal overflow',await mp.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
