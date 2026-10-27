@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - "MCC_8_Demos_GitHub_Pages_Upload_Ready.zip"
+      - "MCC_WebDemos.part*"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 
@@ -37,11 +38,23 @@ jobs:
               "pulse-studio/index.html", "vraagassistent/index.html",
               "rivier-coffee/index.html", "orderbridge/index.html",
           )
+          # Accept four smaller parts or the intact original artifact.
           if not source.is_file():
-              print("The demo ZIP is not uploaded yet. No publication attempted.")
-              with open(os.environ["GITHUB_OUTPUT"], "a") as out:
-                  out.write("ready=false\n")
-              raise SystemExit(0)
+              parts = [pathlib.Path(f"MCC_WebDemos.part{i:03d}") for i in range(1, 5)]
+              if not all(part.is_file() for part in parts):
+                  print("Waiting for all four parts; no deployment attempted.")
+                  with open(os.environ["GITHUB_OUTPUT"], "a") as out:
+                      out.write("ready=false\n")
+                  raise SystemExit(0)
+              import hashlib
+              payload = b"".join(part.read_bytes() for part in parts)
+              actual = hashlib.sha256(payload).hexdigest()
+              expected = "dc9d55df76d78b9fb1e4156bf7b4c62ea04b27628fe24c4ccd61bde74ac9ccac"
+              if actual != expected:
+                  raise SystemExit("Split ZIP failed SHA256 integrity verification")
+              source.write_bytes(payload)
+              print("Four parts reconstructed. Integrity verified.")
+
           target.mkdir(exist_ok=True)
           with zipfile.ZipFile(source) as archive:
               names = set(archive.namelist())
