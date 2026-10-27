@@ -49,3 +49,20 @@ After upload and a successful deployment, test these exact project routes:
 - `/Web-Demos/orderbridge/`
 
 Verify customer/owner interactions, mobile layouts, genuine browser persistence and that sample booking data never leaves the browser. Only then publish matching MCC blog posts and, lastly, produce the eight Reels for individual approval.
+
+## Upload the demos without the original large ZIP
+
+If the original 1.7 MB file is difficult to download, use **four smaller standard ZIP files** instead (each approximately 430 KB):
+
+- MCC_WebDemos_Part_1_of_4.zip
+- MCC_WebDemos_Part_2_of_4.zip
+- MCC_WebDemos_Part_3_of_4.zip
+- MCC_WebDemos_Part_4_of_4.zip
+
+Download the four pieces from the MCC ChatGPT conversation. Visit https://github.com/mccainl/Web-Demos/upload/main and select **all four unchanged ZIP files**, then commit them to main. Do not extract them. Each ZIP contains one piece of the original package.
+
+The GitHub Actions deployment workflow recognizes the four files, verifies SHA256 dc9d55df76d78b9fb1e4156bf7b4c62ea04b27628fe24c4ccd61bde74ac9ccac, reconstructs the original 70-file archive, and publishes the static demo gallery. The workflow intentionally skips deployment until all four parts have been committed.
+
+If needed, set Settings → Pages → Build and deployment → Source to **GitHub Actions**.
+
+A green check before all four pieces arrive means only that the workflow skipped deployment safely—not that the site is online.
