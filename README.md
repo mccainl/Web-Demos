@@ -17,7 +17,7 @@ All shown businesses and records are fictional examples. No real reservations, p
 
 **Source image policy:** OpenAI image generation for generated still images. **Video tool policy:** Higgsfield for video only, and audio only if separately approved.
 
-The compiled showcase files will live at the repository root. Until these files and GitHub Pages are deployed, do not treat the future `mccainl.github.io/Web-Demos/` address as a verified live demo.
+**Live gallery:** https://mccainl.github.io/Web-Demos/ — deployed and opened successfully on 27 October 2026. The archive is extracted into the Pages artifact by GitHub Actions.
 
 See the [MCC agent lifecycle playbook](https://github.com/mariocarloschaves/MCC/blob/main/docs/content-lifecycle.md) (available to authorized team members).
 
@@ -34,9 +34,13 @@ Place this file in the **repository root** with its exact filename. The assistan
 
 **GitHub Pages setup completed on 27 October 2026:** Settings → Pages → Build and deployment → Source is now **GitHub Actions**. GitHub confirmed “GitHub Pages source saved.” Keep the existing workflow; no additional template workflow is needed.
 
-**Release status — verified 27 October 2026:** The ZIP is still missing, so the gallery is **not deployed**. The [initial workflow run](https://github.com/mccainl/Web-Demos/actions/runs/40466534259) passed its missing-file check but **skipped artifact upload and deployment**. The original demo ZIP must be supplied before deployment can proceed.
+**Release status — verified 27 October 2026:** The owner's four uploaded parts were reconstructed into the original archive, checksum-verified, committed to `main`, and deployed successfully in [run 40484015104](https://github.com/mccainl/Web-Demos/actions/runs/40484015104). Both build and deploy jobs succeeded. SHA256: `dc9d55df76d78b9fb1e4156bf7b4c62ea04b27628fe24c4ccd61bde74ac9ccac`.
 
-After upload and a successful deployment, test these exact project routes:
+All eight live customer-to-owner smoke tests passed in the browser. Automated responsive and persistence verification is tracked in [run 40485982266](https://github.com/mccainl/Web-Demos/actions/runs/40485982266). All 36 Chromium checks passed at 360, 390, 768 and 1440 px, including all eight customer/owner journeys and reload persistence at 390 and 1440 px. No page-level horizontal overflow, broken images, JavaScript errors, failed asset requests or outbound write requests were detected. Mobile coverage uses browser emulation.
+
+The uploaded archive contains demos and assets only. The separate NL/EN article and carousel packs still need to be supplied before those campaign stages can continue.
+
+Verified live project routes:
 
 - `/Web-Demos/`
 - `/Web-Demos/marea-stay/`
