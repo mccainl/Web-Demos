@@ -1,69 +1,47 @@
-const {chromium}=require('playwright');
-const fs=require('node:fs');
-const assert=require('node:assert/strict');
-const url='https://mccainl.github.io/Web-Demos/brisenn/';
+const {chromium,webkit}=require('playwright');
+const fs=require('node:fs');const assert=require('node:assert/strict');
+const url=process.env.BRISENN_URL||'http://127.0.0.1:8765/';
 fs.mkdirSync('brisenn-qa',{recursive:true});
-const checks=[];
-const check=(name,value)=>{assert.ok(value,name);checks.push({name,passed:true});console.log('PASS',name);};
+const checks=[],errors=[];let currentPage;
+function check(name,ok){assert.ok(ok,name);checks.push({name,passed:true});console.log('PASS '+name);}
+async function settle(page){await page.waitForFunction(()=>window.BrisennStudio?.ready&&document.querySelector('#studio-canvas').dataset.ready==='true');}
+async function visit(page){currentPage=page;page.on('pageerror',e=>errors.push(e.message));await page.goto(url,{waitUntil:'networkidle',timeout:45000});await settle(page);}
+async function hash(page,id){return page.locator(id).evaluate(c=>{const d=c.getContext('2d').getImageData(0,0,c.width,c.height).data;let s=0;for(let i=0;i<d.length;i+=17)s=(s*31+d[i])>>>0;return s;});}
+async function connectionAt(page,amount){await page.evaluate(p=>{const e=document.querySelector('#connection'),hh=document.querySelector('#site-header').getBoundingClientRect().height;window.scrollTo({top:e.offsetTop-hh+(e.offsetHeight-(innerHeight-hh))*p,behavior:'instant'});},amount);await page.waitForFunction(p=>Math.abs(Number(document.querySelector('#connection-canvas').dataset.frame)-Math.round(p*95))<3,amount);}
+async function screenshot(page,name){await page.screenshot({path:'brisenn-qa/'+name+'.png'});}
 (async()=>{
- const browser=await chromium.launch({args:['--enable-unsafe-swiftshader']});
- const context=await browser.newContext({viewport:{width:1440,height:1000},deviceScaleFactor:1});
- const page=await context.newPage(); const errors=[];page.on('pageerror',e=>errors.push(e.message));
- try{
-  for(let n=0;n<18;n++){await page.goto(url+'?verify='+process.env.GITHUB_SHA,{waitUntil:'domcontentloaded'});if(await page.locator('#hero-video').count())break;await page.waitForTimeout(5000);}
-  await page.waitForFunction(()=>window.BrisennStudio&&document.querySelector('#hero-video').readyState>=2,{timeout:30000});
-  await page.waitForFunction(()=>document.querySelector('#hero-video').currentTime>.2);
-  check('Hero is a playing video',await page.locator('#hero-video').evaluate(v=>!v.paused&&v.videoWidth===1280));
-  await page.screenshot({path:'brisenn-qa/01-desktop-hero.png'});
-  await page.locator('[data-film]').first().click();
-  await page.waitForFunction(()=>document.querySelector('#full-film').readyState>=2);
-  check('Film plays inside the page for exactly twenty seconds',await page.locator('#full-film').evaluate(v=>!v.paused&&Math.abs(v.duration-20)<.05));
-  await page.locator('#close-film').click();
-  check('Film dialog closes',!(await page.locator('#film-dialog').isVisible()));
-  await page.evaluate(()=>{const e=document.querySelector('#connection');scrollTo(0,e.offsetTop+(e.offsetHeight-innerHeight)*.62);});
-  await page.waitForFunction(()=>document.querySelector('#connection-video').currentTime>4);
-  check('Scrolling advances the physical link assembly',true);
-  await page.screenshot({path:'brisenn-qa/02-connection.png'});
-  await page.locator('.collection-interior').scrollIntoViewIfNeeded();
-  await page.waitForFunction(()=>getComputedStyle(document.querySelector('.collection-interior')).opacity==='1');
-  await page.screenshot({path:'brisenn-qa/03-collection.png'});
-  await page.locator('#comparison-range').focus();await page.locator('#comparison-range').press('Home');
-  check('Before-and-after reveal responds',await page.locator('#comparison').evaluate(e=>e.style.getPropertyValue('--split')==='0%'));
-  await page.locator('#studio').scrollIntoViewIfNeeded();
-  await page.locator('#link-count').focus();await page.locator('#link-count').press('Home');for(let i=0;i<4;i++)await page.locator('#link-count').press('ArrowRight');
-  check('Custom price and link length update',await page.locator('#price').innerText()==='€214.93'&&await page.locator('#small-length').innerText()==='74');
-  await page.locator('.swatch[data-colour="3"]').click();
-  check('Selected acrylic colour updates',await page.locator('#selected-colour').innerText()==='Clear · shiny');
-  check('WebGL 3D studio initialized',await page.evaluate(()=>!!window.BrisennStudio.views.studio));
-  await page.locator('#restore').click();
-  check('Curated composition restores',await page.locator('#price').innerText()==='€394.98');
-  await page.locator('.studio-grid').scrollIntoViewIfNeeded();await page.waitForTimeout(700);
-  await page.screenshot({path:'brisenn-qa/04-studio.png'});
-  const save=page.waitForEvent('download');await page.locator('#save-design').click();const jsonDownload=await save;await jsonDownload.saveAs('brisenn-qa/composition.json');
-  const design=JSON.parse(fs.readFileSync('brisenn-qa/composition.json'));check('Composition download preserves sixteen links',design.links.length===16&&design.estimated_total_eur===394.98);
-  await page.locator('#room-upload').setInputFiles('concepts/brisenn/assets/living-room-empty.jpg');
-  await page.locator('#room-stage').scrollIntoViewIfNeeded();await page.waitForTimeout(400);
-  await page.locator('#calibrate').click();const box=await page.locator('#room-stage').boundingBox();
-  await page.mouse.click(box.x+box.width*.3,box.y+box.height*.2);await page.mouse.click(box.x+box.width*.3,box.y+box.height*.65);
-  await page.locator('#known-distance').fill('150');await page.locator('#apply-calibration').click();
-  check('Own-room photo and scale calibration work',(await page.locator('#room-badge').innerText()).includes('CALIBRATED PHOTO ESTIMATE'));
-  const png=page.waitForEvent('download');await page.locator('#download-preview').click();const pngDownload=await png;await pngDownload.saveAs('brisenn-qa/room-export.png');
-  check('Room preview exports a real PNG',fs.statSync('brisenn-qa/room-export.png').size>10000);
-  await page.locator('#room-stage').scrollIntoViewIfNeeded();await page.screenshot({path:'brisenn-qa/05-room.png'});
-  check('No application runtime errors',errors.length===0);
-  await context.close();
-  const mobile=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true,deviceScaleFactor:1});const mp=await mobile.newPage();
-  await mp.goto(url+'?mobile='+process.env.GITHUB_SHA,{waitUntil:'domcontentloaded'});await mp.waitForSelector('#hero-video');await mp.waitForTimeout(1300);
-  check('Mobile layout has no horizontal overflow',await mp.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
-  await mp.screenshot({path:'brisenn-qa/06-mobile-hero.png'});
-  await mp.locator('.menu-toggle').click();check('Mobile navigation opens',await mp.locator('#main-nav').isVisible());
-  await mp.locator('#main-nav a[href="#collection"]').click();await mp.waitForTimeout(1300);check('Mobile navigation closes after selection',!(await mp.locator('#main-nav').isVisible()));
-  await mp.waitForFunction(()=>{const e=document.querySelector('#collection h2'),r=e.getBoundingClientRect();return r.top>=0&&r.bottom<innerHeight&&getComputedStyle(e).opacity==='1';});
-  check('Mobile collection heading is visible after navigation',true);
-  await mp.screenshot({path:'brisenn-qa/07-mobile-collection.png'});
-  await mp.emulateMedia({reducedMotion:'reduce'});await mp.reload({waitUntil:'domcontentloaded'});await mp.waitForTimeout(800);
-  check('Reduced-motion mode pauses the hero',await mp.locator('#hero-video').evaluate(v=>v.paused));
-  fs.writeFileSync('brisenn-qa/results.json',JSON.stringify({passed:true,checks,errors},null,2));
- }catch(error){fs.writeFileSync('brisenn-qa/results.json',JSON.stringify({passed:false,checks,errors,failure:error.stack},null,2));await page.screenshot({path:'brisenn-qa/failure.png'}).catch(()=>{});throw error;}
- finally{await browser.close();}
+let browser;
+try{
+ browser=await chromium.launch();let context=await browser.newContext({viewport:{width:1440,height:1000},deviceScaleFactor:1});let page=await context.newPage();await visit(page);
+ check('All interface icons are vectors',!(/[↗↓↑←→↔▶Ⅱ×↺✓]/u.test(await page.locator('body').innerText()))&&await page.locator('svg.icon').count()>25);
+ await screenshot(page,'01-desktop-hero');
+ await page.locator('#sound-toggle').click();await page.waitForFunction(()=>!document.querySelector('#ambient-audio').paused);
+ check('Background music starts from Sound on',await page.locator('#sound-toggle').getAttribute('aria-pressed')==='true');
+ const audible=await page.evaluate(async()=>{const c=new AudioContext(),b=await c.decodeAudioData(await(await fetch('media/ambience.mp3')).arrayBuffer());const a=b.getChannelData(0);let peak=0;for(let i=0;i<a.length;i+=32)peak=Math.max(peak,Math.abs(a[i]));await c.close();return {duration:b.duration,peak};});
+ check('Soundtrack contains audible music',audible.duration>19&&audible.peak>.05);
+ await page.locator('[data-film]').first().click();await page.waitForFunction(()=>document.querySelector('#full-film').currentTime>.15);
+ check('Full film is twenty seconds and opens with sound',await page.locator('#full-film').evaluate(v=>Math.abs(v.duration-20)<.08&&!v.muted&&v.volume===1&&!v.paused));
+ check('Background music pauses while film plays',await page.locator('#ambient-audio').evaluate(a=>a.paused));await screenshot(page,'02-film');await page.locator('#close-film').click();await page.locator('#sound-toggle').click();
+ await connectionAt(page,.12);const f1=await hash(page,'#connection-canvas');await connectionAt(page,.79);const f2=await hash(page,'#connection-canvas');check('Desktop scroll changes actual assembly pixels',f1!==f2);await screenshot(page,'03-desktop-connection');
+ await page.locator('[data-product="blue-fade"]').click();await page.locator('#product-title').waitFor({state:'visible'});check('Product detail opens with correct set price',await page.locator('#product-price').innerText()==='€379.99');await page.locator('#product-hook').check();check('Product hook price updates',await page.locator('#product-price').innerText()==='€394.98');await page.locator('#product-thumbs button').nth(1).click();await screenshot(page,'04-product-details');await page.locator('#close-product').click();
+ await page.locator('#atelier-visual').scrollIntoViewIfNeeded();await screenshot(page,'05-desktop-atelier');const c1=await hash(page,'#studio-canvas');await page.locator('.material-swatch[data-colour="3"]').click();const c2=await hash(page,'#studio-canvas');check('Material choice changes detailed preview pixels',c1!==c2&&await page.locator('#selected-colour').innerText()==='Clear');
+ await page.locator('#link-count').focus();await page.locator('#link-count').press('Home');for(let i=0;i<4;i++)await page.locator('#link-count').press('ArrowRight');check('Six links produce 74 cm and correct component pricing',await page.locator('#small-length').innerText()==='74'&&await page.locator('#price').innerText()==='€214.93');
+ await page.locator('#available-length').fill('100');await page.locator('#apply-fit').click();check('100 cm fit selects eight links, 97 cm',await page.locator('#count-output').innerText()==='8'&&await page.locator('#small-length').innerText()==='97');await page.locator('#restore').click();
+ await page.locator('#actual-photo').click();check('Actual material photo is accessible',await page.locator('#product-main-image').getAttribute('src')==='assets/midnight-blue-matte.jpg');await page.locator('#close-product').click();
+ const save=page.waitForEvent('download');await page.locator('#save-design').click();await(await save).saveAs('brisenn-qa/composition.json');const design=JSON.parse(fs.readFileSync('brisenn-qa/composition.json'));check('Saved design preserves all links and correct price',design.links.length===16&&design.estimated_total_eur===394.98);
+ await page.locator('#room-stage').scrollIntoViewIfNeeded();await screenshot(page,'06-desktop-room');check('Default artwork lies entirely inside the room photo',await page.evaluate(()=>{const b=window.BrisennStudio.roomBounds,r=document.querySelector('#room-stage').getBoundingClientRect(),i=document.querySelector('#room-background').getBoundingClientRect();return b.y>=0&&b.y+b.h<=r.height+1&&Math.abs(i.height-r.height)<1&&Math.abs(i.width-r.width)<1;}));
+ await page.locator('#room-upload').setInputFiles('concepts/brisenn/assets/living-room-empty.jpg');await page.waitForFunction(()=>document.querySelector('#room-background').complete);await page.locator('.room-scale summary').click();await page.locator('#calibrate').click();await page.locator('#room-stage').scrollIntoViewIfNeeded();let box=await page.locator('#room-stage').boundingBox();await page.mouse.click(box.x+box.width*.2,box.y+box.height*.2);await page.mouse.click(box.x+box.width*.2,box.y+box.height*.7);await page.locator('#known-distance').fill('150');await page.locator('#apply-calibration').click();check('Room scale measurement is applied',await page.evaluate(()=>window.BrisennStudio.state.calibrated));
+ const png=page.waitForEvent('download');await page.locator('#download-preview').click();await(await png).saveAs('brisenn-qa/room-export.png');check('Room exports a usable image',fs.statSync('brisenn-qa/room-export.png').size>10000);
+ await context.close();await browser.close();browser=await webkit.launch();context=await browser.newContext({viewport:{width:390,height:844},deviceScaleFactor:1,isMobile:true,hasTouch:true,userAgent:'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1'});page=await context.newPage();await visit(page);
+ check('Mobile WebKit has no horizontal overflow',await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));check('Mobile hero label clears the header',await page.evaluate(()=>document.querySelector('.hero-corner').getBoundingClientRect().top>document.querySelector('#site-header').getBoundingClientRect().bottom+10));await screenshot(page,'07-webkit-mobile-hero');
+ await connectionAt(page,.08);const m1=await hash(page,'#connection-canvas');await connectionAt(page,.84);const m2=await hash(page,'#connection-canvas');check('Mobile WebKit scroll changes assembly frames and pixels',m1!==m2);await screenshot(page,'08-webkit-mobile-connection');
+ await page.locator('#atelier-visual').scrollIntoViewIfNeeded();await screenshot(page,'09-webkit-mobile-atelier');await page.locator('#more-links').click();check('Mobile count controls update',await page.locator('#count-output').innerText()==='17');await page.locator('#restore').click();
+ await page.locator('#room-stage').scrollIntoViewIfNeeded();check('Mobile room preview has no letterboxing or escaping artwork',await page.evaluate(()=>{const b=window.BrisennStudio.roomBounds,r=document.querySelector('#room-stage').getBoundingClientRect();return Math.abs(r.width/r.height-16/9)<.02&&b.y>=0&&b.y+b.h<=r.height+1;}));await screenshot(page,'10-webkit-mobile-room');
+ await page.locator('.menu-toggle').click();await page.locator('#main-nav a[href="#collection"]').click();await page.waitForFunction(()=>{const e=document.querySelector('#collection h2'),r=e.getBoundingClientRect();return r.top>=0&&r.bottom<innerHeight&&getComputedStyle(e).opacity==='1';});check('Mobile navigation closes and reaches the collection',!await page.locator('#main-nav').isVisible());await screenshot(page,'11-webkit-mobile-collection');
+ await page.locator('[data-product="blue-fade"]').click();await screenshot(page,'12-webkit-product-details');await page.locator('#close-product').click();
+ await page.locator('#sound-toggle').click();await page.waitForFunction(()=>!document.querySelector('#ambient-audio').paused);check('Music responds to a mobile WebKit tap',true);await page.locator('#sound-toggle').click();
+ await page.locator('[data-film]').last().click();await page.waitForFunction(()=>document.querySelector('#full-film').currentTime>.1);check('Mobile film plays inline with audio enabled',await page.locator('#full-film').evaluate(v=>v.playsInline&&!v.muted));await page.locator('#close-film').click();
+ await page.emulateMedia({reducedMotion:'reduce'});await page.reload({waitUntil:'networkidle'});await settle(page);check('Reduced motion respects the visitor setting',await page.locator('#hero-video').evaluate(v=>v.paused));
+ check('No application runtime errors',errors.length===0);fs.writeFileSync('brisenn-qa/results.json',JSON.stringify({passed:true,checks,errors},null,2));
+}catch(e){fs.writeFileSync('brisenn-qa/results.json',JSON.stringify({passed:false,checks,errors,failure:e.stack},null,2));if(currentPage&&!currentPage.isClosed())await screenshot(currentPage,'failure').catch(()=>{});console.error(e);process.exitCode=1;}finally{if(browser)await browser.close();}
 })();

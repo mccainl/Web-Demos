@@ -1,5 +1,7 @@
 name: Verify BRISENN experience
 on:
+  push:
+    branches: [codex/brisenn-mobile-polish]
   workflow_run:
     workflows: [Publish MCC Web-Demos]
     types: [completed]
@@ -8,17 +10,24 @@ permissions:
   contents: read
 jobs:
   verify:
-    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
-    runs-on: ubuntu-latest
-    timeout-minutes: 12
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            concepts/brisenn
+            qa
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
       - run: npm install --no-save --ignore-scripts playwright@1.62.1
-      - run: npx playwright install chromium
-      - run: node qa/verify-brisenn.cjs
+      - run: npx playwright install --with-deps chromium webkit
+      - name: Serve and verify the concept
+        run: |
+          python3 -m http.server 8765 --directory concepts/brisenn > /tmp/brisenn-server.log 2>&1 &
+          node qa/verify-brisenn.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
