@@ -1,4 +1,4 @@
-import {createAtelier} from './atelier-3d.js?v=material2';
+import {createAtelier} from './atelier-3d.js?v=warm3';
 import {COLOURS,preset,lengthCM,fitCount,isCurated,totalCents,money,validateDesign} from './rules.js';
 import {icon} from './icons.js';
 const $=id=>document.getElementById(id),clamp=(n,a,b)=>Math.max(a,Math.min(b,n));

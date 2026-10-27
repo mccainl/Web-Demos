@@ -10,8 +10,8 @@ const envScene=new T.Scene();envScene.background=new T.Color('#535d64');
 function softbox(w,h,x,y,z,colour,intensity){const m=new T.Mesh(new T.PlaneGeometry(w,h),new T.MeshBasicMaterial({color:new T.Color(colour).multiplyScalar(intensity),side:T.DoubleSide}));m.position.set(x,y,z);m.lookAt(0,0,0);envScene.add(m);}
 softbox(4,12,-4,3,5,'#fff7ed',4);softbox(.8,10,4,1,3,'#e5f4ff',5);softbox(7,3,0,6,-2,'#ffffff',4);softbox(3,8,-5,-1,-3,'#bbc3cf',1.3);
 const pmrem=new T.PMREMGenerator(renderer),target=pmrem.fromScene(envScene,.04);scene.environment=target.texture;pmrem.dispose();
-// A seamless photographic studio sweep, with a warm key and cool falloff.
-const wallCanvas=document.createElement('canvas');wallCanvas.width=1024;wallCanvas.height=1024;const ctx=wallCanvas.getContext('2d'),grad=ctx.createLinearGradient(0,0,1024,1024);grad.addColorStop(0,'#eeeae2');grad.addColorStop(.45,'#dddcd5');grad.addColorStop(1,'#aab8b7');ctx.fillStyle=grad;ctx.fillRect(0,0,1024,1024);const glow=ctx.createRadialGradient(350,330,30,430,440,650);glow.addColorStop(0,'rgba(255,253,245,.85)');glow.addColorStop(.5,'rgba(255,253,245,.2)');glow.addColorStop(1,'rgba(255,253,245,0)');ctx.fillStyle=glow;ctx.fillRect(0,0,1024,1024);
+// A seamless photographic studio sweep, with a warm ivory key and champagne falloff.
+const wallCanvas=document.createElement('canvas');wallCanvas.width=1024;wallCanvas.height=1024;const ctx=wallCanvas.getContext('2d'),grad=ctx.createLinearGradient(0,0,1024,1024);grad.addColorStop(0,'#f5ead8');grad.addColorStop(.45,'#e8d2b2');grad.addColorStop(1,'#c6a580');ctx.fillStyle=grad;ctx.fillRect(0,0,1024,1024);const glow=ctx.createRadialGradient(350,330,30,430,440,650);glow.addColorStop(0,'rgba(255,253,245,.85)');glow.addColorStop(.5,'rgba(255,253,245,.2)');glow.addColorStop(1,'rgba(255,253,245,0)');ctx.fillStyle=glow;ctx.fillRect(0,0,1024,1024);
 
 const texture=new T.CanvasTexture(wallCanvas);texture.colorSpace=T.SRGBColorSpace;scene.background=texture;
 scene.add(new T.HemisphereLight(0xffffff,0x657379,1.0));const light=new T.DirectionalLight(0xfff5e4,1.3);light.position.set(-3,5,5);scene.add(light);
