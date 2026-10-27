@@ -2,13 +2,13 @@ const {chromium,webkit}=require('playwright');
 const fs=require('node:fs');const assert=require('node:assert/strict');
 const url=process.env.BRISENN_URL||'http://127.0.0.1:8765/';
 fs.mkdirSync('brisenn-qa',{recursive:true});
-const checks=[],errors=[];let currentPage;
+const checks=[],errors=[];let currentPage;const watchdog=setTimeout(()=>{fs.writeFileSync('brisenn-qa/results.json',JSON.stringify({passed:false,checks,errors,failure:'Browser verification exceeded five minutes'},null,2));process.exit(1)},300000);watchdog.unref();
 function check(name,ok){assert.ok(ok,name);checks.push({name,passed:true});console.log('PASS '+name);}
 async function settle(page){await page.waitForFunction(()=>window.BrisennStudio?.ready&&document.querySelector('#studio-canvas').dataset.ready==='true');}
-async function visit(page){currentPage=page;page.on('pageerror',e=>errors.push(e.message));await page.goto(url,{waitUntil:'networkidle',timeout:45000});await settle(page);}
+async function visit(page){page.setDefaultTimeout(20000);currentPage=page;page.on('pageerror',e=>errors.push(e.message));await page.goto(url,{waitUntil:'networkidle',timeout:45000});await settle(page);}
 async function hash(page,id){return page.locator(id).evaluate(c=>{const d=c.toDataURL();let s=0;for(let i=0;i<d.length;i+=17)s=(s*31+d.charCodeAt(i))>>>0;return s;});}
 async function connectionAt(page,amount){await page.evaluate(p=>{const e=document.querySelector('#connection'),hh=document.querySelector('#site-header').getBoundingClientRect().height;window.scrollTo({top:e.offsetTop-hh+(e.offsetHeight-(innerHeight-hh))*p,behavior:'instant'});},amount);await page.waitForFunction(p=>Math.abs(Number(document.querySelector('#connection-canvas').dataset.frame)-Math.round(p*95))<3,amount);}
-async function screenshot(page,name){await page.screenshot({path:'brisenn-qa/'+name+'.png'});}
+async function screenshot(page,name){await page.screenshot({path:'brisenn-qa/'+name+'.png',timeout:15000});}
 (async()=>{
 let browser;
 try{
