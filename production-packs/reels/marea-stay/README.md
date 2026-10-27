@@ -1,3 +1,5 @@
+> **Historical first cut.** The owner subsequently authorized a remake in the approved spatial style. [Watch the current Marea review cut](./SPATIAL-REVIEW.md). The original below is preserved as history.
+
 # Marea Stay — first Reel review cut
 
 [Watch the 38-second review cut](https://d2ol7oe51mr4n9.cloudfront.net/user_3IDQioFnKEdiBTSpvyKkSdi5fp9/83f53823-695e-43af-b8af-2edd6d070511.mp4)

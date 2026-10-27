@@ -1,3 +1,5 @@
+> **Owner feedback:** “Much much better!” The owner approved using this visual direction to remake Marea and complete the remaining six Reels. This does not authorize social scheduling; platform music remains pending.
+
 # FactuurFlow — spatial motion review
 
 Status: completed silent visual review cut; awaiting individual owner feedback. Not approved or scheduled.

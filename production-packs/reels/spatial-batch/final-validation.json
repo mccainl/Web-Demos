@@ -1,0 +1,68 @@
+{
+  "checked_at": "2026-10-27",
+  "full_decode_passed": true,
+  "sampled_export_frames_seconds": [
+    15,
+    21,
+    28
+  ],
+  "visual_inspection_completed": true,
+  "results": [
+    {
+      "slug": "marea-stay",
+      "ok": true,
+      "file": "mcc-batch/marea-stay/review.mp4",
+      "duration": "38.000000",
+      "size": "5668117",
+      "frames": "1140"
+    },
+    {
+      "slug": "haven-interiors",
+      "ok": true,
+      "file": "mcc-batch/haven-interiors/review-final.mp4",
+      "duration": "38.000000",
+      "size": "5253919",
+      "frames": "1140"
+    },
+    {
+      "slug": "leadpilot",
+      "ok": true,
+      "file": "mcc-batch/leadpilot/review-final.mp4",
+      "duration": "38.000000",
+      "size": "5009531",
+      "frames": "1140"
+    },
+    {
+      "slug": "pulse-studio",
+      "ok": true,
+      "file": "mcc-batch/pulse-studio/review.mp4",
+      "duration": "38.000000",
+      "size": "5068909",
+      "frames": "1140"
+    },
+    {
+      "slug": "vraagassistent",
+      "ok": true,
+      "file": "mcc-batch/vraagassistent/review-final.mp4",
+      "duration": "38.000000",
+      "size": "5221325",
+      "frames": "1140"
+    },
+    {
+      "slug": "rivier-coffee",
+      "ok": true,
+      "file": "mcc-batch/rivier-coffee/review-final.mp4",
+      "duration": "38.000000",
+      "size": "4893947",
+      "frames": "1140"
+    },
+    {
+      "slug": "orderbridge",
+      "ok": true,
+      "file": "mcc-batch/orderbridge/review.mp4",
+      "duration": "38.000000",
+      "size": "5636232",
+      "frames": "1140"
+    }
+  ]
+}

@@ -26,13 +26,16 @@
       "carousel_pack": "production-packs/carousels/MCC_Carousels_marea-stay_2posts.zip",
       "captions": "production-packs/review-captions/marea-stay-carousels-captions.md",
       "carousel_status": "awaiting-owner-review",
-      "reel_status": "rendering-spatial-review-cut",
-      "reel_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3IDQioFnKEdiBTSpvyKkSdi5fp9/83f53823-695e-43af-b8af-2edd6d070511.mp4",
+      "reel_status": "spatial-visual-review-cut-ready",
+      "reel_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3IDQioFnKEdiBTSpvyKkSdi5fp9/84a789db-6bbf-48bb-aeec-362546c7ab3a.mp4",
       "owner_approval": null,
       "instagram_status": "draft",
       "facebook_status": "draft",
       "owner_feedback": "New instruction authorizes spatial remake; retain original as history.",
-      "previous_reel_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3IDQioFnKEdiBTSpvyKkSdi5fp9/83f53823-695e-43af-b8af-2edd6d070511.mp4"
+      "previous_reel_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3IDQioFnKEdiBTSpvyKkSdi5fp9/83f53823-695e-43af-b8af-2edd6d070511.mp4",
+      "reel_media_id": "84a789db-6bbf-48bb-aeec-362546c7ab3a",
+      "reel_duration_seconds": 38,
+      "audio_status": "silent-review-platform-music-pending"
     },
     {
       "day": 2,
@@ -52,7 +55,10 @@
       },
       "instagram_status": "draft",
       "facebook_status": "draft",
-      "owner_feedback": "Much much better; use this direction to remake Marea and finish the rest."
+      "owner_feedback": "Much much better; use this direction to remake Marea and finish the rest.",
+      "reel_media_id": "e269cf9a-0431-4700-a5b0-d9d189318627",
+      "reel_duration_seconds": 38,
+      "audio_status": "silent-review-platform-music-pending"
     },
     {
       "day": 3,
@@ -64,11 +70,14 @@
       "carousel_pack": "production-packs/carousels/MCC_Carousels_haven-interiors_2posts.zip",
       "captions": "production-packs/review-captions/haven-interiors-carousels-captions.md",
       "carousel_status": "awaiting-owner-review",
-      "reel_status": "rendering-spatial-review-cut",
-      "reel_url": null,
+      "reel_status": "spatial-visual-review-cut-ready",
+      "reel_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3IDQioFnKEdiBTSpvyKkSdi5fp9/3250ab6a-90f7-46ca-bff3-4dd6e53a2e83.mp4",
       "owner_approval": null,
       "instagram_status": "draft",
-      "facebook_status": "draft"
+      "facebook_status": "draft",
+      "reel_media_id": "3250ab6a-90f7-46ca-bff3-4dd6e53a2e83",
+      "reel_duration_seconds": 38,
+      "audio_status": "silent-review-platform-music-pending"
     },
     {
       "day": 4,
@@ -80,11 +89,14 @@
       "carousel_pack": "production-packs/carousels/MCC_Carousels_leadpilot_2posts.zip",
       "captions": "production-packs/review-captions/leadpilot-carousels-captions.md",
       "carousel_status": "awaiting-owner-review",
-      "reel_status": "rendering-spatial-review-cut",
-      "reel_url": null,
+      "reel_status": "spatial-visual-review-cut-ready",
+      "reel_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3IDQioFnKEdiBTSpvyKkSdi5fp9/a9497d99-90fe-4764-bfb5-7563a760ae56.mp4",
       "owner_approval": null,
       "instagram_status": "draft",
-      "facebook_status": "draft"
+      "facebook_status": "draft",
+      "reel_media_id": "a9497d99-90fe-4764-bfb5-7563a760ae56",
+      "reel_duration_seconds": 38,
+      "audio_status": "silent-review-platform-music-pending"
     },
     {
       "day": 5,
@@ -96,11 +108,14 @@
       "carousel_pack": "production-packs/carousels/MCC_Carousels_pulse-studio_2posts.zip",
       "captions": "production-packs/review-captions/pulse-studio-carousels-captions.md",
       "carousel_status": "awaiting-owner-review",
-      "reel_status": "rendering-spatial-review-cut",
-      "reel_url": null,
+      "reel_status": "spatial-visual-review-cut-ready",
+      "reel_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3IDQioFnKEdiBTSpvyKkSdi5fp9/2e0ca5e1-65d5-45d8-8db1-c2065b212ebd.mp4",
       "owner_approval": null,
       "instagram_status": "draft",
-      "facebook_status": "draft"
+      "facebook_status": "draft",
+      "reel_media_id": "2e0ca5e1-65d5-45d8-8db1-c2065b212ebd",
+      "reel_duration_seconds": 38,
+      "audio_status": "silent-review-platform-music-pending"
     },
     {
       "day": 6,
@@ -112,11 +127,14 @@
       "carousel_pack": "production-packs/carousels/MCC_Carousels_vraagassistent_2posts.zip",
       "captions": "production-packs/review-captions/vraagassistent-carousels-captions.md",
       "carousel_status": "awaiting-owner-review",
-      "reel_status": "rendering-spatial-review-cut",
-      "reel_url": null,
+      "reel_status": "spatial-visual-review-cut-ready",
+      "reel_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3IDQioFnKEdiBTSpvyKkSdi5fp9/21867307-e170-45fa-9e24-bb03ad4f7866.mp4",
       "owner_approval": null,
       "instagram_status": "draft",
-      "facebook_status": "draft"
+      "facebook_status": "draft",
+      "reel_media_id": "21867307-e170-45fa-9e24-bb03ad4f7866",
+      "reel_duration_seconds": 38,
+      "audio_status": "silent-review-platform-music-pending"
     },
     {
       "day": 7,
@@ -128,11 +146,14 @@
       "carousel_pack": "production-packs/carousels/MCC_Carousels_rivier-coffee_2posts.zip",
       "captions": "production-packs/review-captions/rivier-coffee-carousels-captions.md",
       "carousel_status": "awaiting-owner-review",
-      "reel_status": "rendering-spatial-review-cut",
-      "reel_url": null,
+      "reel_status": "spatial-visual-review-cut-ready",
+      "reel_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3IDQioFnKEdiBTSpvyKkSdi5fp9/c8b2d558-a1fa-45bf-b4c2-00c7f27755da.mp4",
       "owner_approval": null,
       "instagram_status": "draft",
-      "facebook_status": "draft"
+      "facebook_status": "draft",
+      "reel_media_id": "c8b2d558-a1fa-45bf-b4c2-00c7f27755da",
+      "reel_duration_seconds": 38,
+      "audio_status": "silent-review-platform-music-pending"
     },
     {
       "day": 8,
@@ -144,12 +165,17 @@
       "carousel_pack": "production-packs/carousels/MCC_Carousels_orderbridge_2posts.zip",
       "captions": "production-packs/review-captions/orderbridge-carousels-captions.md",
       "carousel_status": "awaiting-owner-review",
-      "reel_status": "rendering-spatial-review-cut",
-      "reel_url": null,
+      "reel_status": "spatial-visual-review-cut-ready",
+      "reel_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3IDQioFnKEdiBTSpvyKkSdi5fp9/487a5b27-ac9a-4cd9-9dcc-061f29dc7864.mp4",
       "owner_approval": null,
       "instagram_status": "draft",
-      "facebook_status": "draft"
+      "facebook_status": "draft",
+      "reel_media_id": "487a5b27-ac9a-4cd9-9dcc-061f29dc7864",
+      "reel_duration_seconds": 38,
+      "audio_status": "silent-review-platform-music-pending"
     }
   ],
-  "creative_direction": "Owner praised FactuurFlow spatial cut and authorized remaking Marea plus completing the remaining six Reels. Apply dimensional real-interface presentation; individual new exports still await review."
+  "creative_direction": "Owner praised FactuurFlow spatial cut and authorized remaking Marea plus completing the remaining six Reels. Apply dimensional real-interface presentation; individual new exports still await review.",
+  "review_index": "production-packs/reels/README.md",
+  "remaining_reels_to_produce": 0
 }
