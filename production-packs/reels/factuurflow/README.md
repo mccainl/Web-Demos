@@ -1,6 +1,6 @@
 # FactuurFlow — spatial motion review
 
-Status: rendering for individual owner review. Not approved or scheduled.
+Status: completed silent visual review cut; awaiting individual owner feedback. Not approved or scheduled.
 
 Owner direction (27 October 2026): leave Marea unchanged; raise the next Reel's visual quality using dimensional interface presentation, camera movement, depth and polished motion design. See MCC docs/content-lifecycle.md.
 
@@ -19,3 +19,33 @@ The source capture script uses the live working demo, processes the deliberately
 ## Reproduction
 
 Run from a working directory with a `mcc-factuurflow/` folder. Put these three source files in that folder. In the Higgsfield media sandbox, run `node mcc-factuurflow/capture.cjs`, then `node mcc-factuurflow/render.cjs --inspect` for six still checks or `node mcc-factuurflow/render.cjs` for the video. Requires the sandbox's installed Playwright Chromium and FFmpeg. Obtain a new media upload destination before rendering; upload the final output within the same producing command. Never commit signed upload URLs.
+
+## Review asset and validation
+
+[Watch the 38-second review cut](https://d2ol7oe51mr4n9.cloudfront.net/user_3IDQioFnKEdiBTSpvyKkSdi5fp9/e269cf9a-0431-4700-a5b0-d9d189318627.mp4)
+
+Confirmed media ID: `e269cf9a-0431-4700-a5b0-d9d189318627`. Export: 720×1280, 30fps, 38.000 seconds, 5,325,654 bytes. Full file decoded without errors. Six scene stills inspected before rendering; exported frames at 15, 28 and 37 seconds inspected after rendering. This does not imply owner approval or a full real-time visual watch.
+
+## Caption draft — awaiting review
+
+### Nederlands
+Een afwijkend factuurtotaal hoort niet ongemerkt door je proces te gaan.
+
+FactuurFlow laat zien hoe intake, herberekening en beoordeling kunnen samenwerken — met de eigenaar aan het stuur. Een werkende MCC-conceptdemo met fictieve gegevens; geen live OCR of boekhoudkoppeling.
+
+Probeer de demo: https://mccainl.github.io/Web-Demos/factuurflow/
+Lees het artikel: https://mccai.nl/v3/nl/blog/factuurflow
+
+Wil je een oplossing voor jouw proces? DM **CLONE** naar @mccai.nl.
+
+### English
+An incorrect invoice total should not slip through your process unnoticed.
+
+FactuurFlow demonstrates intake, recalculation and review, with the owner in control. A working MCC concept using fictional data; no live OCR or accounting integration.
+
+Try the demo: https://mccainl.github.io/Web-Demos/factuurflow/
+Read the article: https://mccai.nl/v3/en/blog/factuurflow
+
+Want a version for your workflow? DM **CLONE** to @mccai.nl.
+
+Instagram link-in-bio delivery and licensed platform music must be checked before scheduling. No scheduling or publication is authorized by this draft.
