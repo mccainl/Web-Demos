@@ -1,21 +1,23 @@
 import * as T from './assets/three.module.js';
 import {OrbitControls} from './assets/OrbitControls.js';
 // Open, bevelled acrylic profile. Dimensions expressed in decimetres.
-function profile(){const s=new T.Shape(),g=.012;
+function profile(){const s=new T.Shape(),g=.022;
 s.moveTo(g,-.825);s.lineTo(.07,-.825);s.quadraticCurveTo(.45,-.825,.45,-.445);s.lineTo(.45,.445);s.quadraticCurveTo(.45,.825,.07,.825);s.lineTo(-.07,.825);s.quadraticCurveTo(-.45,.825,-.45,.445);s.lineTo(-.45,-.445);s.quadraticCurveTo(-.45,-.825,-.07,-.825);s.lineTo(-g,-.825);s.lineTo(-g,-.595);s.lineTo(-.02,-.595);s.quadraticCurveTo(-.24,-.595,-.24,-.375);s.lineTo(-.24,.375);s.quadraticCurveTo(-.24,.595,-.02,.595);s.lineTo(.02,.595);s.quadraticCurveTo(.24,.595,.24,.375);s.lineTo(.24,-.375);s.quadraticCurveTo(.24,-.595,.02,-.595);s.lineTo(g,-.595);s.closePath();return s;}
 export function createAtelier(canvas,state,onSelect){
 const renderer=new T.WebGLRenderer({canvas,antialias:true,alpha:true,preserveDrawingBuffer:true,powerPreference:'low-power'});renderer.setPixelRatio(Math.min(devicePixelRatio,1.75));renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.12;
 const scene=new T.Scene(),camera=new T.PerspectiveCamera(34,1,.05,180),group=new T.Group();scene.add(group);
-const envScene=new T.Scene();envScene.background=new T.Color('#7d817b');
+const envScene=new T.Scene();envScene.background=new T.Color('#535d64');
 function softbox(w,h,x,y,z,colour,intensity){const m=new T.Mesh(new T.PlaneGeometry(w,h),new T.MeshBasicMaterial({color:new T.Color(colour).multiplyScalar(intensity),side:T.DoubleSide}));m.position.set(x,y,z);m.lookAt(0,0,0);envScene.add(m);}
-softbox(3,12,-4,3,5,'#fff6e3',5);softbox(1.4,10,4,1,3,'#e5f4ff',3);softbox(7,3,0,6,-2,'#ffffff',4);softbox(3,8,-5,-1,-3,'#bbc3cf',1.3);
+softbox(4,12,-4,3,5,'#fff7ed',4);softbox(.8,10,4,1,3,'#e5f4ff',5);softbox(7,3,0,6,-2,'#ffffff',4);softbox(3,8,-5,-1,-3,'#bbc3cf',1.3);
 const pmrem=new T.PMREMGenerator(renderer),target=pmrem.fromScene(envScene,.04);scene.environment=target.texture;pmrem.dispose();
-const wallCanvas=document.createElement('canvas');wallCanvas.width=512;wallCanvas.height=512;const ctx=wallCanvas.getContext('2d'),grad=ctx.createLinearGradient(0,0,512,512);grad.addColorStop(0,'#f8f4e9');grad.addColorStop(.5,'#e6ddc9');grad.addColorStop(1,'#c8c3b3');ctx.fillStyle=grad;ctx.fillRect(0,0,512,512);for(let i=0;i<4;i++){ctx.fillStyle='rgba(255,255,247,.17)';ctx.beginPath();ctx.moveTo(i*190-280,0);ctx.lineTo(i*190-205,0);ctx.lineTo(i*190+110,512);ctx.lineTo(i*190+35,512);ctx.fill();}
+// A seamless photographic studio sweep, with a warm key and cool falloff.
+const wallCanvas=document.createElement('canvas');wallCanvas.width=1024;wallCanvas.height=1024;const ctx=wallCanvas.getContext('2d'),grad=ctx.createLinearGradient(0,0,1024,1024);grad.addColorStop(0,'#eeeae2');grad.addColorStop(.45,'#dddcd5');grad.addColorStop(1,'#aab8b7');ctx.fillStyle=grad;ctx.fillRect(0,0,1024,1024);const glow=ctx.createRadialGradient(350,330,30,430,440,650);glow.addColorStop(0,'rgba(255,253,245,.85)');glow.addColorStop(.5,'rgba(255,253,245,.2)');glow.addColorStop(1,'rgba(255,253,245,0)');ctx.fillStyle=glow;ctx.fillRect(0,0,1024,1024);
+
 const texture=new T.CanvasTexture(wallCanvas);texture.colorSpace=T.SRGBColorSpace;scene.background=texture;
-scene.add(new T.HemisphereLight(0xffffff,0x657379,1.8));const light=new T.DirectionalLight(0xfff5e4,2.6);light.position.set(-3,5,5);scene.add(light);
-const geometry=new T.ExtrudeGeometry(profile(),{depth:.17,bevelEnabled:true,bevelSize:.009,bevelThickness:.026,bevelSegments:5,curveSegments:32});geometry.center();
+scene.add(new T.HemisphereLight(0xffffff,0x657379,1.0));const light=new T.DirectionalLight(0xfff5e4,1.3);light.position.set(-3,5,5);scene.add(light);
+const geometry=new T.ExtrudeGeometry(profile(),{depth:.14,bevelEnabled:true,bevelSize:.018,bevelThickness:.045,bevelSegments:10,curveSegments:32});geometry.center();
 const colours=['#333852','#37647b','#86c6d5','#eff7fa'];const materials=[];
-for(let matte=0;matte<2;matte++)for(let c=0;c<4;c++)materials.push(new T.MeshPhysicalMaterial({color:new T.Color(colours[c]),roughness:matte?.37:.065,metalness:0,transmission:matte?.25:.88,thickness:.3,ior:1.49,attenuationColor:new T.Color(colours[c]),attenuationDistance:c===3?4:1.1,clearcoat:matte?.12:1,clearcoatRoughness:.05,envMapIntensity:1.25,side:T.DoubleSide}));
+for(let matte=0;matte<2;matte++)for(let c=0;c<4;c++)materials.push(new T.MeshPhysicalMaterial({color:new T.Color(matte?colours[c]:'#ffffff'),roughness:matte?.42:.035,metalness:0,transmission:matte?.4:.98,thickness:.23,ior:1.49,attenuationColor:new T.Color(colours[c]),attenuationDistance:c===3?2.8:.24,clearcoat:matte?.08:1,clearcoatRoughness:.035,envMapIntensity:1.5,side:T.DoubleSide}));
 const controls=new OrbitControls(camera,canvas);controls.enableDamping=true;controls.dampingFactor=.09;controls.enablePan=false;controls.enableZoom=true;controls.rotateSpeed=.65;controls.zoomSpeed=.6;controls.minPolarAngle=.28;controls.maxPolarAngle=Math.PI-.28;controls.touches.ONE=T.TOUCH.ROTATE;controls.touches.TWO=T.TOUCH.DOLLY_PAN;
 let meshes=[],signature='',layout='',raf=0,frames=0,visible=true;const ray=new T.Raycaster(),pointer=new T.Vector2();
 function draw(){renderer.render(scene,camera);canvas.dataset.ready='true';canvas.dataset.renderer='webgl';const chosen=meshes.find(m=>m.userData.linkIndex===state.selected);if(chosen){const p=chosen.localToWorld(new T.Vector3(.56,0,0)).project(camera),badge=document.getElementById('selected-marker');badge.style.left=((p.x+1)*50)+'%';badge.style.top=((1-p.y)*50)+'%';badge.textContent=String(state.selected+1).padStart(2,'0');badge.hidden=p.z>1||Math.abs(p.x)>1||Math.abs(p.y)>1;}canvas.dataset.revision=String(Number(canvas.dataset.revision||0)+1);}
