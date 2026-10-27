@@ -26,12 +26,26 @@ See the [MCC agent lifecycle playbook](https://github.com/mariocarloschaves/MCC/
 
 The complete prepared eight-project artifact is **`MCC_8_Demos_GitHub_Pages_Upload_Ready.zip`** (about 1.7 MB). The verified archive was generated in the MCC ChatGPT project and contains the interactive portfolio and the static image assets.
 
-The owner needs to place this one file in the **repository root** with its exact filename using GitHub → **Add file → Upload files → Commit changes**. The checked-in [Pages workflow](./.github/workflows/pages.yml) then:
+Place this file in the **repository root** with its exact filename. The assistant can validate and commit it after the original ZIP is attached to the active conversation; a manual GitHub upload is also possible through **Add file → Upload files → Commit changes**. The checked-in [Pages workflow](./.github/workflows/pages.yml) then:
 
 - verifies the archive contains the gallery and all eight required projects;
 - rejects unsafe archive paths, symlinks and overlarge individual files;
 - extracts everything in GitHub Actions and deploys the static website.
 
-GitHub Pages also needs **Settings → Pages → Build and deployment → Source: GitHub Actions**, a setting that cannot be changed by the currently available GitHub connector. This is not a request for secrets or personal GitHub tokens.
+**GitHub Pages setup completed on 27 October 2026:** Settings → Pages → Build and deployment → Source is now **GitHub Actions**. GitHub confirmed “GitHub Pages source saved.” Keep the existing workflow; no additional template workflow is needed.
 
-**Release status:** At initial repository setup, the ZIP is not yet uploaded, and GitHub Pages cannot be claimed live. After the upload and successful deployment, test these routes: `/Web-Demos/`, `/marea-stay/`, `/factuurflow/`, `/haven-interiors/`, `/leadpilot/`, `/pulse-studio/`, `/vraagassistent/`, `/rivier-coffee/`, and `/orderbridge/`. Verify sample booking data never leaves the browser. Only then publish matching MCC blog posts and, lastly, produce the eight Reels for individual approval.
+**Release status — verified 27 October 2026:** The ZIP is still missing, so the gallery is **not deployed**. The [initial workflow run](https://github.com/mccainl/Web-Demos/actions/runs/40466534259) passed its missing-file check but **skipped artifact upload and deployment**. The original demo ZIP must be supplied before deployment can proceed.
+
+After upload and a successful deployment, test these exact project routes:
+
+- `/Web-Demos/`
+- `/Web-Demos/marea-stay/`
+- `/Web-Demos/factuurflow/`
+- `/Web-Demos/haven-interiors/`
+- `/Web-Demos/leadpilot/`
+- `/Web-Demos/pulse-studio/`
+- `/Web-Demos/vraagassistent/`
+- `/Web-Demos/rivier-coffee/`
+- `/Web-Demos/orderbridge/`
+
+Verify customer/owner interactions, mobile layouts, genuine browser persistence and that sample booking data never leaves the browser. Only then publish matching MCC blog posts and, lastly, produce the eight Reels for individual approval.
