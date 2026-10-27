@@ -38,7 +38,7 @@ Place this file in the **repository root** with its exact filename. The assistan
 
 All eight live customer-to-owner smoke tests passed in the browser. Automated responsive and persistence verification is tracked in [run 40485982266](https://github.com/mccainl/Web-Demos/actions/runs/40485982266). All 36 Chromium checks passed at 360, 390, 768 and 1440 px, including all eight customer/owner journeys and reload persistence at 390 and 1440 px. No page-level horizontal overflow, broken images, JavaScript errors, failed asset requests or outbound write requests were detected. Mobile coverage uses browser emulation.
 
-The uploaded archive contains demos and assets only. The separate NL/EN article and carousel packs still need to be supplied before those campaign stages can continue.
+The original article pack, all eight JPEG carousel packs and the SHA256-verified 80-slide original PNG archive are preserved in [production-packs](./production-packs/README.md). All eight articles are published in [Dutch](https://mccai.nl/v3/nl/blog) and [English](https://mccai.nl/v3/en/blog) as of 27 October 2026. All 16 article URLs returned HTTP 200 with matching demo links. Revised [bilingual captions](./production-packs/review-captions/) remain review drafts, not scheduled posts. Reels target 35–40 seconds at 720p, individually reviewed; future campaign dates still need agreement.
 
 Verified live project routes:
 

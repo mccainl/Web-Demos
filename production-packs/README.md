@@ -30,3 +30,9 @@ The source ZIP contains all **80 original PNG slides** and their matching captio
 ## Public posting gate
 
 These files being in GitHub **does not mean the articles have been published at mccai.nl or that social posts are scheduled**. Each demo and matching blog URL must be verified, and the owner must approve scheduling. Reels are intentionally the final creative deliverables, each separately reviewed.
+
+## Published article copies — 27 October 2026
+
+All eight project articles are now live in [Dutch](https://mccai.nl/v3/nl/blog) and [English](https://mccai.nl/v3/en/blog). The ZIP above remains the unchanged original draft archive; the published copies live in the MCC application repository. Release: [MCC PR #63](https://github.com/mariocarloschaves/MCC/pull/63), with 70 unit tests and 36 desktop/mobile article checks passing. All 16 public routes were verified HTTP 200 with the correct demo links.
+
+[Updated caption review copies](./review-captions/) contain live demo/article URLs and corrected English copy. Original ZIPs are untouched. All 80 JPEGs were checked at 1080×1350; the 15-piece PNG archive was reconstructed, SHA256-verified, CRC-tested and confirmed to contain 80 PNGs. Owner approval and Instagram profile-link verification still gate social scheduling. The owner selected **35–40 seconds, 720p** for each Reel; no campaign posts are scheduled.
