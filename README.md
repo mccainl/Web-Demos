@@ -66,3 +66,11 @@ The GitHub Actions deployment workflow recognizes the four files, verifies SHA25
 If needed, set Settings → Pages → Build and deployment → Source to **GitHub Actions**.
 
 A green check before all four pieces arrive means only that the workflow skipped deployment safely—not that the site is online.
+
+## BRISÉNN client concept
+
+Interactive product configurator: https://mccainl.github.io/Web-Demos/brisenn/
+
+This is an independent concept using BRISÉNN product references, not a fictional business or a live checkout. Source: `concepts/brisenn/`. The Pages workflow includes this folder after extracting the original demo gallery.
+
+**MCC hosting rule:** publish concepts through GitHub Pages. Do not use OpenAI Sites for MCC client concepts.

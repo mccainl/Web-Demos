@@ -8,6 +8,7 @@ on:
       - "MCC_WebDemos.part*"
       - "MCC_WebDemos_Part_*_of_4.zip"
       - ".github/workflows/pages.yml"
+      - "concepts/**"
   workflow_dispatch:
 
 permissions:
@@ -91,6 +92,10 @@ jobs:
               out.write("ready=true\n")
           print("Validated and staged all eight MCC demos.")
           PY
+      - name: Include individual client concepts
+        if: steps.unpack.outputs.ready == 'true'
+        run: |
+          if [ -d concepts ]; then cp -a concepts/. _site/; fi
       - uses: actions/upload-pages-artifact@v4
         if: steps.unpack.outputs.ready == 'true'
         with:
