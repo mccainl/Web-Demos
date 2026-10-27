@@ -26,12 +26,13 @@
       "carousel_pack": "production-packs/carousels/MCC_Carousels_marea-stay_2posts.zip",
       "captions": "production-packs/review-captions/marea-stay-carousels-captions.md",
       "carousel_status": "awaiting-owner-review",
-      "reel_status": "quality-rejected-preserved-unchanged",
+      "reel_status": "rendering-spatial-review-cut",
       "reel_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3IDQioFnKEdiBTSpvyKkSdi5fp9/83f53823-695e-43af-b8af-2edd6d070511.mp4",
       "owner_approval": null,
       "instagram_status": "draft",
       "facebook_status": "draft",
-      "owner_feedback": "Visual quality rejected; preserve this cut unchanged and improve the next Reel. Not publication approval."
+      "owner_feedback": "New instruction authorizes spatial remake; retain original as history.",
+      "previous_reel_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3IDQioFnKEdiBTSpvyKkSdi5fp9/83f53823-695e-43af-b8af-2edd6d070511.mp4"
     },
     {
       "day": 2,
@@ -43,11 +44,15 @@
       "carousel_pack": "production-packs/carousels/MCC_Carousels_factuurflow_2posts.zip",
       "captions": "production-packs/review-captions/factuurflow-carousels-captions.md",
       "carousel_status": "awaiting-owner-review",
-      "reel_status": "spatial-visual-review-cut-ready",
+      "reel_status": "visual-direction-approved",
       "reel_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3IDQioFnKEdiBTSpvyKkSdi5fp9/e269cf9a-0431-4700-a5b0-d9d189318627.mp4",
-      "owner_approval": null,
+      "owner_approval": {
+        "visual_direction": true,
+        "scheduling": false
+      },
       "instagram_status": "draft",
-      "facebook_status": "draft"
+      "facebook_status": "draft",
+      "owner_feedback": "Much much better; use this direction to remake Marea and finish the rest."
     },
     {
       "day": 3,
@@ -59,7 +64,7 @@
       "carousel_pack": "production-packs/carousels/MCC_Carousels_haven-interiors_2posts.zip",
       "captions": "production-packs/review-captions/haven-interiors-carousels-captions.md",
       "carousel_status": "awaiting-owner-review",
-      "reel_status": "not-started",
+      "reel_status": "rendering-spatial-review-cut",
       "reel_url": null,
       "owner_approval": null,
       "instagram_status": "draft",
@@ -75,7 +80,7 @@
       "carousel_pack": "production-packs/carousels/MCC_Carousels_leadpilot_2posts.zip",
       "captions": "production-packs/review-captions/leadpilot-carousels-captions.md",
       "carousel_status": "awaiting-owner-review",
-      "reel_status": "not-started",
+      "reel_status": "rendering-spatial-review-cut",
       "reel_url": null,
       "owner_approval": null,
       "instagram_status": "draft",
@@ -91,7 +96,7 @@
       "carousel_pack": "production-packs/carousels/MCC_Carousels_pulse-studio_2posts.zip",
       "captions": "production-packs/review-captions/pulse-studio-carousels-captions.md",
       "carousel_status": "awaiting-owner-review",
-      "reel_status": "not-started",
+      "reel_status": "rendering-spatial-review-cut",
       "reel_url": null,
       "owner_approval": null,
       "instagram_status": "draft",
@@ -107,7 +112,7 @@
       "carousel_pack": "production-packs/carousels/MCC_Carousels_vraagassistent_2posts.zip",
       "captions": "production-packs/review-captions/vraagassistent-carousels-captions.md",
       "carousel_status": "awaiting-owner-review",
-      "reel_status": "not-started",
+      "reel_status": "rendering-spatial-review-cut",
       "reel_url": null,
       "owner_approval": null,
       "instagram_status": "draft",
@@ -123,7 +128,7 @@
       "carousel_pack": "production-packs/carousels/MCC_Carousels_rivier-coffee_2posts.zip",
       "captions": "production-packs/review-captions/rivier-coffee-carousels-captions.md",
       "carousel_status": "awaiting-owner-review",
-      "reel_status": "not-started",
+      "reel_status": "rendering-spatial-review-cut",
       "reel_url": null,
       "owner_approval": null,
       "instagram_status": "draft",
@@ -139,12 +144,12 @@
       "carousel_pack": "production-packs/carousels/MCC_Carousels_orderbridge_2posts.zip",
       "captions": "production-packs/review-captions/orderbridge-carousels-captions.md",
       "carousel_status": "awaiting-owner-review",
-      "reel_status": "not-started",
+      "reel_status": "rendering-spatial-review-cut",
       "reel_url": null,
       "owner_approval": null,
       "instagram_status": "draft",
       "facebook_status": "draft"
     }
   ],
-  "creative_direction": "Owner rejected first cut's visual quality; leave Marea unchanged. Next Reels require dimensional UI presentation, intentional camera motion, depth and polished transitions. Individual review required."
+  "creative_direction": "Owner praised FactuurFlow spatial cut and authorized remaking Marea plus completing the remaining six Reels. Apply dimensional real-interface presentation; individual new exports still await review."
 }
