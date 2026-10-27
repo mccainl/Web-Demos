@@ -2,8 +2,8 @@ import {createAtelier} from './atelier-3d.js';
 import {COLOURS,preset,lengthCM,fitCount,isCurated,totalCents,money,validateDesign} from './rules.js';
 import {icon} from './icons.js';
 const $=id=>document.getElementById(id),clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
-const state={links:preset(),hook:true,selected:0,view:'detail',roomX:.355,roomY:.085,calibrated:false,points:[],knownCM:100,marking:false,before:false,customPhoto:false};
-try{const d=new URLSearchParams(location.search).get('design');if(d){const v=validateDesign(JSON.parse(atob(d)));if(v)Object.assign(state,v);}}catch{}
+const state={links:preset(),hook:true,selected:10,view:'detail',roomX:.355,roomY:.085,calibrated:false,points:[],knownCM:100,marking:false,before:false,customPhoto:false};
+try{const d=new URLSearchParams(location.search).get('design');if(d){const v=validateDesign(JSON.parse(atob(d)));if(v){Object.assign(state,v);state.selected=Math.min(state.selected,state.links.length-1);}}}catch{}
 let timer;function toast(t){$('toast').textContent=t;$('toast').classList.add('visible');clearTimeout(timer);timer=setTimeout(()=>$('toast').classList.remove('visible'),3500);}
 const photos={shiny:['infinity-link-navy-blue','infinity-link-dark-blue','infinity-link-light-blue','infinity-link-clear'],matte:['midnight-blue-matte','dark-blue-matte','blue-matte','clear-matte']};
 const atlas=new Image();let atlasMeta,ready=false,studioBounds=[],roomBounds,customURL;
