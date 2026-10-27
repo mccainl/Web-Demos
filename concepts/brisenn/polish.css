@@ -19,3 +19,12 @@
 @media(prefers-reduced-motion:reduce){.link-rail button,.atelier-primary,.pill,.product-thumbs button img{transition:none}}
 
 #selected-marker{position:absolute;z-index:1;width:28px;height:28px;border:1px solid #30484265;border-radius:50%;display:grid;place-items:center;font-size:9px;background:#fffdf3c9;color:#263e39;pointer-events:none;transform:translate(-50%,-50%)}
+/* Keep the object in view while the mobile visitor edits individual links. */
+@media(max-width:700px){
+ .atelier-grid{position:relative;overflow:visible;align-items:start}
+ .atelier-visual{position:sticky;top:calc(var(--header-height) + env(safe-area-inset-top));z-index:5;box-shadow:0 12px 22px #24392a12}
+ .atelier-visual-top{padding:9px 20px}.atelier-art{height:240px;min-height:240px;flex:none}
+ .viewer-tools{padding:0 18px;min-height:40px}.viewer-tools p{font-size:8px;max-width:165px}.viewer-tools button{min-height:40px}
+ .atelier-visual-bottom{padding:5px 20px 12px;align-items:center}.atelier-visual-bottom h3{font-size:23px;margin:0}.atelier-visual-bottom .eyebrow,.atelier-visual-bottom #visual-subtitle{display:none}.atelier-visual-bottom .circle-button{width:32px;height:32px}
+ .atelier-panel{position:relative;z-index:1}.atelier-visual .view-tabs button{min-height:34px}
+}
