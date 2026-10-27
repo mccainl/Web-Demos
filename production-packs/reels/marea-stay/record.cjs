@@ -1,0 +1,23 @@
+const {chromium}=require('/usr/local/lib/node_modules/playwright');
+const fs=require('fs');
+(async()=>{
+ const browser=await chromium.launch({headless:true});
+ const ctx=await browser.newContext({viewport:{width:720,height:1000},deviceScaleFactor:1,recordVideo:{dir:'mcc-marea/recordings',size:{width:720,height:1000}}});
+ const origin=Date.now();const p=await ctx.newPage();const marks={};const mark=n=>{marks[n]=(Date.now()-origin)/1000;console.log(n,marks[n])};
+ const pause=ms=>p.waitForTimeout(ms);
+ await p.goto('https://mccainl.github.io/Web-Demos/marea-stay/',{waitUntil:'networkidle'});await p.evaluate(()=>document.fonts.ready);
+ mark('hero');await pause(2500);
+ await p.locator('#availability-form button[type=submit]').click();await pause(1000);
+ mark('rooms');await p.getByRole('radio',{name:/De Dune Suite/}).click();await pause(2000);
+ await p.locator('#guest-name').pressSequentially('Demo Gast',{delay:100});await p.locator('#guest-email').pressSequentially('demo@example.com',{delay:70});await pause(1200);
+ mark('submit');await p.getByRole('button',{name:'Bevestig demo-reservering'}).click();
+ await p.locator('#confirmation').waitFor({state:'visible'});await pause(4000);
+ mark('owner');await p.locator('#confirmation-open-admin').click();await pause(4500);
+ const row=p.getByRole('row').filter({hasText:'Demo Gast'});await row.getByRole('button',{name:'Check-in',exact:true}).scrollIntoViewIfNeeded();await pause(1500);
+ mark('checkin');await row.getByRole('button',{name:'Check-in',exact:true}).click();await pause(4000);
+ await p.locator('#status-filter').selectOption('checked-in');await pause(1500);
+ await p.locator('.admin-table-wrap').evaluate(el=>el.scrollTo({left:0,behavior:'smooth'}));await pause(2500);
+ mark('end');await p.screenshot({path:'mcc-marea/owner-proof.png'});
+ const video=p.video();await ctx.close();fs.renameSync(await video.path(),'mcc-marea/live.webm');
+ fs.writeFileSync('mcc-marea/timing.json',JSON.stringify(marks,null,2));await browser.close();
+})().catch(e=>{console.error(e);process.exit(1)});
