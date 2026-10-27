@@ -17,7 +17,7 @@ try{
  await screenshot(page,'01-desktop-hero');
  await page.locator('#sound-toggle').click();await page.waitForFunction(()=>!document.querySelector('#ambient-audio').paused&&document.querySelector('#sound-toggle').getAttribute('aria-pressed')==='true');
  check('Background music starts from Sound on',await page.locator('#sound-toggle').getAttribute('aria-pressed')==='true');
- const audible=await page.evaluate(async()=>{const c=new AudioContext(),b=await c.decodeAudioData(await(await fetch('media/ambience.mp3')).arrayBuffer());const a=b.getChannelData(0);let peak=0;for(let i=0;i<a.length;i+=32)peak=Math.max(peak,Math.abs(a[i]));await c.close();return {duration:b.duration,peak};});
+ const audible=await page.evaluate(async()=>{const c=new AudioContext(),b=await c.decodeAudioData(await(await fetch('media/design-ambience.mp3')).arrayBuffer());const a=b.getChannelData(0);let peak=0;for(let i=0;i<a.length;i+=32)peak=Math.max(peak,Math.abs(a[i]));await c.close();return {duration:b.duration,peak};});
  check('Soundtrack contains audible music',audible.duration>19&&audible.peak>.05);
  await page.locator('[data-film]').first().click();await page.waitForFunction(()=>document.querySelector('#full-film').currentTime>.15);
  check('Full film is twenty seconds and opens with sound',await page.locator('#full-film').evaluate(v=>Math.abs(v.duration-20)<.08&&!v.muted&&v.volume===1&&!v.paused));
