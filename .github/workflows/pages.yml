@@ -1,0 +1,89 @@
+name: Publish MCC Web-Demos
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "MCC_8_Demos_GitHub_Pages_Upload_Ready.zip"
+      - ".github/workflows/pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      ready: ${{ steps.unpack.outputs.ready }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Unpack and validate the MCC interactive demos
+        id: unpack
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import zipfile, pathlib, stat, os
+          source = pathlib.Path("MCC_8_Demos_GitHub_Pages_Upload_Ready.zip")
+          target = pathlib.Path("_site")
+          required = (
+              "index.html", "gallery.css", "gallery.js", ".nojekyll",
+              "marea-stay/index.html", "factuurflow/index.html",
+              "haven-interiors/index.html", "leadpilot/index.html",
+              "pulse-studio/index.html", "vraagassistent/index.html",
+              "rivier-coffee/index.html", "orderbridge/index.html",
+          )
+          if not source.is_file():
+              print("The demo ZIP is not uploaded yet. No publication attempted.")
+              with open(os.environ["GITHUB_OUTPUT"], "a") as out:
+                  out.write("ready=false\n")
+              raise SystemExit(0)
+          target.mkdir(exist_ok=True)
+          with zipfile.ZipFile(source) as archive:
+              names = set(archive.namelist())
+              missing = sorted(set(required) - names)
+              if missing:
+                  raise SystemExit("Archive is missing required files: " + ", ".join(missing))
+              for f in archive.infolist():
+                  path = pathlib.PurePosixPath(f.filename)
+                  if path.is_absolute() or ".." in path.parts or not f.filename.strip():
+                      raise SystemExit("Unsafe archive member: " + f.filename)
+                  if (f.external_attr >> 16) & 0o170000 == stat.S_IFLNK:
+                      raise SystemExit("Symbolic links are prohibited: " + f.filename)
+                  if f.file_size > 8_000_000:
+                      raise SystemExit("Unusually large source file: " + f.filename)
+                  if f.is_dir():
+                      continue
+                  destination = target.joinpath(*path.parts)
+                  destination.parent.mkdir(parents=True, exist_ok=True)
+                  destination.write_bytes(archive.read(f))
+          assert all((target / p).exists() for p in required)
+          with open(os.environ["GITHUB_OUTPUT"], "a") as out:
+              out.write("ready=true\n")
+          print("Validated and staged all eight MCC demos.")
+          PY
+      - uses: actions/upload-pages-artifact@v4
+        if: steps.unpack.outputs.ready == 'true'
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    if: needs.build.outputs.ready == 'true'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      pages: write
+      id-token: write
+    steps:
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Publish interactive portfolio
+        id: deployment
+        uses: actions/deploy-pages@v4
