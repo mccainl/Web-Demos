@@ -6,13 +6,13 @@ const checks=[],errors=[];let currentPage;
 function check(name,ok){assert.ok(ok,name);checks.push({name,passed:true});console.log('PASS '+name);}
 async function settle(page){await page.waitForFunction(()=>window.BrisennStudio?.ready&&document.querySelector('#studio-canvas').dataset.ready==='true');}
 async function visit(page){currentPage=page;page.on('pageerror',e=>errors.push(e.message));await page.goto(url,{waitUntil:'networkidle',timeout:45000});await settle(page);}
-async function hash(page,id){return page.locator(id).evaluate(c=>{const d=c.getContext('2d').getImageData(0,0,c.width,c.height).data;let s=0;for(let i=0;i<d.length;i+=17)s=(s*31+d[i])>>>0;return s;});}
+async function hash(page,id){return page.locator(id).evaluate(c=>{const d=c.toDataURL();let s=0;for(let i=0;i<d.length;i+=17)s=(s*31+d.charCodeAt(i))>>>0;return s;});}
 async function connectionAt(page,amount){await page.evaluate(p=>{const e=document.querySelector('#connection'),hh=document.querySelector('#site-header').getBoundingClientRect().height;window.scrollTo({top:e.offsetTop-hh+(e.offsetHeight-(innerHeight-hh))*p,behavior:'instant'});},amount);await page.waitForFunction(p=>Math.abs(Number(document.querySelector('#connection-canvas').dataset.frame)-Math.round(p*95))<3,amount);}
 async function screenshot(page,name){await page.screenshot({path:'brisenn-qa/'+name+'.png'});}
 (async()=>{
 let browser;
 try{
- browser=await chromium.launch();let context=await browser.newContext({viewport:{width:1440,height:1000},deviceScaleFactor:1});let page=await context.newPage();await visit(page);
+ browser=await chromium.launch({args:['--enable-unsafe-swiftshader']});let context=await browser.newContext({viewport:{width:1440,height:1000},deviceScaleFactor:1});let page=await context.newPage();await visit(page);
  check('All interface icons are vectors',!(/[↗↓↑←→↔▶Ⅱ×↺✓]/u.test(await page.locator('body').innerText()))&&await page.locator('svg.icon').count()>25);
  await screenshot(page,'01-desktop-hero');
  await page.locator('#sound-toggle').click();await page.waitForFunction(()=>!document.querySelector('#ambient-audio').paused&&document.querySelector('#sound-toggle').getAttribute('aria-pressed')==='true');
@@ -24,7 +24,15 @@ try{
  check('Background music pauses while film plays',await page.locator('#ambient-audio').evaluate(a=>a.paused));await screenshot(page,'02-film');await page.locator('#close-film').click();await page.locator('#sound-toggle').click();
  await connectionAt(page,.12);const f1=await hash(page,'#connection-canvas');await connectionAt(page,.79);const f2=await hash(page,'#connection-canvas');check('Desktop scroll changes actual assembly pixels',f1!==f2);await screenshot(page,'03-desktop-connection');
  await page.locator('[data-product="blue-fade"]').click();await page.locator('#product-title').waitFor({state:'visible'});check('Product detail opens with correct set price',await page.locator('#product-price').innerText()==='€379.99');await page.locator('#product-hook').check();check('Product hook price updates',await page.locator('#product-price').innerText()==='€394.98');await page.locator('#product-thumbs button').nth(1).click();await screenshot(page,'04-product-details');await page.locator('#close-product').click();
- await page.locator('#atelier-visual').scrollIntoViewIfNeeded();await screenshot(page,'05-desktop-atelier');const c1=await hash(page,'#studio-canvas');await page.locator('.material-swatch[data-colour="3"]').click();const c2=await hash(page,'#studio-canvas');check('Material choice changes detailed preview pixels',c1!==c2&&await page.locator('#selected-colour').innerText()==='Clear');
+ await page.locator('#atelier-visual').scrollIntoViewIfNeeded();await screenshot(page,'05-desktop-atelier');
+ check('Studio uses real WebGL geometry',await page.locator('#studio-canvas').getAttribute('data-renderer')==='webgl');
+ const startRotation=await page.evaluate(()=>window.BrisennStudio.viewer.rotation);let cb=await page.locator('#studio-canvas').boundingBox();await page.mouse.move(cb.x+cb.width*.4,cb.y+cb.height*.4);await page.mouse.down();await page.mouse.move(cb.x+cb.width*.7,cb.y+cb.height*.5,{steps:12});await page.mouse.up();check('Dragging rotates the actual 3D camera',JSON.stringify(startRotation)!==JSON.stringify(await page.evaluate(()=>window.BrisennStudio.viewer.rotation)));
+ await page.locator('#reset-view').click();await page.locator('[data-view="whole"]').click();await screenshot(page,'13-full-composition');
+ for(let i=0;i<16;i++){await page.locator('#link-rail button').nth(i).click();await page.locator('.material-swatch').nth(i%4).click();}
+ check('Every individual link retains its own selected colour',await page.evaluate(()=>window.BrisennStudio.state.links.every((l,i)=>l.colour===i%4)));
+ const hit=await page.evaluate(()=>window.BrisennStudio.viewer.project(5));await page.mouse.click(hit.x,hit.y);check('Tapping the 3D geometry selects its link',await page.evaluate(()=>window.BrisennStudio.state.selected===5));
+ await page.locator('[data-view="detail"]').click();await page.locator('#zoom-in').click();await screenshot(page,'14-material-closeup');await page.locator('#restore').click();await page.locator('#reset-view').click();
+const c1=await hash(page,'#studio-canvas');await page.locator('.material-swatch[data-colour="3"]').click();const c2=await hash(page,'#studio-canvas');check('Material choice changes detailed preview pixels',c1!==c2&&await page.locator('#selected-colour').innerText()==='Clear');
  await page.locator('#link-count').focus();await page.locator('#link-count').press('Home');for(let i=0;i<4;i++)await page.locator('#link-count').press('ArrowRight');check('Six links produce 74 cm and correct component pricing',await page.locator('#small-length').innerText()==='74'&&await page.locator('#price').innerText()==='€214.93');
  await page.locator('#available-length').fill('100');await page.locator('#apply-fit').click();check('100 cm fit selects eight links, 97 cm',await page.locator('#count-output').innerText()==='8'&&await page.locator('#small-length').innerText()==='97');await page.locator('#restore').click();
  await page.locator('#actual-photo').click();check('Actual material photo is accessible',await page.locator('#product-main-image').getAttribute('src')==='assets/midnight-blue-matte.jpg');await page.locator('#close-product').click();
