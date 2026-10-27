@@ -6,6 +6,7 @@ on:
     paths:
       - "MCC_8_Demos_GitHub_Pages_Upload_Ready.zip"
       - "MCC_WebDemos.part*"
+      - "MCC_WebDemos_Part_*_of_4.zip"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 
@@ -38,20 +39,31 @@ jobs:
               "pulse-studio/index.html", "vraagassistent/index.html",
               "rivier-coffee/index.html", "orderbridge/index.html",
           )
-          # Accept four smaller parts or the intact original artifact.
+          # Accept the original archive or four easy-to-download standard ZIP parts.
           if not source.is_file():
               parts = [pathlib.Path(f"MCC_WebDemos.part{i:03d}") for i in range(1, 5)]
-              if not all(part.is_file() for part in parts):
-                  print("Waiting for all four parts; no deployment attempted.")
+              wrappers = [pathlib.Path(f"MCC_WebDemos_Part_{i}_of_4.zip") for i in range(1, 5)]
+              import hashlib
+              if all(p.is_file() for p in parts):
+                  payload = b"".join(p.read_bytes() for p in parts)
+              elif all(w.is_file() for w in wrappers):
+                  segments = []
+                  for index, wrapper in enumerate(wrappers, 1):
+                      member = f"MCC_WebDemos.part{index:03d}"
+                      with zipfile.ZipFile(wrapper) as nested:
+                          if nested.namelist() != [member]:
+                              raise SystemExit(f"Unexpected ZIP wrapper contents: {wrapper.name}")
+                          segments.append(nested.read(member))
+                  payload = b"".join(segments)
+              else:
+                  print("Waiting for all four ZIP parts; no deployment attempted.")
                   with open(os.environ["GITHUB_OUTPUT"], "a") as out:
                       out.write("ready=false\n")
                   raise SystemExit(0)
-              import hashlib
-              payload = b"".join(part.read_bytes() for part in parts)
               actual = hashlib.sha256(payload).hexdigest()
               expected = "dc9d55df76d78b9fb1e4156bf7b4c62ea04b27628fe24c4ccd61bde74ac9ccac"
               if actual != expected:
-                  raise SystemExit("Split ZIP failed SHA256 integrity verification")
+                  raise SystemExit("Four-part archive failed SHA256 integrity verification")
               source.write_bytes(payload)
               print("Four parts reconstructed. Integrity verified.")
 
