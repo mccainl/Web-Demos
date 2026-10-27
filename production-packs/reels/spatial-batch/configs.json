@@ -1,0 +1,149 @@
+[
+  {
+    "slug": "marea-stay",
+    "name": "Marea Stay",
+    "category": "Website",
+    "theme": "coast",
+    "head": [
+      "Een verblijf.<br><em>Een beleving.</em>",
+      "Ontdek jouw<br><em>plek aan zee.</em>",
+      "Van kijken<br><em>naar boeken.</em>",
+      "Alles klaar<br><em>voor de gast.</em>",
+      "Check-in.<br><em>Overzicht.</em>"
+    ],
+    "notes": [
+      "Een hotelwebsite die sfeer en een werkende gastreis samenbrengt.",
+      "Bekijk een suite, de details en het verblijf.",
+      "Kies een kamer en bekijk de prijs in de demo.",
+      "De reservering verschijnt in het eigenaarsoverzicht.",
+      "De eigenaar werkt de status bij naar ingecheckt."
+    ],
+    "cta": "Jouw verblijf.<br><em>Jouw gastreis.</em>"
+  },
+  {
+    "slug": "haven-interiors",
+    "name": "Haven Interiors",
+    "category": "Website",
+    "theme": "ivory",
+    "head": [
+      "Een interieur.<br><em>Een gevoel.</em>",
+      "Bewaar wat<br><em>bij je past.</em>",
+      "Van inspiratie<br><em>naar gesprek.</em>",
+      "De wens.<br><em>In beeld.</em>",
+      "Persoonlijk.<br><em>Opgevolgd.</em>"
+    ],
+    "notes": [
+      "Een interieurwebsite met ruimte voor inspiratie en contact.",
+      "De bezoeker bewaart een collectie in het moodboard.",
+      "De selectie gaat mee met de adviesaanvraag.",
+      "De eigenaar ziet de wens en het gekozen interieur.",
+      "De aanvraag krijgt de status opgevolgd."
+    ],
+    "cta": "Jouw collectie.<br><em>Meer verbinding.</em>"
+  },
+  {
+    "slug": "leadpilot",
+    "name": "LeadPilot",
+    "category": "Webapp",
+    "theme": "navy",
+    "head": [
+      "Elke aanvraag.<br><em>Een volgende stap.</em>",
+      "Een helder<br><em>begin.</em>",
+      "Van interesse<br><em>naar aanvraag.</em>",
+      "Alles samen.<br><em>In overzicht.</em>",
+      "Van nieuw<br><em>naar voorstel.</em>"
+    ],
+    "notes": [
+      "Een werkend klantportaalconcept voor aanvragen en opvolging.",
+      "De klant ziet hoe de aanvraag wordt verwerkt.",
+      "De klant beschrijft het project in één formulier.",
+      "De eigenaar ziet de aanvraag in de pipeline.",
+      "De fase wijzigt naar Voorstel; de opvolgtaak blijft zichtbaar."
+    ],
+    "cta": "Jouw aanvragen.<br><em>Meer overzicht.</em>"
+  },
+  {
+    "slug": "pulse-studio",
+    "name": "Pulse Studio",
+    "category": "Website",
+    "theme": "navy",
+    "head": [
+      "Meer bewegen.<br><em>Minder regelen.</em>",
+      "Vind jouw<br><em>ritme.</em>",
+      "Een les.<br><em>Een plek.</em>",
+      "Deelnemers.<br><em>In overzicht.</em>",
+      "Een wijziging?<br><em>Bijgewerkt.</em>"
+    ],
+    "notes": [
+      "Een studiowebsite met een werkende lesboekingsdemo.",
+      "Ontdek de lessen en kies wat bij je past.",
+      "De deelnemer reserveert een plaats met fictieve gegevens.",
+      "De eigenaar ziet de boeking en de bezetting.",
+      "Bij annulering komt de plaats weer vrij in de demo."
+    ],
+    "cta": "Jouw studio.<br><em>Jouw ritme.</em>"
+  },
+  {
+    "slug": "vraagassistent",
+    "name": "VraagAssistent",
+    "category": "AI-concept",
+    "theme": "navy",
+    "head": [
+      "Een vraag.<br><em>Een duidelijk pad.</em>",
+      "Direct antwoord.<br><em>Waar het kan.</em>",
+      "Hulp nodig?<br><em>Geef het door.</em>",
+      "De mens.<br><em>Aan zet.</em>",
+      "Opgepakt.<br><em>Afgehandeld.</em>"
+    ],
+    "notes": [
+      "Een assistentconcept met vaste voorbeeldantwoorden en overdracht.",
+      "Een bekende vraag krijgt een voorgeprogrammeerd antwoord.",
+      "Een wijzigingsverzoek wordt doorgezet naar de eigenaar.",
+      "De eigenaar ziet de vraag in de ticketlijst.",
+      "Het ticket wordt als behandeld gemarkeerd."
+    ],
+    "cta": "Jouw service.<br><em>Een helder vervolg.</em>"
+  },
+  {
+    "slug": "rivier-coffee",
+    "name": "Rivier Coffee",
+    "category": "Website",
+    "theme": "ivory",
+    "head": [
+      "Een goede koffie.<br><em>Een warm welkom.</em>",
+      "Bekijk wat<br><em>je lekker vindt.</em>",
+      "Een tafel.<br><em>Voor jouw moment.</em>",
+      "De gasten.<br><em>In overzicht.</em>",
+      "Bevestigd.<br><em>Welkom.</em>"
+    ],
+    "notes": [
+      "Een caféwebsite met menu en een werkende reserveringsdemo.",
+      "De bezoeker ontdekt het aanbod op het menu.",
+      "De gast vraagt een tafel aan met fictieve gegevens.",
+      "De eigenaar ziet de nieuwe reservering.",
+      "De tafelreservering wordt bevestigd in de demo."
+    ],
+    "cta": "Jouw café.<br><em>Een warm begin.</em>"
+  },
+  {
+    "slug": "orderbridge",
+    "name": "OrderBridge",
+    "category": "Automation",
+    "theme": "navy",
+    "head": [
+      "Van aanvraag<br><em>naar actie.</em>",
+      "Eén intake.<br><em>Een helder vervolg.</em>",
+      "Vertel wat<br><em>je nodig hebt.</em>",
+      "Lead. Concept.<br><em>Opvolgtaak.</em>",
+      "Beoordeeld.<br><em>Bijgewerkt.</em>"
+    ],
+    "notes": [
+      "Een workflowconcept voor intake, routering en menselijke controle.",
+      "Bekijk hoe een aanvraag de vervolgstappen op gang brengt.",
+      "De bezoeker vult één korte aanvraag in.",
+      "De demo maakt een lead, e-mailconcept en taak aan.",
+      "De eigenaar kwalificeert, beoordeelt en rondt de taak af."
+    ],
+    "cta": "Jouw workflow.<br><em>Meer samenhang.</em>"
+  }
+]

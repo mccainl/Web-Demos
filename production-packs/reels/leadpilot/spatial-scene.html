@@ -1,0 +1,50 @@
+<!doctype html><meta charset="utf-8"><style>
+*{box-sizing:border-box}html,body{margin:0;width:720px;height:1280px;overflow:hidden;background:#071827;color:#f4efe6;font-family:Arial,sans-serif}body{background:radial-gradient(ellipse at 100% 20%,#263c4b 0%,#0c2438 35%,#071827 75%)}
+#grain{position:absolute;inset:0;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E")}
+.brand{position:absolute;left:48px;top:68px;font-size:20px;letter-spacing:3px;font-weight:bold}.brand span{color:#dea348}.edition{position:absolute;right:48px;top:73px;color:#b9b6b1;font:12px monospace;letter-spacing:2px}
+#heading{position:absolute;top:172px;left:48px;width:624px;z-index:20}#kicker{font:13px monospace;letter-spacing:3px;color:#dea348;margin-bottom:18px}h1{font-size:66px;line-height:1.02;letter-spacing:-3px;margin:0;font-weight:500}h1 em{font-family:Georgia,serif;font-weight:normal;color:#dcb189}
+#stage{position:absolute;inset:0;perspective:1700px;perspective-origin:50% 55%}
+#world{position:absolute;left:360px;top:706px;transform-style:preserve-3d}
+.panel{position:absolute;left:0;top:0;transform-style:preserve-3d;backface-visibility:hidden}
+.face{position:relative;border:1px solid #ac8b67;border-radius:12px;overflow:hidden;background:#f4efe6;box-shadow:0 35px 80px #0008,0 1px 2px #fff6}
+.face img{display:block;width:100%;height:auto}.panel:before{content:"";position:absolute;inset:0;border-radius:12px;background:#6e553e;transform:translateZ(-9px);box-shadow:0 0 0 3px #76634e}
+.chrome{height:28px;background:#e8e3db;color:#776b60;display:flex;align-items:center;gap:5px;padding:0 12px;font-size:9px}.chrome i{height:4px;width:4px;border-radius:50%;background:#bcae9c}.chrome span{margin-left:12px}
+.shine{position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,#fff3 48%,transparent 66%);pointer-events:none;mix-blend-mode:screen}
+#floor{position:absolute;width:1600px;height:1300px;left:-800px;top:220px;background:repeating-linear-gradient(0deg,transparent 0 99px,#c9782b16 100px 101px),repeating-linear-gradient(90deg,transparent 0 99px,#c9782b16 100px 101px);transform:rotateX(82deg);transform-origin:top;mask-image:radial-gradient(ellipse,#000,transparent 65%)}
+#ring{position:absolute;width:900px;height:900px;border:1px solid #c9782b50;border-radius:50%;left:-450px;top:-450px;transform:rotateX(70deg) translateZ(-180px)}
+#shadow{position:absolute;left:90px;top:990px;width:540px;height:65px;background:#000;filter:blur(30px);opacity:.6;border-radius:50%}
+#note{position:absolute;left:48px;top:1080px;width:605px;z-index:30;font-size:24px;line-height:1.35;color:#d8cfc1}
+#footer{position:absolute;left:48px;right:48px;bottom:64px;border-top:1px solid #d8cfc12a;padding-top:17px;display:flex;justify-content:space-between;font-size:12px;color:#b1b5b8}
+#progress{position:absolute;left:48px;bottom:118px;height:2px;background:#dea348;transform-origin:left;width:624px}
+#metric{position:absolute;top:928px;left:48px;z-index:25;font-family:Georgia,serif;font-size:73px;color:#dea348;letter-spacing:-2px}#metric small{display:block;font:12px monospace;letter-spacing:2px;margin-top:8px;color:#d8cfc1}
+#cta{position:absolute;left:48px;top:400px;z-index:40;opacity:0;width:624px}.cta-title{font:64px/1.04 Georgia,serif;letter-spacing:-2px}.cta-title em{color:#dea348}.cta-link{margin-top:32px;font-size:21px;color:#d8cfc1;line-height:1.6}.cta-button{display:inline-block;background:#dea348;color:#071827;padding:20px 28px;margin-top:30px;font-size:28px;font-weight:bold;border-radius:3px}
+</style><div id="grain"></div><div class="brand">MCC <span>AI</span></div><div class="edition">CONCEPT / 04</div><div id="heading"><div id="kicker"></div><h1 id="title"></h1></div><div id="shadow"></div><div id="stage"><div id="world"><div id="floor"></div><div id="ring"></div></div></div><div id="metric"></div><div id="note"></div><div id="cta"><div class="cta-title">Jouw aanvragen.<br><em>Meer overzicht.</em></div><div class="cta-link">Probeer LeadPilot.<br>Lees het projectartikel op mccai.nl.</div><div class="cta-button">DM CLONE ↗</div></div><div id="progress"></div><div id="footer"><span>WERKENDE DEMO · GESIMULEERDE DATA</span><span>@mccai.nl</span></div>
+<script>const config={"slug":"leadpilot","name":"LeadPilot","category":"Webapp","theme":"navy","head":["Elke aanvraag.<br><em>Een volgende stap.</em>","Een helder<br><em>begin.</em>","Van interesse<br><em>naar aanvraag.</em>","Alles samen.<br><em>In overzicht.</em>","Van nieuw<br><em>naar voorstel.</em>"],"notes":["Een werkend klantportaalconcept voor aanvragen en opvolging.","De klant ziet hoe de aanvraag wordt verwerkt.","De klant beschrijft het project in één formulier.","De eigenaar ziet de aanvraag in de pipeline.","De fase wijzigt naar Voorstel; de opvolgtaak blijft zichtbaar."],"cta":"Jouw aanvragen.<br><em>Meer overzicht.</em>"};
+
+const $=s=>document.getElementById(s), clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x)),ease=x=>{x=clamp(x);return x*x*(3-2*x)},lerp=(a,b,t)=>a+(b-a)*t;
+const panels={}, dims={};
+for(const id of ['hero','detail','intake','owner','done','stats']){
+ const e=document.createElement('div');e.className='panel';e.innerHTML='<div class="face"><div class="chrome"><i></i><i></i><i></i><span>'+config.name.toLowerCase()+' / werkende conceptdemo</span></div><img src="'+id+'.png"><div class="shine"></div></div>';
+ $('world').append(e);panels[id]=e;
+}
+window.prepare=async()=>{for(const id in panels){const im=panels[id].querySelector('img');await im.decode();const aspect=im.naturalWidth/im.naturalHeight;const w=id==='hero'?900:Math.min(600,490*aspect);panels[id].style.width=w+'px';dims[id]={w,h:w/aspect+28};}};
+function panel(id,x,y,z,rx,ry,rz,s,op=1){let p=panels[id];p.style.transform='translate(-50%,-50%) translate3d('+x+'px,'+y+'px,'+z+'px) rotateX('+rx+'deg) rotateY('+ry+'deg) rotateZ('+rz+'deg) scale('+s+')';p.style.opacity=clamp(op);p.style.visibility=op<=0?'hidden':'visible';p.querySelector('.shine').style.background='linear-gradient('+(115+ry)+'deg,transparent 35%,#fff2 49%,transparent 63%)'}
+const bounds=[0,6,12,18,25,31,38],labels=[config.name.toUpperCase(),'01 / ONTDEKKEN','02 / AANVRAGEN','03 / OVERZICHT','04 / VERVOLG','GEBOUWD DOOR MCC'];
+window.render=t=>{
+for(const id in panels)panels[id].style.visibility='hidden';
+let idx=0;while(idx<5&&t>=bounds[idx+1])idx++;
+let u=(t-bounds[idx])/(bounds[idx+1]-bounds[idx]),intro=ease((t-bounds[idx])/.8),sign=config.slug.length%2?1:-1;
+$('kicker').textContent=labels[idx];$('title').innerHTML=idx<5?config.head[idx]:'Gebouwd voor<br><em>jouw onderneming.</em>';
+$('title').style.fontSize=config.slug==='leadpilot'&&idx===0?'58px':'62px';
+$('note').textContent=idx<5?config.notes[idx]:'Probeer de demo. Lees het artikel. DM CLONE.';
+$('heading').style.opacity=.35+.65*intro;$('heading').style.transform='translateY('+((1-intro)*22)+'px)';
+$('world').style.transform='rotateY('+(Math.sin(t*.16)*3)+'deg)';$('ring').style.transform='rotateX(70deg) rotateZ('+(t*8*sign)+'deg) translateZ(-180px)';
+$('progress').style.transform='scaleX('+t/38+')';$('metric').style.opacity=0;$('cta').style.opacity=0;
+if(idx===0){let k=ease(u);panel('hero',0,-10,lerp(-450,0,k),lerp(26,8,k),sign*lerp(-30,-10,k),sign*lerp(-9,-3,k),lerp(.62,.71,k));panel('detail',sign*200,160,100,8,sign*-16,sign*8,.43,ease((t-2)/1.3));panel('stats',sign*-210,230,150,12,sign*10,sign*-6,.44,ease((t-3.1)/1.2));}
+if(idx===1){panel('hero',sign*-180,90,-380,18,sign*-24,sign*-8,.65,.18);panel('detail',sign*lerp(180,0,intro),-15,lerp(-260,70,intro),lerp(22,2,intro),sign*lerp(-24,5,ease(u)),sign*lerp(9,-2,intro),1);}
+if(idx===2){panel('detail',sign*-190,80,-260,15,sign*-22,sign*-7,.7,.22);panel('intake',sign*lerp(170,0,intro),-40,lerp(-150,70,intro),8-6*u,sign*lerp(-20,4,ease(u)),sign*-2,1);}
+if(idx===3){panel('intake',sign*-130,-100,-300,16,sign*-22,sign*-6,.72,.18);panel('owner',sign*lerp(200,0,intro),-30,70,12-10*u,sign*(-9+12*u),-2,1);panel('stats',0,Math.min(280,dims.owner.h*.5+90),50,10,-4,0,.9,dims.owner.h>350?0:ease((u-.30)*3));}
+if(idx===4){const h=dims.done.h;panel('done',0,lerp(70,-45,intro),100,6,sign*(-7+10*u),sign*-1,1,intro);panel('stats',0,Math.min(280,h*.5+50),80,10,sign*-4,0,.9,h>350?0:ease((t-25.8)/.9));}
+if(idx===5){let q=ease(u);panel('hero',80,180,-100,18,sign*(-18+10*q),-5,.46,.30);panel('done',-130,220,100,10,-7,3,.42,.45);$('cta').style.opacity=intro;$('cta').style.transform='translateY('+(25*(1-intro))+'px)';}
+};
+</script>
