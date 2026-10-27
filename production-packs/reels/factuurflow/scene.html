@@ -1,0 +1,76 @@
+<!doctype html><meta charset="utf-8"><style>
+*{box-sizing:border-box}html,body{margin:0;width:720px;height:1280px;overflow:hidden;background:#071827;color:#f4efe6;font-family:Arial,sans-serif}body{background:radial-gradient(ellipse at 100% 20%,#263c4b 0%,#0c2438 35%,#071827 75%)}
+#grain{position:absolute;inset:0;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E")}
+.brand{position:absolute;left:48px;top:68px;font-size:20px;letter-spacing:3px;font-weight:bold}.brand span{color:#dea348}.edition{position:absolute;right:48px;top:73px;color:#b9b6b1;font:12px monospace;letter-spacing:2px}
+#heading{position:absolute;top:172px;left:48px;width:624px;z-index:20}#kicker{font:13px monospace;letter-spacing:3px;color:#dea348;margin-bottom:18px}h1{font-size:66px;line-height:1.02;letter-spacing:-3px;margin:0;font-weight:500}h1 em{font-family:Georgia,serif;font-weight:normal;color:#dcb189}
+#stage{position:absolute;inset:0;perspective:1700px;perspective-origin:50% 55%}
+#world{position:absolute;left:360px;top:706px;transform-style:preserve-3d}
+.panel{position:absolute;left:0;top:0;transform-style:preserve-3d;backface-visibility:hidden}
+.face{position:relative;border:1px solid #ac8b67;border-radius:12px;overflow:hidden;background:#f4efe6;box-shadow:0 35px 80px #0008,0 1px 2px #fff6}
+.face img{display:block;width:100%;height:auto}.panel:before{content:"";position:absolute;inset:0;border-radius:12px;background:#6e553e;transform:translateZ(-9px);box-shadow:0 0 0 3px #76634e}
+.chrome{height:28px;background:#e8e3db;color:#776b60;display:flex;align-items:center;gap:5px;padding:0 12px;font-size:9px}.chrome i{height:4px;width:4px;border-radius:50%;background:#bcae9c}.chrome span{margin-left:12px}
+.shine{position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,#fff3 48%,transparent 66%);pointer-events:none;mix-blend-mode:screen}
+#floor{position:absolute;width:1600px;height:1300px;left:-800px;top:220px;background:repeating-linear-gradient(0deg,transparent 0 99px,#c9782b16 100px 101px),repeating-linear-gradient(90deg,transparent 0 99px,#c9782b16 100px 101px);transform:rotateX(82deg);transform-origin:top;mask-image:radial-gradient(ellipse,#000,transparent 65%)}
+#ring{position:absolute;width:900px;height:900px;border:1px solid #c9782b50;border-radius:50%;left:-450px;top:-450px;transform:rotateX(70deg) translateZ(-180px)}
+#shadow{position:absolute;left:90px;top:990px;width:540px;height:65px;background:#000;filter:blur(30px);opacity:.6;border-radius:50%}
+#note{position:absolute;left:48px;top:1080px;width:605px;z-index:30;font-size:24px;line-height:1.35;color:#d8cfc1}
+#footer{position:absolute;left:48px;right:48px;bottom:64px;border-top:1px solid #d8cfc12a;padding-top:17px;display:flex;justify-content:space-between;font-size:12px;color:#b1b5b8}
+#progress{position:absolute;left:48px;bottom:118px;height:2px;background:#dea348;transform-origin:left;width:624px}
+#metric{position:absolute;top:928px;left:48px;z-index:25;font-family:Georgia,serif;font-size:73px;color:#dea348;letter-spacing:-2px}#metric small{display:block;font:12px monospace;letter-spacing:2px;margin-top:8px;color:#d8cfc1}
+#cta{position:absolute;left:48px;top:400px;z-index:40;opacity:0;width:624px}.cta-title{font:64px/1.04 Georgia,serif;letter-spacing:-2px}.cta-title em{color:#dea348}.cta-link{margin-top:32px;font-size:21px;color:#d8cfc1;line-height:1.6}.cta-button{display:inline-block;background:#dea348;color:#071827;padding:20px 28px;margin-top:30px;font-size:28px;font-weight:bold;border-radius:3px}
+</style><div id="grain"></div><div class="brand">MCC <span>AI</span></div><div class="edition">CONCEPT / 02</div><div id="heading"><div id="kicker"></div><h1 id="title"></h1></div><div id="shadow"></div><div id="stage"><div id="world"><div id="floor"></div><div id="ring"></div></div></div><div id="metric"></div><div id="note"></div><div id="cta"><div class="cta-title">Jouw proces.<br><em>Meer controle.</em></div><div class="cta-link">Probeer FactuurFlow.<br>Lees het projectartikel op mccai.nl.</div><div class="cta-button">DM CLONE ↗</div></div><div id="progress"></div><div id="footer"><span>WERKENDE DEMO · GESIMULEERDE DATA</span><span>@mccai.nl</span></div>
+<script>
+const $=s=>document.getElementById(s), clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x)),ease=x=>{x=clamp(x);return x*x*(3-2*x)},lerp=(a,b,t)=>a+(b-a)*t;
+const defs=[['hero',900],['intake',480],['discrepancy',510],['correction',640],['checked',640],['approved',640],['stats',650],['audit',650]];
+const panels={};for(const [id,w]of defs){let e=document.createElement('div');e.className='panel';e.style.width=w+'px';e.innerHTML='<div class="face"><div class="chrome"><i></i><i></i><i></i><span>factuurflow / werkende conceptdemo</span></div><img src="'+id+'.png"><div class="shine"></div></div>'; $('world').append(e);panels[id]=e}
+function panel(id,x,y,z,rx,ry,rz,s,op=1){let p=panels[id];p.style.transform='translate(-50%,-50%) translate3d('+x+'px,'+y+'px,'+z+'px) rotateX('+rx+'deg) rotateY('+ry+'deg) rotateZ('+rz+'deg) scale('+s+')';p.style.opacity=clamp(op);p.style.visibility=op<=0?'hidden':'visible';p.querySelector('.shine').style.background='linear-gradient('+(115+ry)+'deg,transparent 35%,#fff2 49%,transparent 63%)'}
+const beats=[
+[0,6,'FACTUUR / FLOW','De factuur.<br><em>In beweging.</em>','Een werkend concept voor intake, controle en beoordeling.'],
+[6,12,'01 / INTAKE','Van document<br><em>naar inzicht.</em>','Een fictieve leveranciersfactuur gaat de workflow in.'],
+[12,18,'02 / CONTROLE','Het verschil.<br><em>Direct zichtbaar.</em>','De demo rekent na en markeert het afwijkende totaal.'],
+[18,25,'03 / BEOORDELING','Jij houdt<br><em>de regie.</em>','De eigenaar corrigeert en controleert vóór goedkeuring.'],
+[25,31,'04 / GOEDKEURING','Gecontroleerd.<br><em>Vastgelegd.</em>','De status en het auditlog worden bijgewerkt.'],
+[31,38,'GEBOUWD DOOR MCC','Automatisering.<br><em>Met aandacht.</em>','Demo + artikel beschikbaar. Vraag MCC om jouw versie.']
+];
+window.render=t=>{
+for(const id in panels)panels[id].style.visibility='hidden';
+const idx=beats.findIndex(b=>t>=b[0]&&t<b[1]),b=beats[Math.max(0,idx)],u=(t-b[0])/(b[1]-b[0]),intro=ease((t-b[0])/.75);
+$('kicker').textContent=b[2];$('title').innerHTML=b[3];$('note').textContent=b[4];
+$('heading').style.opacity=.35+.65*intro;$('heading').style.transform='translateY('+((1-intro)*22)+'px)';
+$('world').style.transform='rotateY('+(Math.sin(t*.16)*3)+'deg)';
+$('ring').style.transform='rotateX(70deg) rotateZ('+(t*8)+'deg) translateZ(-180px)';
+$('progress').style.transform='scaleX('+t/38+')';$('metric').style.opacity=0;$('cta').style.opacity=0;
+if(idx===0){
+const k=ease(u);panel('hero',0,-10,lerp(-450,0,k),lerp(26,8,k),lerp(-30,-10,k),lerp(-9,-3,k),lerp(.62,.71,k));
+panel('discrepancy',220,165,90,8,-16,8,.41,ease((t-2.0)/1.3));panel('stats',-220,220,170,12,10,-6,.48,ease((t-3.1)/1.2));
+}
+if(idx===1){
+panel('hero',-210,70,-380,18,-24,-8,.65,.22);
+panel('intake',lerp(180,-25,intro),-18,lerp(-260,70,intro),lerp(22,2,intro),lerp(-34,-6,ease(u)),lerp(9,-2,intro),.94);
+}
+if(idx===2){
+panel('intake',-180,60,-260,15,-22,-7,.7,.32);
+panel('discrepancy',lerp(170,0,intro),-60,lerp(-100,100,intro),8-6*u,lerp(-20,4,ease(u)),-2,.98);
+$('metric').innerHTML='€ 79,65<small>VERSCHIL IN DIT FICTIEVE VOORBEELD</small>';$('metric').style.opacity=ease((u-.18)*4);
+}
+if(idx===3){
+panel('discrepancy',-120,-110,-300,16,-22,-6,.72,.25);
+const change=ease((t-21.7)/.85);
+panel('correction',lerp(220,0,intro),-50-45*change,50,12-10*u,-9+12*u,-2,.91,1-change);
+panel('checked',0,100*(1-change)-50,100,6-5*change,8*(1-change),0,.91,change);
+$('metric').innerHTML='€ 405,35<small>HERBEREKEND · DOOR EIGENAAR BEOORDEELD</small>';$('metric').style.opacity=ease((u-.3)*3);
+}
+if(idx===4){
+panel('approved',0,lerp(-120,-165,intro),100,6,-7+10*u,-1,.9,intro);
+panel('stats',0,70,160,10,-4,0,.9,ease((t-25.5)/.9));
+panel('audit',0,245,80,10,3,1,.9,ease((t-26.2)/.9));
+}
+if(idx===5){
+let q=ease(u);panel('hero',80,180,-100,18,-18+10*q,-5,.46,.30);
+panel('approved',-130,220,100,10,-7,3,.42,.45);
+$('cta').style.opacity=intro;$('cta').style.transform='translateY('+(25*(1-intro))+'px)';
+$('note').style.opacity=1;
+}
+};
+render(0);
+</script>
