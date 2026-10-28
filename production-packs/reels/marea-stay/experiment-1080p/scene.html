@@ -1,0 +1,128 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600;700&display=swap');
+*{box-sizing:border-box}html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#071827;color:#f4efe6}
+canvas{display:block;position:absolute;inset:0}body{font-family:Inter,sans-serif}
+#veil{position:absolute;inset:0;background:linear-gradient(#07182795,#071827b0 25%,transparent 40%,transparent 65%,#071827d9);pointer-events:none}
+#brand{position:absolute;left:76px;top:78px;font:600 30px Inter;letter-spacing:5px}#brand b{color:#dea348;font-weight:500}#tag{position:absolute;right:76px;top:88px;font:14px Inter;letter-spacing:3px}
+#copy{position:absolute;top:210px;left:76px;right:76px}#eyebrow{font:500 17px Inter;letter-spacing:5px;color:#e5b98b;margin-bottom:26px}h1{margin:0;font:400 104px/.99 Fraunces,serif;letter-spacing:-5px;text-shadow:0 4px 35px #0004}h1 em{font-weight:400;color:#e8c29a}
+#bottom{position:absolute;left:76px;right:76px;bottom:190px;font:400 28px/1.5 Inter;max-width:800px}
+#footer{position:absolute;bottom:80px;left:76px;right:76px;display:flex;justify-content:space-between;font:12px Inter;letter-spacing:2px;color:#d8cfc1}
+#bar{position:absolute;left:76px;bottom:134px;width:928px;height:2px;background:#b9976a60}#bar span{display:block;height:2px;background:#dea348;transform-origin:left}
+#flash{position:absolute;inset:0;background:#f4efe6;opacity:0;pointer-events:none}
+#chapter{position:absolute;right:75px;bottom:260px;font:400 120px Fraunces;color:#e7c8a930}
+</style></head><body>
+<div id="veil"></div><div id="brand">MCC <b>AI</b></div><div id="tag">MAREA / MOTION STUDY 01</div>
+<div id="copy"><div id="eyebrow"></div><h1></h1></div><div id="bottom"></div><div id="chapter"></div>
+<div id="bar"><span></span></div><div id="footer"><span>CINEMATISCHE VISUALISATIE · WERKENDE CONCEPTDEMO</span><span>@mccai.nl</span></div><div id="flash"></div>
+<script type="module">
+import * as T from './node_modules/three/build/three.module.js';
+const W=1080,H=1920;const R=new T.WebGLRenderer({antialias:true,alpha:false,preserveDrawingBuffer:true});R.setSize(W,H);R.setPixelRatio(1);R.outputColorSpace=T.SRGBColorSpace;R.toneMapping=T.ACESFilmicToneMapping;R.toneMappingExposure=1.15;document.body.prepend(R.domElement);
+const S=new T.Scene();S.background=new T.Color('#071827');S.fog=new T.FogExp2('#071827',.025);
+const C=new T.PerspectiveCamera(42,W/H,.05,150);C.position.set(0,1,9);C.lookAt(0,0,0);
+S.add(new T.HemisphereLight('#f4efe6','#183040',2.1));
+const key=new T.DirectionalLight('#ffe1bd',4);key.position.set(4,7,6);S.add(key);
+const fill=new T.DirectionalLight('#d8e6e9',2);fill.position.set(-5,1,3);S.add(fill);
+const rim=new T.PointLight('#dea348',30,35,2);rim.position.set(0,3,-3);S.add(rim);
+const gold=new T.MeshStandardMaterial({color:'#c9a475',metalness:.85,roughness:.24});
+const stone=new T.MeshStandardMaterial({color:'#b8a58e',roughness:.7});
+const navy=new T.MeshStandardMaterial({color:'#102b3a',metalness:.55,roughness:.23});
+const loader=new T.TextureLoader();const textures={};
+for(const n of ['hero','detail','intake','owner','done','stats','confirmation','coast','suite','pool','terrace']){
+ const tex=await loader.loadAsync(n+(['coast','suite','pool','terrace'].includes(n)?'.webp':'.png'));tex.colorSpace=T.SRGBColorSpace;tex.anisotropy=R.capabilities.getMaxAnisotropy();textures[n]=tex;
+}
+function mat(tex){return new T.MeshBasicMaterial({map:tex,side:T.DoubleSide,toneMapped:false});}
+function box(w,h,d,material){return new T.Mesh(new T.BoxGeometry(w,h,d),material);}
+function frame(w,h,d=.1){const g=new T.Group();for(const [x,y,a,b] of [[-w/2,0,.035,h],[w/2,0,.035,h],[0,h/2,w,.035],[0,-h/2,w,.035]]){let b1=box(a,b,d,gold);b1.position.set(x,y,0);g.add(b1);}return g;}
+function panel(name,w,h){const tex=textures[name];h=h||w*tex.image.height/tex.image.width;const g=new T.Group();const back=box(w+.05,h+.05,.07,navy);g.add(back);const p=new T.Mesh(new T.PlaneGeometry(w,h),mat(tex));p.position.z=.043;g.add(p);g.add(frame(w+.04,h+.04,.08));g.userData={w,h};return g;}
+const world=new T.Group();S.add(world);const panels={};for(const [n,w] of [['hero',4.4],['detail',1.8],['intake',3.8],['owner',4.3],['done',4.3],['stats',3.8],['confirmation',2.6],['suite',2.8],['pool',2.7],['terrace',3.2]]){panels[n]=panel(n,w);world.add(panels[n]);}
+const env=textures.coast.clone();env.mapping=T.EquirectangularReflectionMapping;S.environment=env;S.environmentIntensity=.35;
+const archShape=new T.Shape();archShape.moveTo(-2.5,-3.5);archShape.lineTo(-2.5,1.0);archShape.absarc(0,1,2.5,Math.PI,0,true);archShape.lineTo(2.5,-3.5);archShape.lineTo(2.22,-3.5);archShape.lineTo(2.22,1);archShape.absarc(0,1,2.22,0,Math.PI,false);archShape.lineTo(-2.22,-3.5);archShape.closePath();const archGeo=new T.ExtrudeGeometry(archShape,{depth:.35,bevelEnabled:true,bevelThickness:.035,bevelSize:.035,bevelSegments:3,steps:1,curveSegments:48});
+const arches=[];for(let i=0;i<5;i++){let a=new T.Mesh(archGeo,stone);S.add(a);arches.push(a);}
+const portals=[];for(let i=0;i<9;i++){const p=frame(4.5,7.1,.18);S.add(p);portals.push(p);}
+const orb=new T.Group();S.add(orb);for(let i=0;i<3;i++){const ring=new T.Mesh(new T.TorusGeometry(2.7+i*.22,.014,8,100),gold);ring.rotation.set(.9+i*.3,.3*i,.3*i);orb.add(ring);}
+const pedestals=[];for(let i=0;i<7;i++){const b=box(4.5-i*.25,.12,3.5-i*.2,stone);b.position.set(0,-2.75+i*.12,0);S.add(b);pedestals.push(b);}
+const waterG=new T.PlaneGeometry(90,90,90,90);waterG.rotateX(-Math.PI/2);
+const water=new T.Mesh(waterG,new T.MeshStandardMaterial({color:'#123d46',metalness:.65,roughness:.19}));water.position.y=-3.2;S.add(water);
+const pos=waterG.attributes.position,base=Float32Array.from(pos.array);
+const horizon=new T.Mesh(new T.PlaneGeometry(70,40),mat(textures.coast));horizon.position.set(0,7,-30);S.add(horizon);
+const slices=new T.Group();world.add(slices);const sliceItems=[];
+for(let i=0;i<12;i++){const tex=textures.hero.clone();tex.repeat.set(1,1/12);tex.offset.set(0,1-(i+1)/12);const p=new T.Mesh(new T.PlaneGeometry(4.4,3.3/12+.003),mat(tex));slices.add(p);sliceItems.push(p);}
+const dustGeo=new T.BufferGeometry();let arr=[];for(let i=0;i<90;i++){const r=(Math.sin(i*196.13)*437.5)%1;arr.push(Math.sin(i*31.3)*12,Math.cos(i*17.8)*8,Math.sin(i*2.13)*15-4);}dustGeo.setAttribute('position',new T.Float32BufferAttribute(arr,3));const dust=new T.Points(dustGeo,new T.PointsMaterial({color:'#c6a779',size:.012,transparent:true,opacity:.55}));S.add(dust);
+const trail=new T.Group();world.add(trail);for(let i=0;i<30;i++){let b=box(.016,.016,.1,gold);trail.add(b);}
+const pointer=new T.Mesh(new T.TorusGeometry(.13,.025,10,36),new T.MeshBasicMaterial({color:'#dea348'}));world.add(pointer);
+const clamp=x=>Math.max(0,Math.min(1,x)),e=x=>{x=clamp(x);return x*x*x*(x*(x*6-15)+10)},mix=(a,b,u)=>a+(b-a)*u;
+function set(n,x,y,z,rx,ry,rz,s=1){let p=panels[n];p.visible=true;p.position.set(x,y,z);p.rotation.set(rx,ry,rz);p.scale.setScalar(s);}
+function cam(x,y,z,lx=0,ly=0,lz=0){C.position.set(x,y,z);C.lookAt(lx,ly,lz);}
+const titles=[
+['DIGITAL CRAFT / MAREA STAY','Een website.<br><em>Een wereld.</em>','Van eerste indruk naar een plek waar je wilt zijn.'],
+['01 / ONTVOUWEN','Breek uit<br><em>het kader.</em>','Een echte hotelwebsite, opnieuw in beweging gebracht.'],
+['02 / ONTDEKKEN','Stap<br><em>naar binnen.</em>','De Dune Suite. Details die verlangen oproepen.'],
+['03 / RESERVEREN','Van kijken.<br><em>Naar boeken.</em>','Kies je verblijf. Bekijk de prijs. Bevestig in de demo.'],
+['04 / ACHTER DE SCHERMEN','De gast boekt.<br><em>Jij houdt grip.</em>','Een reservering. Direct zichtbaar voor de eigenaar.'],
+['GEBOUWD DOOR MCC','Jouw website.<br><em>Een andere dimensie.</em>','Ervaar Marea Stay op mccai.nl · DM CLONE']
+];
+window.render=(t)=>{
+ const cuts=[0,5,11,17,23,29,36];let k=0;while(k<5&&t>=cuts[k+1])k++;let u=(t-cuts[k])/(cuts[k+1]-cuts[k]),q=e(u),v=e((t-cuts[k])/.65);
+ for(const p of Object.values(panels))p.visible=false;slices.visible=false;pointer.visible=false;trail.visible=false;
+ for(const p of portals)p.visible=false;for(const a of arches)a.visible=false;orb.visible=false;pedestals.forEach(p=>p.visible=false);water.visible=k<3||k===5;horizon.visible=k<3||k===5;
+ world.rotation.set(0,0,0);world.position.set(0,-.38,0);world.scale.setScalar(1);S.fog.density=k===3||k===4?.015:.025;
+ R.toneMappingExposure=1.15;
+ for(let i=0;i<pos.count;i++){const x=base[i*3],z=base[i*3+2];pos.setY(i,.045*Math.sin(x*1.3+t*1.5)+.025*Math.cos(z*1.8+t*.9));}pos.needsUpdate=true;waterG.computeVertexNormals();dust.rotation.y=t*.017;
+ document.querySelector('#eyebrow').textContent=titles[k][0];document.querySelector('h1').innerHTML=titles[k][1];document.querySelector('#bottom').textContent=titles[k][2];document.querySelector('#chapter').textContent=('0'+(k+1)).slice(-2);
+ document.querySelector('#copy').style.transform='translateY('+(22*(1-v))+'px)';document.querySelector('#copy').style.opacity=.3+.7*v;document.querySelector('#bar span').style.transform='scaleX('+clamp(t/36)+')';
+ document.querySelector('#flash').style.opacity=0;
+ if(k===0){
+  cam(mix(-.5,.15,q),mix(.4,.15,q),mix(17,8.7,q),0,.1,0);
+  set('hero',0,-.35,0,.02,mix(-.24,.07,q),-.02,.86);
+  arches.forEach((a,i)=>{a.visible=true;a.position.set(0,-.4,-i*4.5-1);a.rotation.y=.05*Math.sin(t*.2+i);});
+  portals.forEach((p,i)=>{p.visible=i%2===0;p.position.set(Math.sin(i*.3+t*.15)*.25,-.2,-i*3.4+mix(6,-1,q));p.rotation.z=.05*Math.sin(t*.35+i*.2);p.scale.setScalar(1+i*.03);});
+  set('suite',mix(-2.8,-1.8,q),-.6,1.1,-.03,.2,-.12,.6);set('pool',mix(3.2,2,q),-.2,-.1,.02,-.2,.1,.6);
+ }
+ if(k===1){
+  cam(mix(.2,1.2,q),mix(.2,.65,q),mix(9.4,8.7,q),0,-.25,0);
+  slices.visible=true;slices.scale.setScalar(.8);const explode=Math.sin(Math.PI*e(u));
+  sliceItems.forEach((p,i)=>{const z=explode*(.5+Math.sin(i*.5)*1.5);p.position.set(Math.sin(i*.65+t*.3)*explode*.32,.0+1.65-(i+.5)*3.3/12,z);p.rotation.set(explode*.06*Math.cos(i),explode*.14*Math.sin(i*.5),explode*.025*Math.cos(i));});
+  set('detail',mix(-3.2,-1.65,q),-.65,1.3,0,mix(.6,.15,q),-.08,.64);set('terrace',mix(3.3,1.75,q),.2,-.4,0,-.25,.08,.58);set('intake',0,-1.65,1.35,.05,-.04,0,.68);
+  orb.visible=true;orb.position.set(0,-.2,-.8);orb.rotation.set(.2,t*.15,.1);
+  portals[0].visible=true;portals[0].position.set(0,-.15,-1.8);portals[0].scale.setScalar(1.15);portals[0].rotation.z=-.07;
+ }
+ if(k===2){
+  cam(mix(-.5,.55,q),.3,mix(8.7,8.2,q),0,0,0);
+  set('detail',mix(2.8,mix(.15,-.5,q),e(u*3)),mix(-.6,-.1,e(u*3)),mix(2.5,.8,e(u*3)),0,mix(-1.1,.08,e(u*3)),-.025,.95);
+  set('suite',mix(3.7,1.6,e(u*2)),.45,mix(3,-.7,e(u*2)),0,-.32,.06,.78);set('pool',-2.25,-.25,-1.5,0,.3,-.09,.65);set('terrace',1.8,-1.9,-.3,.1,-.22,.02,.65);
+  pedestals.forEach(p=>p.visible=true);
+  portals[0].visible=true;portals[0].position.set(0,0,-2.1);portals[0].rotation.set(0,.06,.02);portals[0].scale.setScalar(.9);
+ }
+ if(k===3){
+  cam(mix(.75,-.3,q),.1,mix(9.4,8.6,q),0,0,0);
+  set('detail',-1.1,.25,-1.5,.03,.22,-.04,.8);
+  set('confirmation',mix(2.7,.65,v),-.1,.8,0,mix(-.32,.05,q),.025,.94);
+  set('intake',0,-1.8,1.35,.1,-.05,-.025,.7);
+  set('hero',0,.2,-4,0,.06,0,1.5);
+  pointer.visible=u<.5;pointer.position.set(.9,-1.74,1.43);pointer.scale.setScalar(.8+.22*Math.sin(t*6));
+  trail.visible=true;trail.children.forEach((b,i)=>{let a=(i/30+t*.25)%1;b.position.set(-1.1+1.8*a,Math.sin(a*Math.PI)*.7-1.25,1.2);b.rotation.z=Math.sin(a*Math.PI)*.5;});
+ }
+ if(k===4){
+  cam(mix(-.4,.3,q),mix(.2,.1,q),mix(10.2,9.3,q),0,-.15,0);
+  const done=u>.53;
+  set(done?'done':'owner',mix(-2.8,0,e(u*4)),-.05,mix(2.5,.5,e(u*4)),mix(.5,.03,e(u*4)),mix(-.75,mix(-.15,.05,q),e(u*4)),-.015,.85);
+  set('stats',0,1.4,-.5,.05,-.04,.015,.72);
+  set('confirmation',-2,-1.35,-1.7,.05,.35,-.1,.55);
+  portals[0].visible=true;portals[0].position.set(0,-.1,-2);portals[0].rotation.set(.03,-.1,-.04);portals[0].scale.setScalar(1.0);
+  if(done){document.querySelector('#bottom').textContent='De eigenaar bevestigt de check-in. Het overzicht blijft actueel.';}
+  pointer.visible=u>.35&&u<.64;pointer.position.set(1.5,-.35,1.0);pointer.scale.setScalar(1+.18*Math.sin(t*8));
+ }
+ if(k===5){
+  cam(mix(.8,0,q),mix(.4,.1,q),mix(9.4,10.3,q),0,-.5,0);
+  set('hero',0,-.55,0,0,mix(.2,0,q),0,.88);
+  set('detail',mix(-2.2,-1.25,q),-1,1.2,0,.15,-.07,.62);
+  set('done',mix(2.9,1.4,q),-1.5,.5,.04,-.22,.05,.43);
+  arches.forEach((a,i)=>{a.visible=true;a.position.set(0,-.5,-i*4-1);});
+  portals.forEach((p,i)=>{p.visible=i<3;p.position.set(0,-.3,-i*2.8-1);p.scale.setScalar(1+i*.02);p.rotation.set(0,0,.045*Math.sin(t*.3+i));});
+  orb.visible=true;orb.position.set(0,-.7,-.6);orb.rotation.set(.5,t*.1,0);
+  document.querySelector('h1').style.fontSize='94px';
+ }else document.querySelector('h1').style.fontSize='104px';
+ R.render(S,C);
+};
+window.ready=true;window.render(0);
+</script></body></html>
