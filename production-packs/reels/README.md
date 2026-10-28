@@ -1,3 +1,5 @@
+> **Current status — 28 October 2026:** All eight Reels now have embedded licensed music and are scheduled alongside sixteen carousels on Instagram and Facebook, 28 October–4 November. [Final videos, music details and confirmed schedule](../SCHEDULED.md). The silent review assets and approval notes below are historical.
+
 # MCC — eight spatial Reel review cuts
 
 All cuts are 38 seconds, vertical 720×1280 at 30fps. These are **silent visual reviews**, not scheduled or published posts. The owner praised FactuurFlow's visual direction and authorized the remaining production. Each new cut still needs individual review. Music remains pending licensed platform selection.

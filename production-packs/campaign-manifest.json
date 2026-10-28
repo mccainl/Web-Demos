@@ -1,8 +1,11 @@
 {
   "campaign_id": "2026-10-26-eight-day-campaign",
-  "updated_at": "2026-10-27",
+  "updated_at": "2026-10-28",
   "timezone": "Europe/Amsterdam",
-  "calendar_dates": null,
+  "calendar_dates": {
+    "start": "2026-10-28",
+    "end": "2026-11-04"
+  },
   "cadence": [
     "12:00",
     "15:00",
@@ -13,8 +16,8 @@
     40
   ],
   "reel_resolution": "720p",
-  "scheduling_authorized": false,
-  "audio_plan": "Licensed Instagram/Metricool music selected at publication; no separate paid music or voiceover authorized.",
+  "scheduling_authorized": true,
+  "audio_plan": "Owner approved free commercially licensed stock music embedded in all eight Reels; Mixkit Stock Music Free License. No paid audio generation.",
   "projects": [
     {
       "day": 1,
@@ -25,17 +28,53 @@
       "demo_and_blog_status": "live-verified",
       "carousel_pack": "production-packs/carousels/MCC_Carousels_marea-stay_2posts.zip",
       "captions": "production-packs/review-captions/marea-stay-carousels-captions.md",
-      "carousel_status": "awaiting-owner-review",
-      "reel_status": "spatial-visual-review-cut-ready",
-      "reel_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3IDQioFnKEdiBTSpvyKkSdi5fp9/84a789db-6bbf-48bb-aeec-362546c7ab3a.mp4",
-      "owner_approval": null,
-      "instagram_status": "draft",
-      "facebook_status": "draft",
+      "carousel_status": "scheduled",
+      "reel_status": "scheduled",
+      "reel_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3IDQioFnKEdiBTSpvyKkSdi5fp9/f9db8ec7-8d83-4f7d-9012-1be2814d4ff5.mp4",
+      "owner_approval": {
+        "scheduling": true,
+        "scope": "All eight Reels and sixteen carousels on Instagram and Facebook, with music; owner instructed to schedule everything and subsequently approved browser-free workflow.",
+        "date": "2026-10-28"
+      },
+      "instagram_status": "scheduled",
+      "facebook_status": "scheduled",
       "owner_feedback": "New instruction authorizes spatial remake; retain original as history.",
       "previous_reel_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3IDQioFnKEdiBTSpvyKkSdi5fp9/83f53823-695e-43af-b8af-2edd6d070511.mp4",
-      "reel_media_id": "84a789db-6bbf-48bb-aeec-362546c7ab3a",
+      "reel_media_id": "f9db8ec7-8d83-4f7d-9012-1be2814d4ff5",
       "reel_duration_seconds": 38,
-      "audio_status": "silent-review-platform-music-pending"
+      "audio_status": "embedded-licensed-music",
+      "previous_silent_reel_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3IDQioFnKEdiBTSpvyKkSdi5fp9/84a789db-6bbf-48bb-aeec-362546c7ab3a.mp4",
+      "audio_track": {
+        "title": "Hazy After Hours",
+        "artist": "Alejandro Magaña (A. M.)",
+        "source_url": "https://assets.mixkit.co/music/132/132.mp3",
+        "license_url": "https://mixkit.co/license/modal/musicFree/",
+        "start_seconds": 8,
+        "edit_duration_seconds": 38
+      },
+      "posts": [
+        {
+          "id": 408644058,
+          "uuid": "1082408212617249347",
+          "scheduled_at": "2026-10-28T12:00:00+01:00",
+          "kind": "carousel",
+          "planner_url": "https://app.metricool.com/planner/calendar?blogId=7558005&openWithPostUuid=1082408212617249347"
+        },
+        {
+          "id": 408644201,
+          "uuid": "-1759513764420894474",
+          "scheduled_at": "2026-10-28T15:00:00+01:00",
+          "kind": "reel",
+          "planner_url": "https://app.metricool.com/planner/calendar?blogId=7558005&openWithPostUuid=-1759513764420894474"
+        },
+        {
+          "id": 408644363,
+          "uuid": "2690457529079842314",
+          "scheduled_at": "2026-10-28T18:00:00+01:00",
+          "kind": "carousel",
+          "planner_url": "https://app.metricool.com/planner/calendar?blogId=7558005&openWithPostUuid=2690457529079842314"
+        }
+      ]
     },
     {
       "day": 2,
@@ -46,19 +85,52 @@
       "demo_and_blog_status": "live-verified",
       "carousel_pack": "production-packs/carousels/MCC_Carousels_factuurflow_2posts.zip",
       "captions": "production-packs/review-captions/factuurflow-carousels-captions.md",
-      "carousel_status": "awaiting-owner-review",
-      "reel_status": "visual-direction-approved",
-      "reel_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3IDQioFnKEdiBTSpvyKkSdi5fp9/e269cf9a-0431-4700-a5b0-d9d189318627.mp4",
+      "carousel_status": "scheduled",
+      "reel_status": "scheduled",
+      "reel_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3IDQioFnKEdiBTSpvyKkSdi5fp9/1d461657-acf9-4058-86f5-4254a1afadea.mp4",
       "owner_approval": {
-        "visual_direction": true,
-        "scheduling": false
+        "scheduling": true,
+        "scope": "All eight Reels and sixteen carousels on Instagram and Facebook, with music; owner instructed to schedule everything and subsequently approved browser-free workflow.",
+        "date": "2026-10-28"
       },
-      "instagram_status": "draft",
-      "facebook_status": "draft",
+      "instagram_status": "scheduled",
+      "facebook_status": "scheduled",
       "owner_feedback": "Much much better; use this direction to remake Marea and finish the rest.",
-      "reel_media_id": "e269cf9a-0431-4700-a5b0-d9d189318627",
+      "reel_media_id": "1d461657-acf9-4058-86f5-4254a1afadea",
       "reel_duration_seconds": 38,
-      "audio_status": "silent-review-platform-music-pending"
+      "audio_status": "embedded-licensed-music",
+      "previous_silent_reel_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3IDQioFnKEdiBTSpvyKkSdi5fp9/e269cf9a-0431-4700-a5b0-d9d189318627.mp4",
+      "audio_track": {
+        "title": "Tech House vibes",
+        "artist": "Alejandro Magaña (A. M.)",
+        "source_url": "https://assets.mixkit.co/music/130/130.mp3",
+        "license_url": "https://mixkit.co/license/modal/musicFree/",
+        "start_seconds": 8,
+        "edit_duration_seconds": 38
+      },
+      "posts": [
+        {
+          "id": 408644380,
+          "uuid": "-1036185239585930784",
+          "scheduled_at": "2026-10-29T12:00:00+01:00",
+          "kind": "carousel",
+          "planner_url": "https://app.metricool.com/planner/calendar?blogId=7558005&openWithPostUuid=-1036185239585930784"
+        },
+        {
+          "id": 408644398,
+          "uuid": "8190690301929866911",
+          "scheduled_at": "2026-10-29T15:00:00+01:00",
+          "kind": "reel",
+          "planner_url": "https://app.metricool.com/planner/calendar?blogId=7558005&openWithPostUuid=8190690301929866911"
+        },
+        {
+          "id": 408644410,
+          "uuid": "-3985971220634975371",
+          "scheduled_at": "2026-10-29T18:00:00+01:00",
+          "kind": "carousel",
+          "planner_url": "https://app.metricool.com/planner/calendar?blogId=7558005&openWithPostUuid=-3985971220634975371"
+        }
+      ]
     },
     {
       "day": 3,
@@ -69,15 +141,51 @@
       "demo_and_blog_status": "live-verified",
       "carousel_pack": "production-packs/carousels/MCC_Carousels_haven-interiors_2posts.zip",
       "captions": "production-packs/review-captions/haven-interiors-carousels-captions.md",
-      "carousel_status": "awaiting-owner-review",
-      "reel_status": "spatial-visual-review-cut-ready",
-      "reel_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3IDQioFnKEdiBTSpvyKkSdi5fp9/3250ab6a-90f7-46ca-bff3-4dd6e53a2e83.mp4",
-      "owner_approval": null,
-      "instagram_status": "draft",
-      "facebook_status": "draft",
-      "reel_media_id": "3250ab6a-90f7-46ca-bff3-4dd6e53a2e83",
+      "carousel_status": "scheduled",
+      "reel_status": "scheduled",
+      "reel_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3IDQioFnKEdiBTSpvyKkSdi5fp9/19c24760-b367-4877-a221-60c4d24f18b8.mp4",
+      "owner_approval": {
+        "scheduling": true,
+        "scope": "All eight Reels and sixteen carousels on Instagram and Facebook, with music; owner instructed to schedule everything and subsequently approved browser-free workflow.",
+        "date": "2026-10-28"
+      },
+      "instagram_status": "scheduled",
+      "facebook_status": "scheduled",
+      "reel_media_id": "19c24760-b367-4877-a221-60c4d24f18b8",
       "reel_duration_seconds": 38,
-      "audio_status": "silent-review-platform-music-pending"
+      "audio_status": "embedded-licensed-music",
+      "previous_silent_reel_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3IDQioFnKEdiBTSpvyKkSdi5fp9/3250ab6a-90f7-46ca-bff3-4dd6e53a2e83.mp4",
+      "audio_track": {
+        "title": "Serene View",
+        "artist": "Arulo",
+        "source_url": "https://assets.mixkit.co/music/443/443.mp3",
+        "license_url": "https://mixkit.co/license/modal/musicFree/",
+        "start_seconds": 8,
+        "edit_duration_seconds": 38
+      },
+      "posts": [
+        {
+          "id": 408644422,
+          "uuid": "-7331002017601928482",
+          "scheduled_at": "2026-10-30T12:00:00+01:00",
+          "kind": "carousel",
+          "planner_url": "https://app.metricool.com/planner/calendar?blogId=7558005&openWithPostUuid=-7331002017601928482"
+        },
+        {
+          "id": 408644431,
+          "uuid": "5210872728757420470",
+          "scheduled_at": "2026-10-30T15:00:00+01:00",
+          "kind": "reel",
+          "planner_url": "https://app.metricool.com/planner/calendar?blogId=7558005&openWithPostUuid=5210872728757420470"
+        },
+        {
+          "id": 408644443,
+          "uuid": "-6518045727517424252",
+          "scheduled_at": "2026-10-30T18:00:00+01:00",
+          "kind": "carousel",
+          "planner_url": "https://app.metricool.com/planner/calendar?blogId=7558005&openWithPostUuid=-6518045727517424252"
+        }
+      ]
     },
     {
       "day": 4,
@@ -88,15 +196,51 @@
       "demo_and_blog_status": "live-verified",
       "carousel_pack": "production-packs/carousels/MCC_Carousels_leadpilot_2posts.zip",
       "captions": "production-packs/review-captions/leadpilot-carousels-captions.md",
-      "carousel_status": "awaiting-owner-review",
-      "reel_status": "spatial-visual-review-cut-ready",
-      "reel_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3IDQioFnKEdiBTSpvyKkSdi5fp9/a9497d99-90fe-4764-bfb5-7563a760ae56.mp4",
-      "owner_approval": null,
-      "instagram_status": "draft",
-      "facebook_status": "draft",
-      "reel_media_id": "a9497d99-90fe-4764-bfb5-7563a760ae56",
+      "carousel_status": "scheduled",
+      "reel_status": "scheduled",
+      "reel_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3IDQioFnKEdiBTSpvyKkSdi5fp9/129d1018-8bcb-4f6f-8959-8956f834cc9a.mp4",
+      "owner_approval": {
+        "scheduling": true,
+        "scope": "All eight Reels and sixteen carousels on Instagram and Facebook, with music; owner instructed to schedule everything and subsequently approved browser-free workflow.",
+        "date": "2026-10-28"
+      },
+      "instagram_status": "scheduled",
+      "facebook_status": "scheduled",
+      "reel_media_id": "129d1018-8bcb-4f6f-8959-8956f834cc9a",
       "reel_duration_seconds": 38,
-      "audio_status": "silent-review-platform-music-pending"
+      "audio_status": "embedded-licensed-music",
+      "previous_silent_reel_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3IDQioFnKEdiBTSpvyKkSdi5fp9/a9497d99-90fe-4764-bfb5-7563a760ae56.mp4",
+      "audio_track": {
+        "title": "Deep Urban",
+        "artist": "Eugenio Mininni",
+        "source_url": "https://assets.mixkit.co/music/623/623.mp3",
+        "license_url": "https://mixkit.co/license/modal/musicFree/",
+        "start_seconds": 8,
+        "edit_duration_seconds": 38
+      },
+      "posts": [
+        {
+          "id": 408644458,
+          "uuid": "4854611725856491875",
+          "scheduled_at": "2026-10-31T12:00:00+01:00",
+          "kind": "carousel",
+          "planner_url": "https://app.metricool.com/planner/calendar?blogId=7558005&openWithPostUuid=4854611725856491875"
+        },
+        {
+          "id": 408644477,
+          "uuid": "2716077732972742890",
+          "scheduled_at": "2026-10-31T15:00:00+01:00",
+          "kind": "reel",
+          "planner_url": "https://app.metricool.com/planner/calendar?blogId=7558005&openWithPostUuid=2716077732972742890"
+        },
+        {
+          "id": 408644487,
+          "uuid": "-6565788172961562016",
+          "scheduled_at": "2026-10-31T18:00:00+01:00",
+          "kind": "carousel",
+          "planner_url": "https://app.metricool.com/planner/calendar?blogId=7558005&openWithPostUuid=-6565788172961562016"
+        }
+      ]
     },
     {
       "day": 5,
@@ -107,15 +251,51 @@
       "demo_and_blog_status": "live-verified",
       "carousel_pack": "production-packs/carousels/MCC_Carousels_pulse-studio_2posts.zip",
       "captions": "production-packs/review-captions/pulse-studio-carousels-captions.md",
-      "carousel_status": "awaiting-owner-review",
-      "reel_status": "spatial-visual-review-cut-ready",
-      "reel_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3IDQioFnKEdiBTSpvyKkSdi5fp9/2e0ca5e1-65d5-45d8-8db1-c2065b212ebd.mp4",
-      "owner_approval": null,
-      "instagram_status": "draft",
-      "facebook_status": "draft",
-      "reel_media_id": "2e0ca5e1-65d5-45d8-8db1-c2065b212ebd",
+      "carousel_status": "scheduled",
+      "reel_status": "scheduled",
+      "reel_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3IDQioFnKEdiBTSpvyKkSdi5fp9/5f712aee-21ca-4700-8355-eb602bddf983.mp4",
+      "owner_approval": {
+        "scheduling": true,
+        "scope": "All eight Reels and sixteen carousels on Instagram and Facebook, with music; owner instructed to schedule everything and subsequently approved browser-free workflow.",
+        "date": "2026-10-28"
+      },
+      "instagram_status": "scheduled",
+      "facebook_status": "scheduled",
+      "reel_media_id": "5f712aee-21ca-4700-8355-eb602bddf983",
       "reel_duration_seconds": 38,
-      "audio_status": "silent-review-platform-music-pending"
+      "audio_status": "embedded-licensed-music",
+      "previous_silent_reel_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3IDQioFnKEdiBTSpvyKkSdi5fp9/2e0ca5e1-65d5-45d8-8db1-c2065b212ebd.mp4",
+      "audio_track": {
+        "title": "Cat Walk",
+        "artist": "Arulo",
+        "source_url": "https://assets.mixkit.co/music/371/371.mp3",
+        "license_url": "https://mixkit.co/license/modal/musicFree/",
+        "start_seconds": 8,
+        "edit_duration_seconds": 38
+      },
+      "posts": [
+        {
+          "id": 408644501,
+          "uuid": "1554096873794522979",
+          "scheduled_at": "2026-11-01T12:00:00+01:00",
+          "kind": "carousel",
+          "planner_url": "https://app.metricool.com/planner/calendar?blogId=7558005&openWithPostUuid=1554096873794522979"
+        },
+        {
+          "id": 408644512,
+          "uuid": "-4538864112482957761",
+          "scheduled_at": "2026-11-01T15:00:00+01:00",
+          "kind": "reel",
+          "planner_url": "https://app.metricool.com/planner/calendar?blogId=7558005&openWithPostUuid=-4538864112482957761"
+        },
+        {
+          "id": 408644526,
+          "uuid": "-2991086927796942971",
+          "scheduled_at": "2026-11-01T18:00:00+01:00",
+          "kind": "carousel",
+          "planner_url": "https://app.metricool.com/planner/calendar?blogId=7558005&openWithPostUuid=-2991086927796942971"
+        }
+      ]
     },
     {
       "day": 6,
@@ -126,15 +306,51 @@
       "demo_and_blog_status": "live-verified",
       "carousel_pack": "production-packs/carousels/MCC_Carousels_vraagassistent_2posts.zip",
       "captions": "production-packs/review-captions/vraagassistent-carousels-captions.md",
-      "carousel_status": "awaiting-owner-review",
-      "reel_status": "spatial-visual-review-cut-ready",
-      "reel_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3IDQioFnKEdiBTSpvyKkSdi5fp9/21867307-e170-45fa-9e24-bb03ad4f7866.mp4",
-      "owner_approval": null,
-      "instagram_status": "draft",
-      "facebook_status": "draft",
-      "reel_media_id": "21867307-e170-45fa-9e24-bb03ad4f7866",
+      "carousel_status": "scheduled",
+      "reel_status": "scheduled",
+      "reel_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3IDQioFnKEdiBTSpvyKkSdi5fp9/c22abcb7-f22d-491b-aeae-094a072b211f.mp4",
+      "owner_approval": {
+        "scheduling": true,
+        "scope": "All eight Reels and sixteen carousels on Instagram and Facebook, with music; owner instructed to schedule everything and subsequently approved browser-free workflow.",
+        "date": "2026-10-28"
+      },
+      "instagram_status": "scheduled",
+      "facebook_status": "scheduled",
+      "reel_media_id": "c22abcb7-f22d-491b-aeae-094a072b211f",
       "reel_duration_seconds": 38,
-      "audio_status": "silent-review-platform-music-pending"
+      "audio_status": "embedded-licensed-music",
+      "previous_silent_reel_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3IDQioFnKEdiBTSpvyKkSdi5fp9/21867307-e170-45fa-9e24-bb03ad4f7866.mp4",
+      "audio_track": {
+        "title": "Tech House vibes",
+        "artist": "Alejandro Magaña (A. M.)",
+        "source_url": "https://assets.mixkit.co/music/130/130.mp3",
+        "license_url": "https://mixkit.co/license/modal/musicFree/",
+        "start_seconds": 8,
+        "edit_duration_seconds": 38
+      },
+      "posts": [
+        {
+          "id": 408644546,
+          "uuid": "-2949737121053981900",
+          "scheduled_at": "2026-11-02T12:00:00+01:00",
+          "kind": "carousel",
+          "planner_url": "https://app.metricool.com/planner/calendar?blogId=7558005&openWithPostUuid=-2949737121053981900"
+        },
+        {
+          "id": 408644572,
+          "uuid": "799033968346089514",
+          "scheduled_at": "2026-11-02T15:00:00+01:00",
+          "kind": "reel",
+          "planner_url": "https://app.metricool.com/planner/calendar?blogId=7558005&openWithPostUuid=799033968346089514"
+        },
+        {
+          "id": 408644594,
+          "uuid": "-4393652102136377559",
+          "scheduled_at": "2026-11-02T18:00:00+01:00",
+          "kind": "carousel",
+          "planner_url": "https://app.metricool.com/planner/calendar?blogId=7558005&openWithPostUuid=-4393652102136377559"
+        }
+      ]
     },
     {
       "day": 7,
@@ -145,15 +361,51 @@
       "demo_and_blog_status": "live-verified",
       "carousel_pack": "production-packs/carousels/MCC_Carousels_rivier-coffee_2posts.zip",
       "captions": "production-packs/review-captions/rivier-coffee-carousels-captions.md",
-      "carousel_status": "awaiting-owner-review",
-      "reel_status": "spatial-visual-review-cut-ready",
-      "reel_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3IDQioFnKEdiBTSpvyKkSdi5fp9/c8b2d558-a1fa-45bf-b4c2-00c7f27755da.mp4",
-      "owner_approval": null,
-      "instagram_status": "draft",
-      "facebook_status": "draft",
-      "reel_media_id": "c8b2d558-a1fa-45bf-b4c2-00c7f27755da",
+      "carousel_status": "scheduled",
+      "reel_status": "scheduled",
+      "reel_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3IDQioFnKEdiBTSpvyKkSdi5fp9/a5794b77-89e7-4ddc-bb26-84270129347a.mp4",
+      "owner_approval": {
+        "scheduling": true,
+        "scope": "All eight Reels and sixteen carousels on Instagram and Facebook, with music; owner instructed to schedule everything and subsequently approved browser-free workflow.",
+        "date": "2026-10-28"
+      },
+      "instagram_status": "scheduled",
+      "facebook_status": "scheduled",
+      "reel_media_id": "a5794b77-89e7-4ddc-bb26-84270129347a",
       "reel_duration_seconds": 38,
-      "audio_status": "silent-review-platform-music-pending"
+      "audio_status": "embedded-licensed-music",
+      "previous_silent_reel_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3IDQioFnKEdiBTSpvyKkSdi5fp9/c8b2d558-a1fa-45bf-b4c2-00c7f27755da.mp4",
+      "audio_track": {
+        "title": "Island Beat",
+        "artist": "Arulo",
+        "source_url": "https://assets.mixkit.co/music/250/250.mp3",
+        "license_url": "https://mixkit.co/license/modal/musicFree/",
+        "start_seconds": 8,
+        "edit_duration_seconds": 38
+      },
+      "posts": [
+        {
+          "id": 408644608,
+          "uuid": "17684839307168155",
+          "scheduled_at": "2026-11-03T12:00:00+01:00",
+          "kind": "carousel",
+          "planner_url": "https://app.metricool.com/planner/calendar?blogId=7558005&openWithPostUuid=17684839307168155"
+        },
+        {
+          "id": 408644633,
+          "uuid": "-8589064342288186741",
+          "scheduled_at": "2026-11-03T15:00:00+01:00",
+          "kind": "reel",
+          "planner_url": "https://app.metricool.com/planner/calendar?blogId=7558005&openWithPostUuid=-8589064342288186741"
+        },
+        {
+          "id": 408644646,
+          "uuid": "-2833999754429575622",
+          "scheduled_at": "2026-11-03T18:00:00+01:00",
+          "kind": "carousel",
+          "planner_url": "https://app.metricool.com/planner/calendar?blogId=7558005&openWithPostUuid=-2833999754429575622"
+        }
+      ]
     },
     {
       "day": 8,
@@ -164,18 +416,56 @@
       "demo_and_blog_status": "live-verified",
       "carousel_pack": "production-packs/carousels/MCC_Carousels_orderbridge_2posts.zip",
       "captions": "production-packs/review-captions/orderbridge-carousels-captions.md",
-      "carousel_status": "awaiting-owner-review",
-      "reel_status": "spatial-visual-review-cut-ready",
-      "reel_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3IDQioFnKEdiBTSpvyKkSdi5fp9/487a5b27-ac9a-4cd9-9dcc-061f29dc7864.mp4",
-      "owner_approval": null,
-      "instagram_status": "draft",
-      "facebook_status": "draft",
-      "reel_media_id": "487a5b27-ac9a-4cd9-9dcc-061f29dc7864",
+      "carousel_status": "scheduled",
+      "reel_status": "scheduled",
+      "reel_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3IDQioFnKEdiBTSpvyKkSdi5fp9/2d78dc66-58e4-421b-8ca9-2a0d804de622.mp4",
+      "owner_approval": {
+        "scheduling": true,
+        "scope": "All eight Reels and sixteen carousels on Instagram and Facebook, with music; owner instructed to schedule everything and subsequently approved browser-free workflow.",
+        "date": "2026-10-28"
+      },
+      "instagram_status": "scheduled",
+      "facebook_status": "scheduled",
+      "reel_media_id": "2d78dc66-58e4-421b-8ca9-2a0d804de622",
       "reel_duration_seconds": 38,
-      "audio_status": "silent-review-platform-music-pending"
+      "audio_status": "embedded-licensed-music",
+      "previous_silent_reel_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3IDQioFnKEdiBTSpvyKkSdi5fp9/487a5b27-ac9a-4cd9-9dcc-061f29dc7864.mp4",
+      "audio_track": {
+        "title": "Deep Urban",
+        "artist": "Eugenio Mininni",
+        "source_url": "https://assets.mixkit.co/music/623/623.mp3",
+        "license_url": "https://mixkit.co/license/modal/musicFree/",
+        "start_seconds": 8,
+        "edit_duration_seconds": 38
+      },
+      "posts": [
+        {
+          "id": 408644659,
+          "uuid": "4909722994021057959",
+          "scheduled_at": "2026-11-04T12:00:00+01:00",
+          "kind": "carousel",
+          "planner_url": "https://app.metricool.com/planner/calendar?blogId=7558005&openWithPostUuid=4909722994021057959"
+        },
+        {
+          "id": 408644686,
+          "uuid": "732662462949641836",
+          "scheduled_at": "2026-11-04T15:00:00+01:00",
+          "kind": "reel",
+          "planner_url": "https://app.metricool.com/planner/calendar?blogId=7558005&openWithPostUuid=732662462949641836"
+        },
+        {
+          "id": 408644701,
+          "uuid": "7572490023522943000",
+          "scheduled_at": "2026-11-04T18:00:00+01:00",
+          "kind": "carousel",
+          "planner_url": "https://app.metricool.com/planner/calendar?blogId=7558005&openWithPostUuid=7572490023522943000"
+        }
+      ]
     }
   ],
-  "creative_direction": "Owner praised FactuurFlow spatial cut and authorized remaking Marea plus completing the remaining six Reels. Apply dimensional real-interface presentation; individual new exports still await review.",
+  "creative_direction": "Owner approved the spatial Reel set and authorized scheduling all Reels and carousels, with music.",
   "review_index": "production-packs/reels/README.md",
-  "remaining_reels_to_produce": 0
+  "remaining_reels_to_produce": 0,
+  "scheduling_status": "scheduled-not-published",
+  "schedule_record": "production-packs/scheduled-campaign-2026-10-28.json"
 }

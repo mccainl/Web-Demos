@@ -1,0 +1,325 @@
+{
+  "checked_at": "2026-10-28",
+  "timezone": "Europe/Amsterdam",
+  "verification": {
+    "count": 24,
+    "reels": 8,
+    "carousels": 16,
+    "networkPublications": 48,
+    "errors": []
+  },
+  "posts": [
+    {
+      "id": 408644058,
+      "uuid": "1082408212617249347",
+      "scheduled_at": "2026-10-28T12:00:00+01:00",
+      "kind": "carousel",
+      "planner_url": "https://app.metricool.com/planner/calendar?blogId=7558005&openWithPostUuid=1082408212617249347",
+      "project_slug": "marea-stay",
+      "networks": [
+        "instagram",
+        "facebook"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "id": 408644201,
+      "uuid": "-1759513764420894474",
+      "scheduled_at": "2026-10-28T15:00:00+01:00",
+      "kind": "reel",
+      "planner_url": "https://app.metricool.com/planner/calendar?blogId=7558005&openWithPostUuid=-1759513764420894474",
+      "project_slug": "marea-stay",
+      "networks": [
+        "instagram",
+        "facebook"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "id": 408644363,
+      "uuid": "2690457529079842314",
+      "scheduled_at": "2026-10-28T18:00:00+01:00",
+      "kind": "carousel",
+      "planner_url": "https://app.metricool.com/planner/calendar?blogId=7558005&openWithPostUuid=2690457529079842314",
+      "project_slug": "marea-stay",
+      "networks": [
+        "instagram",
+        "facebook"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "id": 408644380,
+      "uuid": "-1036185239585930784",
+      "scheduled_at": "2026-10-29T12:00:00+01:00",
+      "kind": "carousel",
+      "planner_url": "https://app.metricool.com/planner/calendar?blogId=7558005&openWithPostUuid=-1036185239585930784",
+      "project_slug": "factuurflow",
+      "networks": [
+        "instagram",
+        "facebook"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "id": 408644398,
+      "uuid": "8190690301929866911",
+      "scheduled_at": "2026-10-29T15:00:00+01:00",
+      "kind": "reel",
+      "planner_url": "https://app.metricool.com/planner/calendar?blogId=7558005&openWithPostUuid=8190690301929866911",
+      "project_slug": "factuurflow",
+      "networks": [
+        "instagram",
+        "facebook"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "id": 408644410,
+      "uuid": "-3985971220634975371",
+      "scheduled_at": "2026-10-29T18:00:00+01:00",
+      "kind": "carousel",
+      "planner_url": "https://app.metricool.com/planner/calendar?blogId=7558005&openWithPostUuid=-3985971220634975371",
+      "project_slug": "factuurflow",
+      "networks": [
+        "instagram",
+        "facebook"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "id": 408644422,
+      "uuid": "-7331002017601928482",
+      "scheduled_at": "2026-10-30T12:00:00+01:00",
+      "kind": "carousel",
+      "planner_url": "https://app.metricool.com/planner/calendar?blogId=7558005&openWithPostUuid=-7331002017601928482",
+      "project_slug": "haven-interiors",
+      "networks": [
+        "instagram",
+        "facebook"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "id": 408644431,
+      "uuid": "5210872728757420470",
+      "scheduled_at": "2026-10-30T15:00:00+01:00",
+      "kind": "reel",
+      "planner_url": "https://app.metricool.com/planner/calendar?blogId=7558005&openWithPostUuid=5210872728757420470",
+      "project_slug": "haven-interiors",
+      "networks": [
+        "instagram",
+        "facebook"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "id": 408644443,
+      "uuid": "-6518045727517424252",
+      "scheduled_at": "2026-10-30T18:00:00+01:00",
+      "kind": "carousel",
+      "planner_url": "https://app.metricool.com/planner/calendar?blogId=7558005&openWithPostUuid=-6518045727517424252",
+      "project_slug": "haven-interiors",
+      "networks": [
+        "instagram",
+        "facebook"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "id": 408644458,
+      "uuid": "4854611725856491875",
+      "scheduled_at": "2026-10-31T12:00:00+01:00",
+      "kind": "carousel",
+      "planner_url": "https://app.metricool.com/planner/calendar?blogId=7558005&openWithPostUuid=4854611725856491875",
+      "project_slug": "leadpilot",
+      "networks": [
+        "instagram",
+        "facebook"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "id": 408644477,
+      "uuid": "2716077732972742890",
+      "scheduled_at": "2026-10-31T15:00:00+01:00",
+      "kind": "reel",
+      "planner_url": "https://app.metricool.com/planner/calendar?blogId=7558005&openWithPostUuid=2716077732972742890",
+      "project_slug": "leadpilot",
+      "networks": [
+        "instagram",
+        "facebook"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "id": 408644487,
+      "uuid": "-6565788172961562016",
+      "scheduled_at": "2026-10-31T18:00:00+01:00",
+      "kind": "carousel",
+      "planner_url": "https://app.metricool.com/planner/calendar?blogId=7558005&openWithPostUuid=-6565788172961562016",
+      "project_slug": "leadpilot",
+      "networks": [
+        "instagram",
+        "facebook"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "id": 408644501,
+      "uuid": "1554096873794522979",
+      "scheduled_at": "2026-11-01T12:00:00+01:00",
+      "kind": "carousel",
+      "planner_url": "https://app.metricool.com/planner/calendar?blogId=7558005&openWithPostUuid=1554096873794522979",
+      "project_slug": "pulse-studio",
+      "networks": [
+        "instagram",
+        "facebook"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "id": 408644512,
+      "uuid": "-4538864112482957761",
+      "scheduled_at": "2026-11-01T15:00:00+01:00",
+      "kind": "reel",
+      "planner_url": "https://app.metricool.com/planner/calendar?blogId=7558005&openWithPostUuid=-4538864112482957761",
+      "project_slug": "pulse-studio",
+      "networks": [
+        "instagram",
+        "facebook"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "id": 408644526,
+      "uuid": "-2991086927796942971",
+      "scheduled_at": "2026-11-01T18:00:00+01:00",
+      "kind": "carousel",
+      "planner_url": "https://app.metricool.com/planner/calendar?blogId=7558005&openWithPostUuid=-2991086927796942971",
+      "project_slug": "pulse-studio",
+      "networks": [
+        "instagram",
+        "facebook"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "id": 408644546,
+      "uuid": "-2949737121053981900",
+      "scheduled_at": "2026-11-02T12:00:00+01:00",
+      "kind": "carousel",
+      "planner_url": "https://app.metricool.com/planner/calendar?blogId=7558005&openWithPostUuid=-2949737121053981900",
+      "project_slug": "vraagassistent",
+      "networks": [
+        "instagram",
+        "facebook"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "id": 408644572,
+      "uuid": "799033968346089514",
+      "scheduled_at": "2026-11-02T15:00:00+01:00",
+      "kind": "reel",
+      "planner_url": "https://app.metricool.com/planner/calendar?blogId=7558005&openWithPostUuid=799033968346089514",
+      "project_slug": "vraagassistent",
+      "networks": [
+        "instagram",
+        "facebook"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "id": 408644594,
+      "uuid": "-4393652102136377559",
+      "scheduled_at": "2026-11-02T18:00:00+01:00",
+      "kind": "carousel",
+      "planner_url": "https://app.metricool.com/planner/calendar?blogId=7558005&openWithPostUuid=-4393652102136377559",
+      "project_slug": "vraagassistent",
+      "networks": [
+        "instagram",
+        "facebook"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "id": 408644608,
+      "uuid": "17684839307168155",
+      "scheduled_at": "2026-11-03T12:00:00+01:00",
+      "kind": "carousel",
+      "planner_url": "https://app.metricool.com/planner/calendar?blogId=7558005&openWithPostUuid=17684839307168155",
+      "project_slug": "rivier-coffee",
+      "networks": [
+        "instagram",
+        "facebook"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "id": 408644633,
+      "uuid": "-8589064342288186741",
+      "scheduled_at": "2026-11-03T15:00:00+01:00",
+      "kind": "reel",
+      "planner_url": "https://app.metricool.com/planner/calendar?blogId=7558005&openWithPostUuid=-8589064342288186741",
+      "project_slug": "rivier-coffee",
+      "networks": [
+        "instagram",
+        "facebook"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "id": 408644646,
+      "uuid": "-2833999754429575622",
+      "scheduled_at": "2026-11-03T18:00:00+01:00",
+      "kind": "carousel",
+      "planner_url": "https://app.metricool.com/planner/calendar?blogId=7558005&openWithPostUuid=-2833999754429575622",
+      "project_slug": "rivier-coffee",
+      "networks": [
+        "instagram",
+        "facebook"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "id": 408644659,
+      "uuid": "4909722994021057959",
+      "scheduled_at": "2026-11-04T12:00:00+01:00",
+      "kind": "carousel",
+      "planner_url": "https://app.metricool.com/planner/calendar?blogId=7558005&openWithPostUuid=4909722994021057959",
+      "project_slug": "orderbridge",
+      "networks": [
+        "instagram",
+        "facebook"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "id": 408644686,
+      "uuid": "732662462949641836",
+      "scheduled_at": "2026-11-04T15:00:00+01:00",
+      "kind": "reel",
+      "planner_url": "https://app.metricool.com/planner/calendar?blogId=7558005&openWithPostUuid=732662462949641836",
+      "project_slug": "orderbridge",
+      "networks": [
+        "instagram",
+        "facebook"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "id": 408644701,
+      "uuid": "7572490023522943000",
+      "scheduled_at": "2026-11-04T18:00:00+01:00",
+      "kind": "carousel",
+      "planner_url": "https://app.metricool.com/planner/calendar?blogId=7558005&openWithPostUuid=7572490023522943000",
+      "project_slug": "orderbridge",
+      "networks": [
+        "instagram",
+        "facebook"
+      ],
+      "status": "PENDING"
+    }
+  ]
+}
