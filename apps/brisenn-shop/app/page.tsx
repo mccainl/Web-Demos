@@ -1,2 +1,2 @@
-import Catalogue from '@/components/Catalogue';
-export default function Page(){return <Catalogue/>}
+import Home from '@/components/Home';
+export default function Page(){return <Home/>}

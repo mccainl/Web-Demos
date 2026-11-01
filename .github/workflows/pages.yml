@@ -116,8 +116,8 @@ jobs:
       - name: Include the BRISÉNN product pages
         if: steps.unpack.outputs.ready == 'true'
         run: |
-          mkdir -p _site/brisenn/products
-          cp -a apps/brisenn-shop/out/. _site/brisenn/products/
+          mkdir -p _site/brisenn
+          cp -a apps/brisenn-shop/out/. _site/brisenn/
       - name: Link campaign demos to their published articles
         if: steps.unpack.outputs.ready == 'true'
         run: python3 scripts/link_campaign_articles.py _site

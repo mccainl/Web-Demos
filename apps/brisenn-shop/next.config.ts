@@ -1,7 +1,7 @@
 import type { NextConfig } from 'next';
 const config: NextConfig = {
   output: 'export',
-  basePath: '/Web-Demos/brisenn/products',
+  basePath: '/Web-Demos/brisenn',
   trailingSlash: true,
   images: { unoptimized: true },
   poweredByHeader: false,

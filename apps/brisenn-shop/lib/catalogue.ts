@@ -22,8 +22,8 @@ export function photo(src: string, width=1000) {
 export function compositionURL(product: Product) {
   if (product.kind === 'link') {
     const a=product.modelLinks[0];
-    return HOME+'?design='+encodeURIComponent(btoa(JSON.stringify({links:[a,a],hook:true})))+'#studio';
+    return HOME+'compose/?design='+encodeURIComponent(btoa(JSON.stringify({links:[a,a],hook:true})))+'#atelier';
   }
   if (product.rows !== 1 || product.modelLinks.length < 2 || product.modelLinks.length > 24 || product.notes.length) return null;
-  return HOME+'?design='+encodeURIComponent(btoa(JSON.stringify({links:product.modelLinks,hook:true})))+'#studio';
+  return HOME+'compose/?design='+encodeURIComponent(btoa(JSON.stringify({links:product.modelLinks,hook:true})))+'#atelier';
 }

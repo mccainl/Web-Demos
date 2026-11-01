@@ -1,0 +1,12 @@
+import Link from 'next/link';
+import {HOME,products,photo} from '@/lib/catalogue';
+import {ExperienceHero,ConnectionStory,RoomTransformation,RevealMotion} from './Experience';
+import CinemaClosing from './CinemaClosing';
+import ProductCard from './ProductCard';
+import {Icon} from './Icon';
+export default function Home(){
+ const chosen=['infinity-set-blue-fade-shiny-matte','infinity-canvas-sienna','infinity-set-large-jewel'].map(handle=>products.find(p=>p.handle===handle)!);
+ return <main id="main" className="complete-experience"><ExperienceHero/><section className="home-statement" data-motion><span className="eyebrow">ONE SHAPE. YOUR PERSPECTIVE.</span><h2>Designed to connect.<br/><em>Made to become yours.</em></h2><div><span className="home-seal" aria-hidden="true">B</span><p>Handmade acrylic wall art from Amsterdam. Explore colour and light, then compose a piece that belongs in your space.</p><Link href="/about/" className="text-link">Discover BRISÉNN <Icon name="arrow"/></Link></div></section><ConnectionStory/>
+ <section className="home-directions"><div className="experience-section-heading" data-motion><span className="eyebrow">CREATE IT YOUR WAY</span><h2>One system.<br/><em>Your expression.</em></h2><p>Begin with a link, choose a composition,<br/>or create something made for your room.</p></div><div className="home-direction-grid">{[{title:'Compose your own.',label:'36 colours / two finishes',href:'/compose/',image:HOME+'assets/bluefade-4.jpg',number:'01'},{title:'Discover the collection.',label:'125 pieces / endless possibilities',href:'/products/',image:photo(chosen[1].images[0],900),number:'02'},{title:'A custom perspective.',label:'Made around your space',href:'/custom/',image:HOME+'assets/film-living-room.jpg',number:'03'}].map(c=><Link href={c.href} className="home-direction" key={c.href}><div><img src={c.image} alt={c.title} loading="lazy"/><span>{c.number}</span></div><small>{c.label}</small><h3>{c.title}<Icon name="arrow"/></h3></Link>)}</div></section>
+ <RoomTransformation/><section className="home-selected"><div className="related-heading" data-motion><div><span className="eyebrow">FROM THE COLLECTION</span><h2>A few<br/><em>possibilities.</em></h2></div><Link href="/products/" className="text-link">Explore all 125 pieces <Icon name="arrow"/></Link></div><div className="product-grid">{chosen.map(p=><ProductCard key={p.handle} product={p}/>)}</div></section><CinemaClosing/><RevealMotion/></main>;
+}
