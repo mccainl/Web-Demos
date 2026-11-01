@@ -1,4 +1,5 @@
 import * as T from 'three';
+import {mergeVertices} from 'three/addons/utils/BufferGeometryUtils.js';
 import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 import {colours as COLOURS,HOME} from './catalogue';
 
@@ -16,12 +17,12 @@ function profile(){
 
 export function createAtelier(canvas,state,onSelect,marker){
  const renderer=new T.WebGLRenderer({canvas,antialias:true,alpha:true,preserveDrawingBuffer:true,powerPreference:'high-performance'});
- renderer.setPixelRatio(Math.min(devicePixelRatio,1.75));renderer.outputColorSpace=T.SRGBColorSpace;
+ renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.outputColorSpace=T.SRGBColorSpace;
  renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.05;
  renderer.shadowMap.enabled=true;renderer.shadowMap.type=T.PCFSoftShadowMap;
  const scene=new T.Scene(),camera=new T.PerspectiveCamera(32,1,.05,220),group=new T.Group();scene.add(group);
  let disposed=false;const events=new AbortController();
- const env=new T.Scene();env.background=new T.Color('#9a9287');
+ const env=new T.Scene();env.background=new T.Color('#51483e');
  function softbox(w,h,x,y,z,colour,intensity){
   const m=new T.Mesh(new T.PlaneGeometry(w,h),new T.MeshBasicMaterial({color:new T.Color(colour).multiplyScalar(intensity),side:T.DoubleSide}));
   m.position.set(x,y,z);m.lookAt(0,0,0);env.add(m);
@@ -52,16 +53,18 @@ export function createAtelier(canvas,state,onSelect,marker){
  key.shadow.bias=-.0004;key.shadow.normalBias=.018;key.shadow.radius=4;scene.add(key);scene.add(key.target);
  const fill=new T.DirectionalLight('#e9f4ff',.65);fill.position.set(-5,2,4);scene.add(fill);
 
- const geometry=new T.ExtrudeGeometry(profile(),{depth:.08,bevelEnabled:true,bevelSize:.045,bevelThickness:.06,bevelSegments:7,curveSegments:24});geometry.center();
+ const rawGeometry=new T.ExtrudeGeometry(profile(),{depth:.10,bevelEnabled:true,bevelSize:.045,bevelThickness:.06,bevelSegments:12,curveSegments:48});
+ rawGeometry.deleteAttribute('normal');rawGeometry.deleteAttribute('uv');
+ const geometry=mergeVertices(rawGeometry);geometry.computeVertexNormals();geometry.center();rawGeometry.dispose();
  const materials=new Map();
  function material(link){
   const id=link.colour+':'+link.matte;if(materials.has(id))return materials.get(id);
   const c=COLOURS[link.colour],colour=new T.Color(c.css),clear=c.name==='Clear',black=c.name==='Black';
   const m=new T.MeshPhysicalMaterial({
    color:link.matte?colour.clone():new T.Color('#ffffff'),
-   metalness:0,roughness:link.matte?.36:.055,transmission:black?.04:(link.matte?.52:.96),
-   thickness:.21,ior:1.49,attenuationColor:colour,attenuationDistance:clear?3.2:(link.matte?.42:.38),
-   clearcoat:link.matte?.12:1,clearcoatRoughness:link.matte?.3:.035,envMapIntensity:1.05,side:T.FrontSide,specularIntensity:1
+   metalness:0,roughness:link.matte?.27:.025,transmission:black?.04:(link.matte?.52:.96),
+   thickness:.24,ior:1.49,attenuationColor:colour,attenuationDistance:clear?3.2:(link.matte?.34:.26),
+   clearcoat:link.matte?.12:1,clearcoatRoughness:link.matte?.3:.035,envMapIntensity:1.45,side:T.FrontSide,specularIntensity:1
   });
   if(black)m.color.set(c.css);materials.set(id,m);return m;
  }
@@ -71,7 +74,7 @@ export function createAtelier(canvas,state,onSelect,marker){
  let meshes=[],signature='',layout='',raf=0,visible=true,width=1,height=1;
  const ray=new T.Raycaster(),pointer=new T.Vector2(),forward=new T.Vector3(),right=new T.Vector3(),up=new T.Vector3();
  function roomFrame(){
-  const inRoom=(state.view==='room'||state.view==='detail')&&roomTexture;plate.visible=!!inRoom;shadow.visible=state.view==='room'&&!!roomTexture;key.castShadow=shadow.visible;
+  const inRoom=state.view==='room'&&roomTexture;plate.visible=!!inRoom;shadow.visible=state.view==='room'&&!!roomTexture;key.castShadow=shadow.visible;
   if(!inRoom){scene.background=studioTexture;camera.clearViewOffset();return;}
   scene.background=new T.Color('#e8d5b9');
   const aspect=width/height,imageAspect=16/9;
@@ -99,8 +102,8 @@ export function createAtelier(canvas,state,onSelect,marker){
  controls.addEventListener('change',()=>{if(!raf)wake();});
  function fit(){
   const box=new T.Box3().setFromObject(group),size=box.getSize(new T.Vector3()),center=box.getCenter(new T.Vector3()),half=Math.tan(T.MathUtils.degToRad(camera.fov/2));
-  const distance=Math.max(Math.max(size.y/half,size.x/(half*camera.aspect))*(state.view==='room'?.72:.62),state.view==='room'?31/(2*half):0);
-  controls.target.copy(center);camera.position.copy(center).add(new T.Vector3(state.view==='room'?.025:.3,.035,1).normalize().multiplyScalar(Math.max(3,distance)));
+  const distance=Math.max(Math.max(size.y/half,size.x/(half*camera.aspect))*(state.view==='room'?.64:.55),state.view==='room'?25/(2*half):0);
+  controls.target.copy(center);camera.position.copy(center).add(new T.Vector3(state.view==='room'?.025:.46,.035,1).normalize().multiplyScalar(Math.max(3,distance)));
   controls.minDistance=Math.max(1.4,distance*.15);controls.maxDistance=Math.max(8,distance*1.8);camera.updateProjectionMatrix();controls.update();controls.saveState();wake();
  }
  function resize(){const r=canvas.getBoundingClientRect();width=Math.max(1,r.width);height=Math.max(1,r.height);renderer.setSize(width,height,false);camera.aspect=width/height;fit();}
