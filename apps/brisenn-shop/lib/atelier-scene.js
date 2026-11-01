@@ -64,7 +64,7 @@ export function createAtelier(canvas,state,onSelect,marker){
    color:link.matte?colour.clone():new T.Color('#ffffff'),
    metalness:0,roughness:link.matte?.27:.025,transmission:black?.04:(link.matte?.52:.96),
    thickness:.24,ior:1.49,attenuationColor:colour,attenuationDistance:clear?3.2:(link.matte?.34:.26),
-   clearcoat:link.matte?.12:1,clearcoatRoughness:link.matte?.3:.035,envMapIntensity:1.45,side:T.FrontSide,specularIntensity:1
+   clearcoat:link.matte?.12:1,clearcoatRoughness:link.matte?.3:.035,envMapIntensity:.85,side:T.FrontSide,specularIntensity:1
   });
   if(black)m.color.set(c.css);materials.set(id,m);return m;
  }
@@ -74,7 +74,7 @@ export function createAtelier(canvas,state,onSelect,marker){
  let meshes=[],signature='',layout='',raf=0,visible=true,width=1,height=1;
  const ray=new T.Raycaster(),pointer=new T.Vector2(),forward=new T.Vector3(),right=new T.Vector3(),up=new T.Vector3();
  function roomFrame(){
-  const inRoom=state.view==='room'&&roomTexture;plate.visible=!!inRoom;shadow.visible=state.view==='room'&&!!roomTexture;key.castShadow=shadow.visible;
+  const inRoom=(state.view==='room'||state.view==='detail')&&roomTexture;plate.visible=!!inRoom;shadow.visible=state.view==='room'&&!!roomTexture;key.castShadow=shadow.visible;
   if(!inRoom){scene.background=studioTexture;camera.clearViewOffset();return;}
   scene.background=new T.Color('#e8d5b9');
   const aspect=width/height,imageAspect=16/9;
