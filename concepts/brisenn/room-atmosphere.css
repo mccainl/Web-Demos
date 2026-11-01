@@ -1,0 +1,37 @@
+/* A quiet interior around a full, individually editable material collection. */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.atelier-grid{grid-template-columns:minmax(0,1.35fr) minmax(360px,1fr);align-items:start;overflow:visible}
+.atelier-visual{position:sticky;top:calc(var(--header-height) + 18px);overflow:hidden;border:1px solid #b49b792a;background:#e8d5b9}
+.atelier-art{height:clamp(440px,54vw,630px);min-height:440px}
+.atelier-visual[data-view="room"] .atelier-art{background:#d8bd98 url('assets/living-room-empty.jpg') 42% center/cover no-repeat}
+.atelier-visual-top{padding:23px 25px;gap:12px;background:#f2e6d3}
+.atelier-visual-top>span{font-size:8px;letter-spacing:.12em}
+.view-tabs{gap:16px}.view-tabs button{white-space:nowrap;font-size:11px;min-height:40px}
+.atelier-visual-bottom{padding:19px 25px 24px;background:linear-gradient(110deg,#f1e4d0,#dfc9aa)}
+.atelier-visual-bottom h3{font-size:38px}.atelier-visual-bottom #visual-subtitle{font-size:11px}
+.viewer-tools{padding:6px 18px;background:#ebdcc5;gap:8px;flex-wrap:wrap}.viewer-tools p{font-size:8px;flex:1;min-width:100px;line-height:1.6}
+.viewer-tools>div{margin-left:auto}.viewer-tools #expand-atelier{display:flex;align-items:center;gap:8px;padding:0 10px;font-size:9px}
+#expand-atelier .icon{width:15px;height:15px}.atelier-visual[data-view="room"] #selected-marker{background:#fffaf0b8;box-shadow:0 2px 9px #38251018}
+.palette-filters{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:20px 0 15px}.palette-filters label{min-width:0}
+.palette-filters input,.palette-filters select{width:100%;min-width:0;min-height:44px;padding:10px 11px;border:1px solid #bcb9a978;border-radius:0;background:#f7f3e9;color:#243b3a;font-family:inherit;font-size:11px;line-height:1.4}
+.palette-filters input:focus,.palette-filters select:focus{outline:2px solid #426568;outline-offset:2px}
+.palette-summary{display:flex;justify-content:space-between;gap:10px;margin-bottom:14px;color:#737c70;font-size:9px;letter-spacing:.03em}
+.material-palette{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:5px 4px;margin:0 -6px;padding:8px 6px;max-height:344px;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#a99a80 transparent}
+.material-swatch{width:100%;height:80px;min-width:0;border:0!important;border-radius:0;background:none!important;box-shadow:none!important;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;position:relative;padding:0 2px;gap:9px;transition:transform .2s}
+.material-swatch:before{content:'';display:block;flex:none;width:36px;height:36px;border-radius:50%;border:1px solid #172e3221;background:linear-gradient(125deg,#ffffffa0 0%,#ffffff00 31%,#00000010 67%,#ffffff60 100%),var(--swatch);box-shadow:inset 0 0 0 3px #ffffff16,0 3px 7px #3327141a;transition:box-shadow .2s}
+.material-swatch span{font-size:9px;line-height:1.35;color:#42534d;max-width:100%;text-align:center;letter-spacing:0}
+.material-swatch.active:before{outline:1px solid #223e3e;outline-offset:4px;box-shadow:inset 0 0 0 3px #ffffff16,0 4px 12px #33271426}
+.material-swatch.active:after{display:none}.material-swatch.active span{color:#142f32;font-weight:600}
+.material-swatch:focus-visible{outline:2px solid #254e54;outline-offset:1px}.material-swatch:hover{transform:translateY(-2px)}
+#palette-empty{font-size:12px;line-height:1.6;margin:25px 0;color:#697363}.finish-tabs{margin-top:20px}
+.material-reference{display:flex;align-items:center;gap:16px;width:100%;text-align:left;background:#eee7db;padding:12px;margin:8px 0 10px;color:#263e3a}
+.material-reference>img{width:62px;height:78px;object-fit:cover;background:#d8d0c0;flex:none}.material-reference>span{display:flex;flex:1;min-width:0;flex-direction:column;gap:8px}
+.material-reference small{font-size:7px;letter-spacing:.15em;color:#788071}.material-reference b{font:16px/1.2 Georgia;font-weight:400}.material-reference>span>span{font-size:9px;color:#73806f}.material-reference>.icon{width:18px;height:18px;margin-right:5px;flex:none}
+.atelier-open{overflow:hidden!important}.atelier-visual.expanded{position:fixed!important;inset:0!important;z-index:10020!important;margin:0!important;border:0;border-radius:0;display:flex;flex-direction:column;height:100svh;width:100vw;min-height:0;box-shadow:none}
+.atelier-visual.expanded .atelier-art{height:auto;min-height:0;flex:1}.atelier-visual.expanded .atelier-visual-top{padding-top:max(14px,env(safe-area-inset-top));padding-left:4vw;padding-right:4vw}
+.atelier-visual.expanded .atelier-visual-bottom{padding:12px 4vw max(15px,env(safe-area-inset-bottom))}.atelier-visual.expanded .atelier-visual-bottom h3{font-size:30px}.atelier-visual.expanded .viewer-tools{padding-left:4vw;padding-right:4vw}
+@media(max-width:1100px){.atelier-grid{grid-template-columns:minmax(0,1.1fr) minmax(320px,1fr)}.atelier-visual-top{padding:16px}.view-tabs{gap:12px}.view-tabs button{font-size:10px}.material-palette{grid-template-columns:repeat(5,minmax(0,1fr))}.atelier-visual-bottom h3{font-size:32px}.viewer-tools p{display:none}}
+@media(max-width:760px){.atelier-grid{display:block}.atelier-visual{top:calc(var(--header-height) + env(safe-area-inset-top));margin:0 -8.15%;z-index:5}.atelier-art{height:260px;min-height:260px}.atelier-visual-top{padding:7px 20px}.atelier-visual-top>span{font-size:6px}.view-tabs{gap:15px}.view-tabs button{font-size:10px;min-height:34px}.atelier-visual-bottom{padding:7px 20px 12px}.atelier-visual-bottom h3{font-size:23px}.atelier-visual-bottom .eyebrow,.atelier-visual-bottom #visual-subtitle{display:none}.atelier-visual-bottom .circle-button{width:32px;height:32px}.viewer-tools{padding:0 12px;flex-wrap:nowrap;min-height:42px}.viewer-tools #expand-atelier{font-size:9px;gap:7px}.viewer-tools button{min-height:42px}.viewer-tools p{display:none}.atelier-panel{padding:25px 24px}.field-label{align-items:center;gap:10px}.field-label output{max-width:55%;text-align:right}.palette-filters input,.palette-filters select{font-size:12px;min-height:46px}.material-palette{grid-template-columns:repeat(6,minmax(0,1fr));max-height:336px;gap:3px}.material-swatch{height:79px}.material-swatch:before{width:34px;height:34px}.material-swatch span{font-size:8px}.palette-summary{font-size:9px}.material-reference b{font-size:18px}.material-reference small{font-size:8px}.material-reference>span>span{font-size:10px}.atelier-visual.expanded .atelier-art{min-height:0}.atelier-visual.expanded .atelier-visual-top{padding-bottom:9px}.atelier-visual.expanded .atelier-visual-bottom h3{font-size:23px}}
+@media(max-width:360px){.material-palette{grid-template-columns:repeat(5,minmax(0,1fr))}.atelier-visual-top>span{display:none}.view-tabs{width:100%;justify-content:space-between}.atelier-art{height:230px;min-height:230px}}
+@media(max-height:720px) and (max-width:760px){.atelier-art{height:200px;min-height:200px}.atelier-visual-bottom{padding-bottom:6px}.atelier-visual-bottom h3{font-size:21px}.atelier-visual.expanded .atelier-art{min-height:0}}
+@media(prefers-reduced-motion:reduce){.material-swatch,.material-swatch:before{transition:none}}

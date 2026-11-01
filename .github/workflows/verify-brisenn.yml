@@ -1,7 +1,7 @@
 name: Verify BRISENN experience
 on:
   push:
-    branches: [codex/brisenn-mobile-polish]
+    branches: [codex/brisenn-mobile-polish, codex/brisenn-colour-room]
   workflow_run:
     workflows: [Publish MCC Web-Demos]
     types: [completed]
@@ -34,3 +34,4 @@ jobs:
           name: brisenn-experience-qa
           path: brisenn-qa/
           retention-days: 14
+
