@@ -3,7 +3,7 @@
 .atelier-grid{grid-template-columns:minmax(0,1.35fr) minmax(360px,1fr);align-items:start;overflow:visible}
 .atelier-visual{position:sticky;top:calc(var(--header-height) + 18px);overflow:hidden;border:1px solid #b49b792a;background:#e8d5b9}
 .atelier-art{height:clamp(440px,54vw,630px);min-height:440px}
-.atelier-visual[data-view="room"] .atelier-art{background:#d8bd98 url('assets/living-room-empty.jpg') 42% center/cover no-repeat}
+.atelier-visual[data-setting="room"] .atelier-art{background:#d8bd98 url('assets/living-room-empty.jpg') 42% center/cover no-repeat}
 .atelier-visual-top{padding:23px 25px;gap:12px;background:#f2e6d3}
 .atelier-visual-top>span{font-size:8px;letter-spacing:.12em}
 .view-tabs{gap:16px}.view-tabs button{white-space:nowrap;font-size:11px;min-height:40px}
@@ -11,7 +11,7 @@
 .atelier-visual-bottom h3{font-size:38px}.atelier-visual-bottom #visual-subtitle{font-size:11px}
 .viewer-tools{padding:6px 18px;background:#ebdcc5;gap:8px;flex-wrap:wrap}.viewer-tools p{font-size:8px;flex:1;min-width:100px;line-height:1.6}
 .viewer-tools>div{margin-left:auto}.viewer-tools #expand-atelier{display:flex;align-items:center;gap:8px;padding:0 10px;font-size:9px}
-#expand-atelier .icon{width:15px;height:15px}.atelier-visual[data-view="room"] #selected-marker{background:#fffaf0b8;box-shadow:0 2px 9px #38251018}
+#expand-atelier .icon{width:15px;height:15px}.atelier-visual[data-setting="room"] #selected-marker{background:#fffaf0b8;box-shadow:0 2px 9px #38251018}
 .palette-filters{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:20px 0 15px}.palette-filters label{min-width:0}
 .palette-filters input,.palette-filters select{width:100%;min-width:0;min-height:44px;padding:10px 11px;border:1px solid #bcb9a978;border-radius:0;background:#f7f3e9;color:#243b3a;font-family:inherit;font-size:11px;line-height:1.4}
 .palette-filters input:focus,.palette-filters select:focus{outline:2px solid #426568;outline-offset:2px}

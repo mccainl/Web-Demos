@@ -77,7 +77,9 @@ export function createAtelier(canvas,state,onSelect){
   roomTexture.repeat.set(cropW,cropH);roomTexture.offset.set(cropX,1-cropY-cropH);
   const anchor=T.MathUtils.clamp((.355-cropX)/cropW,.22,.43),offsetX=.5-anchor,offsetY=.075;
   camera.setViewOffset(width,height,width*offsetX,height*offsetY,width,height);
-  const distance=camera.position.distanceTo(controls.target)+1.1,ph=2*Math.tan(T.MathUtils.degToRad(camera.fov/2))*distance,pw=ph*aspect;
+  camera.getWorldDirection(forward);
+  const extent=meshes.reduce((n,m)=>Math.max(n,Math.abs(m.position.y*forward.y)),0);
+  const distance=camera.position.distanceTo(controls.target)+extent+1.1,ph=2*Math.tan(T.MathUtils.degToRad(camera.fov/2))*distance,pw=ph*aspect;
   camera.getWorldDirection(forward);right.set(1,0,0).applyQuaternion(camera.quaternion);up.set(0,1,0).applyQuaternion(camera.quaternion);
   plate.position.copy(camera.position).addScaledVector(forward,distance).addScaledVector(right,pw*offsetX).addScaledVector(up,-ph*offsetY);
   plate.quaternion.copy(camera.quaternion);plate.scale.set(pw,ph,1);
