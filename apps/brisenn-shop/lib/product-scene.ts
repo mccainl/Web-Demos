@@ -39,12 +39,12 @@ export function createProductScene(canvas:HTMLCanvasElement,product:Product,vari
  scene.add(new T.HemisphereLight('#fff9ef','#8c7960',.65));const key=new T.DirectionalLight('#fff3dc',2.5);key.position.set(8,10,10);key.castShadow=true;key.shadow.mapSize.set(1024,1024);Object.assign(key.shadow.camera,{left:-28,right:28,top:30,bottom:-30,near:.1,far:90});key.shadow.bias=-.0003;key.shadow.normalBias=.015;key.shadow.radius=4;scene.add(key);
  const fill=new T.DirectionalLight('#ebf3f5',.7);fill.position.set(-6,3,6);scene.add(fill);
  const geometry=new T.ExtrudeGeometry(linkProfile(),{depth:.08,bevelEnabled:true,bevelSize:.045,bevelThickness:.06,bevelSegments:8,curveSegments:28});geometry.center();
- const mats=new Map<string,T.MeshPhysicalMaterial>();
+ const mats=new Map<string,T.MeshPhysicalMaterial>(),linkMeshes:T.Mesh[]=[];let hookCount=0;
  function acrylic(colour:number,matte:boolean){
   const id=colour+':'+matte;if(mats.has(id))return mats.get(id)!;const c=new T.Color(colours[colour]?.css||'#e7e4d6'),clear=colours[colour]?.name==='Clear',black=colours[colour]?.name==='Black';
   const mat=new T.MeshPhysicalMaterial({color:matte||black?c:0xffffff,metalness:0,roughness:matte?.32:.022,transmission:black?.035:matte?.58:1,thickness:.22,ior:1.49,attenuationColor:c,attenuationDistance:clear?4:matte?.32:.095,clearcoat:matte?.05:.2,clearcoatRoughness:matte?.3:.02,envMapIntensity:.8,specularIntensity:1});mats.set(id,mat);return mat;
  }
- function addLink(l:ModelLink,x:number,y:number,z:number,index:number){const m=new T.Mesh(geometry,acrylic(l.colour,l.matte));m.position.set(x,y,z);m.rotation.y=index%2?Math.PI/2-.1:.07;m.castShadow=true;m.receiveShadow=true;object.add(m);return m}
+ function addLink(l:ModelLink,x:number,y:number,z:number,index:number){const m=new T.Mesh(geometry,acrylic(l.colour,l.matte));m.position.set(x,y,z);m.rotation.y=index%2?Math.PI/2-.1:.07;m.castShadow=true;m.receiveShadow=true;object.add(m);linkMeshes.push(m);return m}
  function roundedCylinder(radius:number,height:number,bevel:number){return new T.LatheGeometry([new T.Vector2(0,-height/2),new T.Vector2(radius-bevel,-height/2),new T.Vector2(radius,-height/2+bevel),new T.Vector2(radius,height/2-bevel),new T.Vector2(radius-bevel,height/2),new T.Vector2(0,height/2)],96)}
  function addMesh(g:T.BufferGeometry,m:T.Material,x=0,y=0,z=0){const mesh=new T.Mesh(g,m);mesh.position.set(x,y,z);mesh.castShadow=true;mesh.receiveShadow=true;object.add(mesh);extraGeometries.push(g);return mesh}
  if(product.kind==='wall'||product.kind==='ceiling'){
@@ -71,6 +71,15 @@ export function createProductScene(canvas:HTMLCanvasElement,product:Product,vari
   else links.forEach((l,i)=>addLink(l,0,((links.length-1)/2-i)*1.15,0,i));
   if(product.kind==='link'){object.rotation.set(.09,-.3,-.13);}
  }
+ const includeHooks=(variant.name==='With Infinity Hook'||product.handle==='infinity-set-the-arc')&&(product.kind==='set'||product.kind==='canvas');
+ if(includeHooks){
+  const names=colours.map(c=>c.name).sort((a,b)=>b.length-a.length).join('|');
+  const pattern=new RegExp('(?:(\\d+)\\s*x\\s*)?('+names+')(?:\\s*-?\\s*(Matte))?','g'),hookColours:ModelLink[]=[];
+  for(const line of product.hookContents){for(const match of line.matchAll(pattern)){for(let i=0;i<Number(match[1]||1);i++)hookColours.push({colour:Math.max(0,colours.findIndex(c=>c.name===match[2])),matte:!!match[3]})}}
+  const anchors=product.rows===5?linkMeshes.slice(0,5):product.rows===2?[linkMeshes[0],linkMeshes[Math.round(linkMeshes.length*.57)]]:[linkMeshes[0]];
+  const curve=new T.CatmullRomCurve3([new T.Vector3(0,.4,-.3),new T.Vector3(0,.4,.05),new T.Vector3(0,.25,.29),new T.Vector3(0,-.2,.29),new T.Vector3(0,-.36,.08),new T.Vector3(0,-.36,-.3)]);
+  anchors.forEach((anchor,i)=>{if(!anchor)return;const c=hookColours[i]||product.modelLinks[0];const hook=addMesh(new T.TubeGeometry(curve,50,.105,16,false),acrylic(c.colour,c.matte),anchor.position.x,anchor.position.y+.98,-.05);hook.castShadow=true;hookCount++});
+ }
  const controls=new OrbitControls(camera,canvas);controls.enableDamping=true;controls.dampingFactor=.12;controls.enablePan=false;controls.rotateSpeed=.55;controls.zoomSpeed=.65;controls.autoRotateSpeed=.6;controls.touches.ONE=T.TOUCH.ROTATE;controls.touches.TWO=T.TOUCH.DOLLY_PAN;
  const box=new T.Box3().setFromObject(object),size=box.getSize(new T.Vector3()),center=box.getCenter(new T.Vector3());
  const shadowSpan=Math.max(size.length()*.8,3);Object.assign(key.shadow.camera,{left:-shadowSpan,right:shadowSpan,top:shadowSpan,bottom:-shadowSpan});key.shadow.camera.updateProjectionMatrix();
@@ -85,7 +94,7 @@ export function createProductScene(canvas:HTMLCanvasElement,product:Product,vari
   wall.position.copy(camera.position).addScaledVector(direction,distance).addScaledVector(right,pw*offset).addScaledVector(up,inRoom?-ph*.04:0);wall.quaternion.copy(camera.quaternion);wall.scale.set(pw,ph,1);
   shadow.position.copy(wall.position).addScaledVector(direction,-.03);shadow.quaternion.copy(wall.quaternion);shadow.scale.copy(wall.scale);
  }
- function draw(){if(disposed)return;wallFrame();renderer.render(scene,camera);canvas.dataset.ready='true';canvas.dataset.kind=product.kind;canvas.dataset.links=String(product.modelLinks.length);canvas.dataset.rotation=camera.position.toArray().map(n=>n.toFixed(3)).join(',');canvas.dataset.revision=String(Number(canvas.dataset.revision||0)+1);canvas.dataset.apparentHeight=String(size.y/(2*Math.tan(T.MathUtils.degToRad(camera.fov/2))*camera.position.distanceTo(controls.target)));if(!ready){ready=true;onReady()}}
+ function draw(){if(disposed)return;wallFrame();renderer.render(scene,camera);canvas.dataset.ready='true';canvas.dataset.kind=product.kind;canvas.dataset.links=String(product.modelLinks.length);canvas.dataset.hooks=String(hookCount);canvas.dataset.rotation=camera.position.toArray().map(n=>n.toFixed(3)).join(',');canvas.dataset.revision=String(Number(canvas.dataset.revision||0)+1);canvas.dataset.apparentHeight=String(size.y/(2*Math.tan(T.MathUtils.degToRad(camera.fov/2))*camera.position.distanceTo(controls.target)));if(!ready){ready=true;onReady()}}
  function tick(){frame=-1;if(disposed||!visible){frame=0;return}const changed=controls.update();draw();frame=0;if(changed||spinning)frame=requestAnimationFrame(tick)}
  function wake(){if(!frame&&visible&&!disposed)frame=requestAnimationFrame(tick)}
  controls.addEventListener('change',wake);
