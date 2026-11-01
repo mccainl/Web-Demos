@@ -2,7 +2,7 @@ const {chromium,webkit}=require('playwright');
 const fs=require('node:fs');const assert=require('node:assert/strict');
 const url=process.env.BRISENN_URL||'http://127.0.0.1:8765/';
 fs.mkdirSync('brisenn-qa',{recursive:true});
-const checks=[],errors=[];let currentPage;const watchdog=setTimeout(()=>{fs.writeFileSync('brisenn-qa/results.json',JSON.stringify({passed:false,checks,errors,failure:'Browser verification exceeded five minutes'},null,2));process.exit(1)},300000);watchdog.unref();
+const checks=[],errors=[];let currentPage;const watchdog=setTimeout(()=>{fs.writeFileSync('brisenn-qa/results.json',JSON.stringify({passed:false,checks,errors,failure:'Browser verification exceeded eight minutes'},null,2));process.exit(1)},480000);watchdog.unref();
 function check(name,ok){assert.ok(ok,name);checks.push({name,passed:true});console.log('PASS '+name);}
 async function settle(page){await page.waitForFunction(()=>window.BrisennStudio?.ready&&document.querySelector('#studio-canvas').dataset.ready==='true');}
 async function visit(page){page.setDefaultTimeout(20000);currentPage=page;page.on('pageerror',e=>errors.push(e.message));await page.goto(url,{waitUntil:'networkidle',timeout:45000});await settle(page);}

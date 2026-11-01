@@ -5,18 +5,18 @@ import {COLOURS} from './catalogue.js?v=room72';
 // Open acrylic profile in decimetres: 16.5 × 9 cm, with a connecting slit.
 function profile(){
  const s=new T.Shape(),g=.017;
- s.moveTo(g,-.805);s.lineTo(.085,-.805);s.quadraticCurveTo(.43,-.805,.43,-.46);
- s.lineTo(.43,.46);s.quadraticCurveTo(.43,.805,.085,.805);s.lineTo(-.085,.805);
- s.quadraticCurveTo(-.43,.805,-.43,.46);s.lineTo(-.43,-.46);s.quadraticCurveTo(-.43,-.805,-.085,-.805);
- s.lineTo(-g,-.805);s.lineTo(-g,-.615);s.lineTo(-.035,-.615);s.quadraticCurveTo(-.26,-.615,-.26,-.39);
- s.lineTo(-.26,.39);s.quadraticCurveTo(-.26,.615,-.035,.615);s.lineTo(.035,.615);
- s.quadraticCurveTo(.26,.615,.26,.39);s.lineTo(.26,-.39);s.quadraticCurveTo(.26,-.615,.035,-.615);
- s.lineTo(g,-.615);s.closePath();return s;
+ s.moveTo(g,-.78);s.lineTo(.085,-.78);s.quadraticCurveTo(.405,-.78,.405,-.46);
+ s.lineTo(.405,.46);s.quadraticCurveTo(.405,.78,.085,.78);s.lineTo(-.085,.78);
+ s.quadraticCurveTo(-.405,.78,-.405,.46);s.lineTo(-.405,-.46);s.quadraticCurveTo(-.405,-.78,-.085,-.78);
+ s.lineTo(-g,-.78);s.lineTo(-g,-.64);s.lineTo(-.035,-.64);s.quadraticCurveTo(-.285,-.64,-.285,-.39);
+ s.lineTo(-.285,.39);s.quadraticCurveTo(-.285,.64,-.035,.64);s.lineTo(.035,.64);
+ s.quadraticCurveTo(.285,.64,.285,.39);s.lineTo(.285,-.39);s.quadraticCurveTo(.285,-.64,.035,-.64);
+ s.lineTo(g,-.64);s.closePath();return s;
 }
 
 export function createAtelier(canvas,state,onSelect){
  const renderer=new T.WebGLRenderer({canvas,antialias:true,alpha:true,preserveDrawingBuffer:true,powerPreference:'high-performance'});
- renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.outputColorSpace=T.SRGBColorSpace;
+ renderer.setPixelRatio(Math.min(devicePixelRatio,1.75));renderer.outputColorSpace=T.SRGBColorSpace;
  renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.05;
  renderer.shadowMap.enabled=true;renderer.shadowMap.type=T.PCFSoftShadowMap;
  const scene=new T.Scene(),camera=new T.PerspectiveCamera(32,1,.05,220),group=new T.Group();scene.add(group);
@@ -26,7 +26,7 @@ export function createAtelier(canvas,state,onSelect){
   m.position.set(x,y,z);m.lookAt(0,0,0);env.add(m);
  }
  for(let i=0;i<3;i++)softbox(1.2,9,4+i*.85,2,3,'#fff9ef',3.5);
- softbox(1,11,-4,2,5,'#ffffff',4);softbox(8,4,0,6,0,'#fffcf4',2.5);
+ softbox(.8,10,-2.3,1,7,'#ffffff',3);softbox(1,11,-4,2,5,'#ffffff',4);softbox(8,4,0,6,0,'#fffcf4',2.5);
  softbox(7,4,0,-5,3,'#b58b60',.65);softbox(3,9,-5,1,-3,'#343b39',.25);
  const pmrem=new T.PMREMGenerator(renderer),environment=pmrem.fromScene(env,.025);scene.environment=environment.texture;pmrem.dispose();
  const sweep=document.createElement('canvas');sweep.width=sweep.height=1024;
@@ -38,7 +38,7 @@ export function createAtelier(canvas,state,onSelect){
  // The room is inside the render: acrylic transmits and refracts its photograph.
  const plateGeometry=new T.PlaneGeometry(1,1),plateMaterial=new T.MeshBasicMaterial({toneMapped:false,depthWrite:true});
  const plate=new T.Mesh(plateGeometry,plateMaterial);plate.visible=false;scene.add(plate);
- const shadow=new T.Mesh(plateGeometry,new T.ShadowMaterial({color:'#473b2b',opacity:.25}));shadow.receiveShadow=true;shadow.visible=false;scene.add(shadow);
+ const shadow=new T.Mesh(plateGeometry,new T.ShadowMaterial({color:'#473b2b',opacity:.13}));shadow.receiveShadow=true;shadow.visible=false;scene.add(shadow);
  let roomTexture=null;
  new T.TextureLoader().load('assets/living-room-empty.jpg',texture=>{
   texture.colorSpace=T.SRGBColorSpace;texture.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());
@@ -50,16 +50,16 @@ export function createAtelier(canvas,state,onSelect){
  key.shadow.bias=-.0004;key.shadow.normalBias=.018;key.shadow.radius=4;scene.add(key);scene.add(key.target);
  const fill=new T.DirectionalLight('#e9f4ff',.65);fill.position.set(-5,2,4);scene.add(fill);
 
- const geometry=new T.ExtrudeGeometry(profile(),{depth:.14,bevelEnabled:true,bevelSize:.02,bevelThickness:.035,bevelSegments:8,curveSegments:28});geometry.center();
+ const geometry=new T.ExtrudeGeometry(profile(),{depth:.08,bevelEnabled:true,bevelSize:.045,bevelThickness:.06,bevelSegments:7,curveSegments:24});geometry.center();
  const materials=new Map();
  function material(link){
   const id=link.colour+':'+link.matte;if(materials.has(id))return materials.get(id);
   const c=COLOURS[link.colour],colour=new T.Color(c.css),clear=c.name==='Clear',black=c.name==='Black';
   const m=new T.MeshPhysicalMaterial({
-   color:link.matte?colour.clone().lerp(new T.Color('#ffffff'),.18):new T.Color('#ffffff'),
+   color:link.matte?colour.clone():new T.Color('#ffffff'),
    metalness:0,roughness:link.matte?.36:.055,transmission:black?.04:(link.matte?.52:.96),
-   thickness:.21,ior:1.49,attenuationColor:colour,attenuationDistance:clear?3.2:(link.matte?.32:.19),
-   clearcoat:link.matte?.12:1,clearcoatRoughness:link.matte?.3:.035,envMapIntensity:1.05,side:T.DoubleSide,specularIntensity:1
+   thickness:.21,ior:1.49,attenuationColor:colour,attenuationDistance:clear?3.2:(link.matte?.42:.38),
+   clearcoat:link.matte?.12:1,clearcoatRoughness:link.matte?.3:.035,envMapIntensity:1.05,side:T.FrontSide,specularIntensity:1
   });
   if(black)m.color.set(c.css);materials.set(id,m);return m;
  }
@@ -69,13 +69,13 @@ export function createAtelier(canvas,state,onSelect){
  let meshes=[],signature='',layout='',raf=0,visible=true,width=1,height=1;
  const ray=new T.Raycaster(),pointer=new T.Vector2(),forward=new T.Vector3(),right=new T.Vector3(),up=new T.Vector3();
  function roomFrame(){
-  const inRoom=state.view==='room'&&roomTexture;plate.visible=shadow.visible=!!inRoom;
+  const inRoom=(state.view==='room'||state.view==='detail')&&roomTexture;plate.visible=!!inRoom;shadow.visible=state.view==='room'&&!!roomTexture;key.castShadow=shadow.visible;
   if(!inRoom){scene.background=studioTexture;camera.clearViewOffset();return;}
   scene.background=new T.Color('#e8d5b9');
   const aspect=width/height,imageAspect=16/9;
-  const cropW=Math.min(1,aspect/imageAspect),cropH=Math.min(1,imageAspect/aspect),cropX=(1-cropW)*.42,cropY=(1-cropH)*.2;
+  const detail=state.view==='detail',cropH=detail?.44:Math.min(1,imageAspect/aspect),cropW=detail?Math.min(.84,cropH*aspect/imageAspect):Math.min(1,aspect/imageAspect),cropX=detail?.44-cropW/2:(1-cropW)*.42,cropY=detail?.07:(1-cropH)*.2;
   roomTexture.repeat.set(cropW,cropH);roomTexture.offset.set(cropX,1-cropY-cropH);
-  const anchor=T.MathUtils.clamp((.355-cropX)/cropW,.22,.43),offsetX=.5-anchor,offsetY=.075;
+  const anchor=detail?.5:T.MathUtils.clamp((.355-cropX)/cropW,.22,.43),offsetX=.5-anchor,offsetY=detail?0:.075;
   camera.setViewOffset(width,height,width*offsetX,height*offsetY,width,height);
   camera.getWorldDirection(forward);
   const extent=meshes.reduce((n,m)=>Math.max(n,Math.abs(m.position.y*forward.y)),0);
