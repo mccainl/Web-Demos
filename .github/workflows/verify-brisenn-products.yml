@@ -1,0 +1,42 @@
+name: Verify BRISENN product atelier
+on:
+  push:
+    branches: [codex/brisenn-products]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            apps/brisenn-shop
+            concepts/brisenn
+            qa
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: apps/brisenn-shop/package-lock.json
+      - name: Build and check every product page
+        working-directory: apps/brisenn-shop
+        env:
+          NEXT_TELEMETRY_DISABLED: '1'
+        run: |
+          npm ci --no-audit --no-fund
+          npm run check:catalogue
+          npm run build
+          npm run typecheck
+      - run: npm install --no-save --ignore-scripts playwright@1.62.1
+      - run: npx playwright install --with-deps chromium webkit
+      - name: Verify desktop, mobile and material viewers
+        run: node qa/verify-brisenn-products.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: brisenn-product-qa
+          path: brisenn-product-qa/
+          retention-days: 14
