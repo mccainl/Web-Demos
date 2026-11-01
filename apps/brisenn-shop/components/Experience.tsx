@@ -7,11 +7,11 @@ import {useCinema} from './Cinema';
 
 export function ExperienceHero(){
   const video=useRef<HTMLVideoElement>(null),section=useRef<HTMLElement>(null);
-  const [paused,setPaused]=useState(false);const {openFilm,filmOpen}=useCinema();
+  const [paused,setPaused]=useState(true);const {openFilm,filmOpen}=useCinema();
   useEffect(()=>{const media=matchMedia('(prefers-reduced-motion: reduce)');const change=()=>setPaused(media.matches);change();media.addEventListener('change',change);return()=>media.removeEventListener('change',change)},[]);
   useEffect(()=>{let visible=true;const sync=()=>{if(paused||filmOpen||!visible||document.hidden)video.current?.pause();else void video.current?.play().catch(()=>setPaused(true))};const observer=new IntersectionObserver(([e])=>{visible=e.isIntersecting;sync()},{threshold:.02});if(section.current)observer.observe(section.current);document.addEventListener('visibilitychange',sync);sync();return()=>{observer.disconnect();document.removeEventListener('visibilitychange',sync)}},[paused,filmOpen]);
   return <section className="experience-hero" ref={section} id="experience" aria-label="Introducing BRISÉNN">
-    <video ref={video} className="experience-hero-video" muted autoPlay loop playsInline preload="auto" poster={HOME+'assets/film-living-room.jpg'} aria-label="Blue Fade in a sunlit living room" data-testid="experience-hero-video"><source src={HOME+'media/living-room-loop.mp4'} type="video/mp4"/></video>
+    <video ref={video} className="experience-hero-video" muted loop playsInline preload="auto" poster={HOME+'assets/film-living-room.jpg'} aria-label="Blue Fade in a sunlit living room" data-testid="experience-hero-video"><source src={HOME+'media/living-room-loop.mp4'} type="video/mp4"/></video>
     <div className="experience-hero-shade"/>
     <span className="experience-hero-kicker eyebrow">HANDMADE ACRYLIC WALL ART / AMSTERDAM</span>
     <div className="experience-hero-copy"><p className="eyebrow">MADE BY HAND. COMPOSED BY YOU.</p><h1>Art, in<br/><em>connection.</em></h1><p>Sculptural links. Moving light.<br/>A piece that becomes part of your space.</p><div className="experience-hero-actions"><Link className="button light" href="/compose/">Compose your piece <Icon name="arrow"/></Link><Link className="hero-collection-link" href="/products/">Explore the collection <Icon name="arrow"/></Link></div></div>

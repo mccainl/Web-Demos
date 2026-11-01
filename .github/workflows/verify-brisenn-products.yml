@@ -32,10 +32,10 @@ jobs:
           npm run typecheck
       - run: npm install --no-save --ignore-scripts playwright@1.62.1
       - run: npx playwright install --with-deps chromium webkit
-      - name: Verify desktop, mobile and material viewers
-        run: node qa/verify-brisenn-products.cjs
       - name: Verify the complete multipage experience
         run: node qa/verify-brisenn-multipage.cjs
+      - name: Verify desktop, mobile and material viewers
+        run: node qa/verify-brisenn-products.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
