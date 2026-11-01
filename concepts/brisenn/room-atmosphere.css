@@ -35,3 +35,15 @@
 @media(max-width:360px){.material-palette{grid-template-columns:repeat(5,minmax(0,1fr))}.atelier-visual-top>span{display:none}.view-tabs{width:100%;justify-content:space-between}.atelier-art{height:230px;min-height:230px}}
 @media(max-height:720px) and (max-width:760px){.atelier-art{height:200px;min-height:200px}.atelier-visual-bottom{padding-bottom:6px}.atelier-visual-bottom h3{font-size:21px}.atelier-visual.expanded .atelier-art{min-height:0}}
 @media(prefers-reduced-motion:reduce){.material-swatch,.material-swatch:before{transition:none}}
+
+/* Keep filtering from moving the controls, and clear the fixed preview during editing. */
+.material-palette{height:336px;min-height:336px;align-content:start;overflow-anchor:none}
+@media(max-width:760px){
+ .atelier-visual.compact:not(.expanded) .atelier-art{height:170px;min-height:170px}
+ .atelier-visual.compact:not(.expanded) .atelier-visual-bottom{padding-top:4px;padding-bottom:8px}
+ .atelier-visual.compact:not(.expanded) .atelier-visual-bottom h3{font-size:21px}
+ .atelier-panel :is(button,input,select):not(.material-swatch){scroll-margin-top:390px;scroll-margin-bottom:80px}
+ .material-swatch{scroll-margin:6px}
+ body.studio-editing .sound-control{width:40px;height:40px;min-width:40px;min-height:40px;padding:10px;right:14px;bottom:14px;justify-content:center}
+ body.studio-editing .sound-control span{display:none}
+}
